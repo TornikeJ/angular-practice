@@ -1,0 +1,37 @@
+<div class="main-wrapper">
+        <div class="main-content">
+          <header>
+            <h1>Our Pricing</h1>
+            <div class="toggle">
+              <span>Annually</span>
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="checkBox" (click)="changePackage()">
+                <span class="slider round"></span>
+              </label>
+              <span>Monthly</span>
+            </div>
+          </header>
+          <main>
+            <div class="cards">
+              <div class="card" *ngFor="let package of packages">
+                <h3>{{package.title}}</h3>
+                <h1><span>$ </span>{{package.price}}</h1>
+                <hr>
+                <p>{{package.storage}} Storage</p>
+                <hr>
+                <p>{{package.users}} Users allowed</p>
+                <hr>
+                <p>Send up to {{package.data}} GB</p>
+                <hr>
+                <button type="button">Learn More</button>
+              </div>
+            </div>
+          </main>
+          <footer>
+            <div class="attribution">
+              Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+              Coded by <a href="#">Tornike Janashia</a>.
+            </div>
+          </footer>
+        </div>
+      </div>

@@ -1,15 +1,20 @@
 <header>
     <h3>
-        Please click on the webpage you want to see.
+        Click on the webpage you want to see.
     </h3>
 </header>
 <div class="components">
     <div [routerLink]="['/pricing']">
-        <img src="assets/pricing/desktop-design-monthly.jpg" alt="Pricing component design">
+        <div (mouseover)="hover=true; componentHover($event)" (mouseleave)="hover=false">
+            <img [ngStyle]="{'border-color': color }" src="assets/pricing/desktop-design-monthly.jpg"
+                alt="Pricing component design">
+        </div>
         <a>Pricing Component</a>
     </div>
     <div [routerLink]="['/clipboard']">
-        <img src="assets/clipboard/desktop-preview.jpg" alt="Clipboard component design">
+        <div (mouseover)="hover=true; componentHover($event)" (mouseleave)="hover=false">
+            <img [ngStyle]="{'border-color': color }" src="assets/clipboard/desktop-preview.jpg" alt="Clipboard component design">
+        </div>
         <a>Clipboard Component</a>
     </div>
 </div>

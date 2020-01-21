@@ -1,0 +1,28 @@
+$color1: #ffffff;
+$color2: #ed6491;
+
+.wrapper {
+  font-family: "Montserrat", sans-serif;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  nav {
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      list-style: none;
+      padding: 0;
+      height: 2rem;
+      margin: 0;
+      background-color: $color2;
+    }
+    a {
+      color: $color1;
+      text-decoration: none;
+    }
+  }
+}

@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PricingComponent } from './pricing/pricing.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PricingComponent
+    PricingComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

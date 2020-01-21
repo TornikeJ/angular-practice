@@ -1,1 +1,15 @@
-<app-pricing></app-pricing>
+<div class="wrapper">
+    <nav>
+        <ul [ngStyle]="{'background-color':color}">
+            <a *ngIf="activatedComponent != 'home'" [routerLink]="['/home']">
+                Back to Home Component
+            </a>
+            <li>
+                <a>{{ activatedComponent | titlecase}} Component</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</div>

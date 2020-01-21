@@ -8,7 +8,7 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
 
-  activatedComponent;
+  activatedComponent = 'home';
   color = '#ed6491';
 
   constructor(
@@ -34,6 +34,9 @@ export class AppComponent {
         break;
       case 'pricing':
         this.color = '#ce9dff';
+        break;
+      case 'clipboard':
+        this.color = '#22ceb4';
         break;
       default:
         this.color = '#ed6491';

@@ -8,7 +8,7 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
 
-  activatedComponent = 'home';
+  activatedComponent;
   color = '#ed6491';
 
   constructor(
@@ -17,6 +17,8 @@ export class AppComponent {
 
 
   ngOnInit() {
+    this.activatedComponent = 'home';
+
     this.router.events.subscribe(
       (router) => {
         if (router instanceof NavigationEnd) {

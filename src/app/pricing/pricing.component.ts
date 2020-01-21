@@ -1,11 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-pricing',
   templateUrl: './pricing.component.html',
   styleUrls: ['./pricing.component.scss']
 })
-export class PricingComponent {
+export class PricingComponent implements OnInit {
+
+  innerWidth = 1200;
+  backgroundStyle = 'url(\'assets/pricing/bg-top.svg\')' + ',' + 'url(\'assets/pricing/bg-bottom.svg\')';
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+    this.checkWidth();
+  }
 
   checkBox = false;
 
@@ -44,6 +53,11 @@ export class PricingComponent {
     }];
   }
 
+  ngOnInit() {
+    this.innerWidth = window.innerWidth;
+    this.checkWidth();
+  }
+
   changePackage() {
     if (!this.checkBox) {
       this.selectedRange = this.prices[1];
@@ -76,6 +90,15 @@ export class PricingComponent {
       'users': 10,
       'data': 20,
     }];
+  }
+
+
+  checkWidth() {
+    if (this.innerWidth > 375) {
+      this.backgroundStyle = 'url(\'assets/pricing/bg-top.svg\')' + ',' + 'url(\'assets/pricing/bg-bottom.svg\')';
+    } else {
+      this.backgroundStyle = 'url(\'assets/pricing/bg-top.svg\')';
+    }
   }
 }
 

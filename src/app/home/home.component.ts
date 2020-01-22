@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
 
   hoveredComponent;
   color;
+  hover;
 
   constructor(
 
@@ -18,11 +19,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-  }
-
-  componentHover(component) {
-    this.hoveredComponent = component.path[2].getAttribute('ng-reflect-router-link').slice(1);
-    this.updateNavbarColor(this.hoveredComponent);
   }
 
   updateNavbarColor(component: string) {
@@ -35,6 +31,9 @@ export class HomeComponent implements OnInit {
         break;
       case 'clipboard':
         this.color = '#22ceb4';
+        break;
+      case 'urlshortening':
+        this.color = '#2acfcf';
         break;
       default:
         this.color = '#ed6491';

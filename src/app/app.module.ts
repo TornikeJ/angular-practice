@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { HomeComponent } from './home/home.component';
 import { ClipboardComponent } from './clipboard/clipboard.component';
+import { UrlShorteningComponent } from './url-shortening/url-shortening.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PricingComponent,
     HomeComponent,
-    ClipboardComponent
+    ClipboardComponent,
+    UrlShorteningComponent
   ],
   imports: [
     BrowserModule,

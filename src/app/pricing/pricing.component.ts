@@ -9,6 +9,7 @@ export class PricingComponent implements OnInit {
 
   innerWidth = 1200;
   backgroundStyle = 'url(\'assets/pricing/bg-top.svg\')' + ',' + 'url(\'assets/pricing/bg-bottom.svg\')';
+  
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {

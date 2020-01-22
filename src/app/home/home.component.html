@@ -4,17 +4,26 @@
     </h3>
 </header>
 <div class="components">
-    <div [routerLink]="['/pricing']">
-        <div (mouseover)="hover=true; componentHover($event)" (mouseleave)="hover=false">
+    <div class="row">
+        <div [routerLink]="['/pricing']" (mouseover)="hover=true; updateNavbarColor('pricing')"
+            (mouseleave)="hover=false">
             <img [ngStyle]="{'border-color': color }" src="assets/pricing/desktop-design-monthly.jpg"
                 alt="Pricing component design">
+            <a>Pricing Component</a>
         </div>
-        <a>Pricing Component</a>
+        <div [routerLink]="['/clipboard']" (mouseover)="hover=true; updateNavbarColor('clipboard')"
+            (mouseleave)="hover=false">
+            <img [ngStyle]="{'border-color': color }" src="assets/clipboard/desktop-preview.jpg"
+                alt="Clipboard component design">
+            <a>Clipboard Component</a>
+        </div>
     </div>
-    <div [routerLink]="['/clipboard']">
-        <div (mouseover)="hover=true; componentHover($event)" (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/clipboard/desktop-preview.jpg" alt="Clipboard component design">
+    <div class="row">
+        <div [routerLink]="['/urlshortening']" (mouseover)="hover=true; updateNavbarColor('urlshortening')"
+            (mouseleave)="hover=false">
+            <img [ngStyle]="{'border-color': color }" src="assets/url-shortening/desktop-preview.jpg"
+                alt="Url-shortening component design">
+            <a>Url-shortening Component</a>
         </div>
-        <a>Clipboard Component</a>
     </div>
 </div>

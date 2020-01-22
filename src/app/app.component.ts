@@ -40,6 +40,9 @@ export class AppComponent {
       case 'clipboard':
         this.color = '#22ceb4';
         break;
+      case 'urlshortening':
+        this.color = '#2acfcf';
+        break;
       default:
         this.color = '#ed6491';
     }

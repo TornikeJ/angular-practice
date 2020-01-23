@@ -15,8 +15,9 @@ $color8: #ffffff;
 }
 
 .container {
-  padding: 1.2rem;
-  max-width: 1400px;
+  padding: 0;
+  padding-top: 1.2rem;
+  max-width: 1200px;
   font-family: "Poppins", sans-serif;
   margin: auto;
 
@@ -26,17 +27,22 @@ $color8: #ffffff;
     color: $color5;
     margin-bottom: 2rem;
 
-    ul {
-      list-style: none;
+    .desktop {
       display: flex;
-      margin: 0;
-      flex-grow: 1;
+      width: 100%;
 
-      li {
-        margin-right: 1rem;
+      ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        flex-grow: 1;
 
-        &:last-child {
-          margin-right: auto;
+        li {
+          margin-right: 1rem;
+
+          &:last-child {
+            margin-right: auto;
+          }
         }
       }
     }
@@ -45,7 +51,7 @@ $color8: #ffffff;
       margin-right: 1rem;
       color: $color5;
 
-      &:last-child {
+      &.primary {
         margin-right: 0;
         color: $color8;
       }
@@ -54,7 +60,12 @@ $color8: #ffffff;
 
   .intro {
     display: flex;
+    position: relative;
+    margin-bottom: 5rem;
 
+    .working {
+      width: 60%;
+    }
     h2 {
       font-size: 3rem;
       margin-bottom: 1rem;
@@ -72,10 +83,16 @@ $color8: #ffffff;
   }
 
   .feature {
+    position: absolute;
+    box-sizing: border-box;
+    top: 32rem;
+    width: 100%;
     display: flex;
     background-color: $color2;
-    padding: 1.7rem;
+    padding: 2.7rem;
     border-radius: 0.5rem;
+    background-repeat: no-repeat;
+    background-size: cover;
 
     input {
       padding: 1rem;
@@ -93,6 +110,154 @@ $color8: #ffffff;
       border-radius: 0.2rem;
     }
   }
+
+  .offers {
+    padding-top: 10rem;
+    padding-bottom: 7rem;
+    text-align: center;
+    background-color: rgba($color4, 0.35);
+
+    > p {
+      margin-bottom: 5rem;
+    }
+
+    > div {
+      display: flex;
+      position: relative;
+      text-align: initial;
+
+      .line {
+        background-color: $color1;
+        position: absolute;
+        width: 100%;
+        margin: 0;
+        top: 50%;
+        height: 0.4rem;
+        border: 0;
+      }
+
+      .image {
+        &::before {
+          position: absolute;
+          top: -2rem;
+          display: flex;
+          background-color: $color2;
+          width: 5rem;
+          height: 5rem;
+          border-radius: 50%;
+          justify-content: center;
+          align-items: center;
+        }
+
+        &-brand {
+          &::before {
+            content: url(/assets/url-shortening/icon-brand-recognition.svg);
+          }
+        }
+        &-records {
+          transform: translateY(2rem);
+
+          &::before {
+            content: url(/assets/url-shortening/icon-detailed-records.svg);
+          }
+        }
+        &-customizable {
+          transform: translateY(4rem);
+
+          &::before {
+            content: url(/assets/url-shortening/icon-fully-customizable.svg);
+          }
+        }
+      }
+      > div {
+        background-color: $color8;
+        position: relative;
+        word-spacing: 3.5px;
+        padding-right: 2rem;
+        padding-left: 2rem;
+        padding-top: 3rem;
+        padding-bottom: 1rem;
+        margin-right: 2rem;
+        border-radius: 7px;
+
+        h4 {
+          margin-bottom: 0.5rem;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+.boost {
+  text-align: center;
+  background-color: $color2;
+  padding-top: 3rem;
+  padding-bottom: 6rem;
+  background-size: cover;
+
+  h1 {
+    color: $color8;
+    margin-top: 0;
+  }
+
+  button {
+    letter-spacing: 1px;
+    word-spacing: 2px;
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 3rem;
+  background-color: $color7;
+
+  .logo {
+    flex-grow: 0.3;
+  }
+
+  .info {
+    display: flex;
+    > div {
+      margin-right: 3rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    p {
+      margin-top: 0;
+      color: $color8;
+    }
+    ul {
+      color: $color4;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        margin-bottom: 1rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .social {
+    img {
+      margin-right: 1rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
 }
 
 button {
@@ -106,5 +271,131 @@ button {
     color: $color8;
     padding: 0 1rem;
     border-radius: 1rem;
+  }
+}
+
+.menu {
+  display: none;
+
+  div {
+    background-color: $color4;
+    width: 28px;
+    height: 4px;
+    margin-bottom: 6px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .container {
+    overflow-x: hidden;
+
+    nav {
+      align-items: center;
+      flex-direction: column;
+
+      .logo {
+        margin-right: auto;
+      }
+      .desktop {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+
+        ul {
+          flex-direction: column;
+          padding: 0;
+          text-align: center;
+          li {
+            margin-right: 0;
+          }
+        }
+
+        > div {
+          display: flex;
+          flex-direction: column;
+
+          button {
+            margin-right: 0;
+          }
+        }
+      }
+
+      .menu {
+        display: initial;
+        position: absolute;
+        right: 0;
+      }
+    }
+
+    .intro {
+      flex-direction: column-reverse;
+      text-align: center;
+
+      .working {
+        width: 124%;
+      }
+
+      .feature {
+        flex-direction: column;
+        top: 52rem;
+
+        input {
+          width: 16rem;
+          margin-bottom: 0.7rem;
+        }
+      }
+    }
+
+    .offers {
+      > div {
+        flex-direction: column;
+
+        .line {
+          width: 0.4rem;
+          margin: 0;
+          top: 0;
+          right: calc(50% - 0.4rem / 2);
+          height: 100%;
+        }
+
+        > div {
+          margin-right: 0;
+          margin-bottom: 4rem;
+          text-align: center;
+          word-spacing: 7px;
+
+          &:before {
+            right: calc(50% - 5rem / 2);
+          }
+        }
+      }
+    }
+  }
+
+  footer {
+    flex-direction: column;
+    align-items: center;
+
+    .logo {
+      margin-bottom: 3rem;
+    }
+    .info {
+      flex-direction: column;
+      align-items: center;
+
+      > div {
+        margin-right: 0;
+        text-align: center;
+
+        ul {
+          li {
+            &:last-child {
+              margin-bottom: 2rem;
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-url-shortening',
@@ -7,9 +7,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UrlShorteningComponent implements OnInit {
 
+  displayStyle;
+  showDesktop = false;
+  innerWidth;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+    this.checkWidth();
+  }
+
   constructor() { }
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
+    this.checkWidth();
   }
 
+  checkWidth() {
+    if (this.innerWidth > 375) {
+      this.displayStyle = 'flex';
+    } else {
+      this.showDesktop=false;
+      this.displayStyle = 'none';
+    }
+  }
+
+  menuClicked() {
+    this.showDesktop = !this.showDesktop;
+
+    if (this.showDesktop) {
+      this.displayStyle = this.showDesktop && 'flex';
+    }
+    else {
+      this.displayStyle = 'none';
+    }
+  }
 }

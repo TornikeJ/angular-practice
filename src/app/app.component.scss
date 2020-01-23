@@ -26,3 +26,10 @@ $color2: #ed6491;
     }
   }
 }
+
+@media (max-width: 400px) {
+  nav {
+    font-size: 0.75rem;
+  }
+}
+

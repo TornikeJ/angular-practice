@@ -205,7 +205,6 @@ footer {
 }
 
 @media only screen and (max-width: 880px) {
-
   .download-content {
     > div {
       &:last-of-type {
@@ -248,6 +247,124 @@ footer {
   .devices {
     img {
       width: 39rem;
+    }
+  }
+  .vendors {
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      margin-bottom: 3rem;
+    }
+  }
+
+  footer {
+    .container {
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        &.clipboard {
+          margin-right: 0;
+          margin-bottom: 2rem;
+        }
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: center;
+        margin-right: 0;
+        text-align: center;
+        margin-bottom: 1rem;
+
+        > div {
+          margin-right: 0;
+        }
+      }
+      a {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+
+      .social {
+        width: 11rem;
+        justify-content: space-evenly;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .download-content {
+    > div {
+      &:last-of-type {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      button {
+        margin-right: 0;
+
+        &.ios {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+
+    h1,
+    p {
+      width: 100%;
+    }
+  }
+
+  .desktop {
+    .features {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    img {
+      transform: translate(0px, 0px);
+      width: 100%;
+      margin-right: 0;
+    }
+
+    > div {
+      &:first-child {
+        h2,
+        p {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .features {
+    div {
+      text-align: center;
+
+      &.feature {
+        align-items: center;
+        flex-direction: column;
+      }
+    }
+
+    > div {
+      &:first-child {
+        h2,
+        p {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .devices {
+    text-align: center;
+    
+    img {
+      width: 100%;
     }
   }
   .vendors {

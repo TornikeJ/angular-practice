@@ -49,11 +49,26 @@ header {
 
 @media (max-width: 1200px) {
   .components {
+    display: flex;
     flex-direction: column;
     align-items: center;
 
     div {
       margin-bottom: 3rem;
+      flex-direction: column;
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .components {
+    .row {
+      div {
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
     }
   }
 }

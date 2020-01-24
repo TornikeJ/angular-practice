@@ -175,6 +175,7 @@ footer {
 
     .card {
       margin-bottom: 2rem;
+      margin-right: 0;
     }
   }
 }
@@ -184,5 +185,10 @@ footer {
     background-position-x: 185px;
     background-position-y: -28px;
     background-repeat: no-repeat;
+  }
+  .cards {
+    .card {
+      width: -webkit-fill-available;
+    }
   }
 }

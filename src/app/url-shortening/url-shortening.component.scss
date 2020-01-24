@@ -27,7 +27,6 @@ $color8: #ffffff;
 
   nav {
     display: flex;
-    align-items: end;
     color: $color5;
     margin-bottom: 2rem;
 
@@ -154,7 +153,7 @@ $color8: #ffffff;
       }
 
       .image {
-        &::before {
+        > div {
           position: absolute;
           top: -2rem;
           display: flex;
@@ -166,26 +165,14 @@ $color8: #ffffff;
           align-items: center;
         }
 
-        &-brand {
-          &::before {
-            content: url(/assets/url-shortening/icon-brand-recognition.svg);
-          }
-        }
         &-records {
           transform: translateY(2rem);
-
-          &::before {
-            content: url(/assets/url-shortening/icon-detailed-records.svg);
-          }
         }
         &-customizable {
           transform: translateY(4rem);
-
-          &::before {
-            content: url(/assets/url-shortening/icon-fully-customizable.svg);
-          }
         }
       }
+
       > div {
         background-color: $color8;
         position: relative;
@@ -418,7 +405,7 @@ button {
           text-align: center;
           word-spacing: 7px;
 
-          &:before {
+         >div{
             right: calc(50% - 5rem / 2);
           }
         }

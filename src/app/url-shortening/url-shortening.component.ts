@@ -25,7 +25,7 @@ export class UrlShorteningComponent implements OnInit {
   }
 
   checkWidth() {
-    if (this.innerWidth > 375) {
+    if (this.innerWidth > 980) {
       this.displayStyle = 'flex';
     } else {
       this.showDesktop=false;

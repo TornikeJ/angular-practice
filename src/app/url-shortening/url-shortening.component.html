@@ -37,19 +37,40 @@
     </div>
     <div class="offers">
         <div class="feature" [ngStyle]="{'background-image': 'url(\'assets/url-shortening/bg-shorten-desktop.svg\')'}">
-            <input type="text" placeholder="Shorten a link here...">
-            <button class="primary">Shorten It!</button>
+            <div [ngClass]="{'invalid':linkInput.invalid && linkInput.touched}">
+                <input type="text" placeholder="Shorten a link here..." required [(ngModel)]="link"
+                    #linkInput="ngModel">
+                <button class="primary" [disabled]="linkInput.invalid" (click)="shortenLink(link)">Shorten It!</button>
+            </div>
+            <span class="invalid" *ngIf="linkInput.invalid && linkInput.touched">
+                Please add a link
+            </span>
         </div>
         <div class="container">
+
+            <div class="links" *ngFor="let shortenedLink of linkStorage">
+                <div class="row">
+                    <span>
+                        {{shortenedLink.originalUrl | truncate}}
+                    </span>
+                    <span>
+                        {{shortenedLink.shortendUrl}}
+                    </span>
+                    <button type="button" class="primary" [ngClass]="{'coppied': shortenedLink.shortendUrl === textCoppied }" (click)="copyText(shortenedLink.shortendUrl); clicked=true">
+                        {{shortenedLink.shortendUrl === textCoppied ? 'Coppied!' : 'Copy' }}
+                    </button>
+                </div>
+            </div>
+
             <h1>Advanced Statistics</h1>
             <p>
                 Track how your links are performing across the web with our advanced statistics dashboard.
             </p>
-            <div>
+            <div class="images">
                 <hr class="line">
                 <div class="image image-brand">
                     <div>
-                        <img src="assets/url-shortening/icon-brand-recognition.svg" alt="">
+                        <img src="assets/url-shortening/icon-detailed-records.svg" alt="">
                     </div>
                     <h4>Brand Recognition</h4>
                     <p>

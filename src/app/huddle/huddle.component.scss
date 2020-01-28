@@ -1,0 +1,60 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  padding-top: 1rem;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.achievments {
+  .container {
+    padding: 3rem 9rem 2rem 9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+
+    .top {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h1 {
+        font-size: 3rem;
+        letter-spacing: -2.4px;
+      }
+
+      p {
+        width: 60%;
+      }
+    }
+
+    > img {
+      width: 100%;
+    }
+
+    .bottom {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      h2 {
+        font-size: 4rem;
+        margin: 0;
+        letter-spacing: 3.4px;
+      }
+
+      p {
+        margin: 0;
+        letter-spacing: -0.8px;
+      }
+    }
+  }
+}

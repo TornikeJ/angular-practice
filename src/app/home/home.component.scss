@@ -4,6 +4,9 @@ header {
   text-align: center;
 }
 .components {
+  max-width: 1200px;
+  margin: 0 auto;
+
   .row {
     display: flex;
     justify-content: space-between;

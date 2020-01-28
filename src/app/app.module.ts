@@ -10,6 +10,7 @@ import { ClipboardComponent } from './clipboard/clipboard.component';
 import { UrlShorteningComponent } from './url-shortening/url-shortening.component';
 import { UrlShorteningService } from './url-shortening/url-shortening.service';
 import { TruncatePipe } from './shared/truncate.pipe';
+import { HuddleComponent } from './huddle/huddle.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { TruncatePipe } from './shared/truncate.pipe';
     HomeComponent,
     ClipboardComponent,
     UrlShorteningComponent,
-    TruncatePipe
+    TruncatePipe,
+    HuddleComponent
   ],
   imports: [
     BrowserModule,

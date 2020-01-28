@@ -352,7 +352,7 @@ button {
       background-color: $color9;
     }
 
-    &:focus{
+    &:focus {
       background-color: $color1;
     }
   }
@@ -448,7 +448,6 @@ button {
         width: 100%;
         align-self: center;
       }
-
     }
   }
 
@@ -471,6 +470,8 @@ button {
     }
 
     .container {
+      padding-top: 11rem;
+
       .links {
         .row {
           flex-direction: column;
@@ -517,7 +518,6 @@ button {
       padding: 0rem 2rem 0rem 2rem;
       border-radius: 1.2rem;
       line-height: 2.4rem;
-
     }
   }
 

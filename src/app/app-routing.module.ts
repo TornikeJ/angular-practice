@@ -4,6 +4,7 @@ import { PricingComponent } from './pricing/pricing.component';
 import { HomeComponent } from './home/home.component';
 import { ClipboardComponent } from './clipboard/clipboard.component';
 import { UrlShorteningComponent } from './url-shortening/url-shortening.component';
+import { HuddleComponent } from './huddle/huddle.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'clipboard', component: ClipboardComponent},
-  { path: 'urlshortening', component: UrlShorteningComponent}
+  { path: 'urlshortening', component: UrlShorteningComponent},
+  { path: 'huddle', component: HuddleComponent}
 ];
 
 @NgModule({

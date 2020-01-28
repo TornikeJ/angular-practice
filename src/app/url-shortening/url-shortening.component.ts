@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { UrlShorteningService } from './url-shortening.service';
 import { Url } from './url.model';
 
+
 @Component({
   selector: 'app-url-shortening',
   templateUrl: './url-shortening.component.html',
@@ -16,6 +17,7 @@ export class UrlShorteningComponent implements OnInit {
   textCoppied;
   link: string;
   linkStorage: Url[] = [];
+  errorMessage;
 
   @ViewChild('linkInput', { static: true }) linkInput;
 
@@ -59,6 +61,7 @@ export class UrlShorteningComponent implements OnInit {
   shortenLink(originalLink: string) {
     this.urlShorteningService.createShortenedLink(originalLink).subscribe(
       (shortenedLink) => {
+  
         this.hashId = shortenedLink.hashid;
         this.link = 'https://rel.ink/' + this.hashId;
 
@@ -67,10 +70,14 @@ export class UrlShorteningComponent implements OnInit {
           (arr) => {
             return arr.originalUrl == originalLink;
           }) === -1 ?
-          this.linkStorage.push(new Url(shortenedLink.url, this.link)) : null;
+          this.linkStorage.push(new Url(shortenedLink.url, this.link)) : this.errorMessage = 'Link has already been added';
 
         localStorage.setItem('linkStorage', JSON.stringify(this.linkStorage));
         this.linkInput.reset();
+      },
+      (error) => {
+          this.errorMessage = error;
+          this.linkInput.reset();
       }
     );
   }

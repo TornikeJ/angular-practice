@@ -38,12 +38,15 @@
     <div class="offers">
         <div class="feature" [ngStyle]="{'background-image': 'url(\'assets/url-shortening/bg-shorten-desktop.svg\')'}">
             <div [ngClass]="{'invalid':linkInput.invalid && linkInput.touched}">
-                <input type="text" placeholder="Shorten a link here..." required [(ngModel)]="link"
+                <input type="text" placeholder="Shorten a link here..." required (input)="errorMessage=''" [(ngModel)]="link"
                     #linkInput="ngModel">
                 <button class="primary" [disabled]="linkInput.invalid" (click)="shortenLink(link)">Shorten It!</button>
             </div>
             <span class="invalid" *ngIf="linkInput.invalid && linkInput.touched">
                 Please add a link
+            </span>
+            <span class="invalid" *ngIf="errorMessage && !(linkInput.invalid && linkInput.touched)">
+                {{errorMessage}}
             </span>
         </div>
         <div class="container">
@@ -56,7 +59,7 @@
                     <span>
                         {{shortenedLink.shortendUrl}}
                     </span>
-                    <button type="button" class="primary" [ngClass]="{'coppied': shortenedLink.shortendUrl === textCoppied }" (click)="copyText(shortenedLink.shortendUrl); clicked=true">
+                    <button type="button" class="primary" [ngClass]="{'coppied': shortenedLink.shortendUrl === textCoppied }" (click)="copyText(shortenedLink.shortendUrl)">
                         {{shortenedLink.shortendUrl === textCoppied ? 'Coppied!' : 'Copy' }}
                     </button>
                 </div>

@@ -90,6 +90,8 @@ $color9: #9be2e2;
     }
 
     button {
+      padding: 0rem 2rem 0rem 2rem;
+      border-radius: 1.2rem;
       font-weight: 900;
       line-height: 2.4rem;
     }
@@ -349,6 +351,10 @@ button {
     &:hover {
       background-color: $color9;
     }
+
+    &:focus{
+      background-color: $color1;
+    }
   }
 
   &:disabled {
@@ -442,6 +448,7 @@ button {
         width: 100%;
         align-self: center;
       }
+
     }
   }
 
@@ -502,6 +509,15 @@ button {
           }
         }
       }
+    }
+  }
+
+  .boost {
+    button {
+      padding: 0rem 2rem 0rem 2rem;
+      border-radius: 1.2rem;
+      line-height: 2.4rem;
+
     }
   }
 

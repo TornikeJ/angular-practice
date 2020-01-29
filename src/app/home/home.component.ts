@@ -35,6 +35,9 @@ export class HomeComponent implements OnInit {
       case 'urlshortening':
         this.color = '#2acfcf';
         break;
+      case 'huddle':
+        this.color = '#ff52bf';
+        break;
       default:
         this.color = '#ed6491';
     }

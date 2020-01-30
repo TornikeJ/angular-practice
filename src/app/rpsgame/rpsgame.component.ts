@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rpcgame',
-  templateUrl: './rpcgame.component.html',
-  styleUrls: ['./rpcgame.component.scss']
+  selector: 'app-rpsgame',
+  templateUrl: './rpsgame.component.html',
+  styleUrls: ['./rpsgame.component.scss']
 })
-export class RpcgameComponent implements OnInit {
+export class RpsgameComponent implements OnInit {
 
   score: number = 0;
   showRules: boolean;

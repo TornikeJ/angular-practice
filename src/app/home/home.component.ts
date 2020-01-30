@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
       case 'huddle':
         this.color = '#ff52bf';
         break;
-      case 'rpcgame':
+      case 'rpsgame':
         this.color = '#1f3756';
         break;
       default:

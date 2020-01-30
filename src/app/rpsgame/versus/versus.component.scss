@@ -39,13 +39,12 @@ $color5: hsl(39, 89%, 49%);
 }
 
 .container {
-  padding: 2rem 13rem;
+  padding: 2rem 5rem;
   box-sizing: border-box;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  align-items: start;
   text-transform: uppercase;
   color: white;
 
@@ -86,6 +85,7 @@ $color5: hsl(39, 89%, 49%);
     padding: 2rem 2.5rem;
     transform: scale(1.5);
     max-height: 258px;
+    z-index: 0;
 
     &.rock {
       padding-top: 2.5rem;
@@ -106,6 +106,48 @@ $color5: hsl(39, 89%, 49%);
     &.blank {
       padding: 5.5rem;
       background-color: #0c1e48;
+    }
+
+    &.winner {
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        border: 2rem solid #8080801c;
+        z-index: -1;
+        border-radius: 50%;
+        box-sizing: border-box;
+        animation: winner 1.5s infinite;
+        animation-timing-function: ease-out;
+      }
+
+      &:before {
+        animation-delay: 1s;
+      }
+
+      &:after {
+        transform: scale(1.5);
+      }
+
+      @keyframes winner {
+        0% {
+          transform: scale(0.5);
+          opacity: 0.5;
+        }
+        60% {
+          transform: scale(1);
+          opacity: 1;
+        }
+
+        100% {
+          transform: scale(1.5);
+          opacity: 0;
+        }
+      }
     }
   }
 

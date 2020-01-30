@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { of, Subscription } from "rxjs";
-import { delay } from "rxjs/operators";
+import { Subscription } from "rxjs";
 import { timer } from 'rxjs';
 
 @Component({
@@ -12,12 +11,13 @@ export class VersusComponent implements OnInit, OnDestroy {
 
   @Input() userPicked: string;
   @Output() restart = new EventEmitter<string>();
-  housePicked = 'paper';
+  housePicked;
   subscription: Subscription;
   time = 3;
   timerColorStyle;
   timerAnimationStyle;
   result;
+  winner;
 
   constructor() { }
 
@@ -27,7 +27,6 @@ export class VersusComponent implements OnInit, OnDestroy {
     this.subscription = source.subscribe(
       () => {
         this.time--;
-        console.log(this.time);
 
         if (this.time == 0) {
           this.subscription.unsubscribe();
@@ -63,33 +62,41 @@ export class VersusComponent implements OnInit, OnDestroy {
   getResult() {
     if (this.userPicked === this.housePicked) {
       this.result = 'Draw';
+      this.winner=null;
       return;
     }
 
     if (this.userPicked === 'rock') {
       if (this.housePicked === 'scissors') {
         this.result = 'Win'
+        this.winner='player';
       }
       else {
         this.result = 'Lose';
+        this.winner='house';
       }
     }
 
     if (this.userPicked === 'paper') {
       if (this.housePicked === 'rock') {
         this.result = 'Win'
+        this.winner='player';
       }
       else {
         this.result = 'Lose';
+        this.winner='house';
       }
     }
 
     if (this.userPicked === 'scissors') {
       if (this.housePicked === 'paper') {
         this.result = 'Win'
+        this.winner='player';
       }
+      
       else {
         this.result = 'Lose';
+        this.winner='house';
       }
     }
 

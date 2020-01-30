@@ -1,0 +1,38 @@
+<div class="versus">
+    <h3 [ngStyle]="{'color':timerColorStyle, 'animation-play-state': timerAnimationStyle}">{{time}}</h3>
+    <div class="container" [ngSwitch]="userPicked">
+        <div>
+            <h3>You picked</h3>
+            <div *ngSwitchCase="'paper'" class="icon paper" [ngClass]="{winner : winner=='player'}">
+                <img src="assets/rpsgame/icon-paper.svg" alt="">
+            </div>
+            <div *ngSwitchCase="'rock'" class="icon rock" [ngClass]="{'winner': winner=='player'}">
+                <img src="assets/rpsgame/icon-rock.svg" alt="">
+            </div>
+            <div *ngSwitchCase="'scissors'" class="icon scissors" [ngClass]="{'winner': winner=='player'}">
+                <img src="assets/rpsgame/icon-scissors.svg" alt="">
+            </div>
+        </div>
+        <div class="result" *ngIf="result">
+            <h3>
+                {{ result == 'Draw' ? '' : 'You'}} {{result}}
+            </h3>
+            <button type="button" (click)="restartGame()">Play again</button>
+        </div>
+        <div>
+            <h3>The house picked</h3>
+            <div *ngIf="time>0" class="icon blank"></div>
+            <div *ngIf="time==0" [ngSwitch]="housePicked">
+                <div *ngSwitchCase="'paper'" class="icon paper" [ngClass]="{'winner': winner=='house'}">
+                    <img src="assets/rpsgame/icon-paper.svg" alt="">
+                </div>
+                <div *ngSwitchCase="'rock'" class="icon rock" [ngClass]="{'winner': winner=='house'}">
+                    <img src="assets/rpsgame/icon-rock.svg" alt="">
+                </div>
+                <div *ngSwitchCase="'scissors'" class="icon scissors" [ngClass]="{'winner': winner=='house'}">
+                    <img src="assets/rpsgame/icon-scissors.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,11 +5,25 @@
 </header>
 <div class="components">
     <div class="row">
-        <div [routerLink]="['/pricing']" (mouseover)="hover=true; updateNavbarColor('pricing')"
+        <div [routerLink]="['/urlshortening']" (mouseover)="hover=true; updateNavbarColor('urlshortening')"
             (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/pricing/desktop-design-monthly.jpg"
-                alt="Pricing component design">
-            <a>Pricing Component</a>
+            <img [ngStyle]="{'border-color': color }" src="assets/url-shortening/desktop-preview.jpg"
+                alt="Url-shortening component design">
+            <a>Url-shortening Component</a>
+        </div>
+        <div [routerLink]="['/rpcgame']" (mouseover)="hover=true; updateNavbarColor('rpcgame')"
+            (mouseleave)="hover=false">
+            <img [ngStyle]="{'border-color': color }" src="assets/rpcgame/desktop-preview.jpg"
+                alt="RPC game component design">
+            <a>RPC game Component (In progress)</a>
+        </div>
+    </div>
+    <div class="row">
+        <div [routerLink]="['/huddle']" (mouseover)="hover=true; updateNavbarColor('huddle')"
+            (mouseleave)="hover=false">
+            <img [ngStyle]="{'border-color': color }" src="assets/huddle/desktop-preview.jpg"
+                alt="Huddle component design">
+            <a>Huddle Component</a>
         </div>
         <div [routerLink]="['/clipboard']" (mouseover)="hover=true; updateNavbarColor('clipboard')"
             (mouseleave)="hover=false">
@@ -19,17 +33,11 @@
         </div>
     </div>
     <div class="row">
-        <div [routerLink]="['/urlshortening']" (mouseover)="hover=true; updateNavbarColor('urlshortening')"
+        <div [routerLink]="['/pricing']" (mouseover)="hover=true; updateNavbarColor('pricing')"
             (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/url-shortening/desktop-preview.jpg"
-                alt="Url-shortening component design">
-            <a>Url-shortening Component</a>
-        </div>
-        <div [routerLink]="['/huddle']" (mouseover)="hover=true; updateNavbarColor('huddle')"
-            (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/huddle/desktop-preview.jpg"
-                alt="Huddle component design">
-            <a>Huddle Component (In progress)</a>
+            <img [ngStyle]="{'border-color': color }" src="assets/pricing/desktop-design-monthly.jpg"
+                alt="Pricing component design">
+            <a>Pricing Component</a>
         </div>
     </div>
 </div>

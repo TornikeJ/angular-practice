@@ -11,6 +11,9 @@ import { UrlShorteningComponent } from './url-shortening/url-shortening.componen
 import { UrlShorteningService } from './url-shortening/url-shortening.service';
 import { TruncatePipe } from './shared/truncate.pipe';
 import { HuddleComponent } from './huddle/huddle.component';
+import { RpcgameComponent } from './rpcgame/rpcgame.component';
+import { RulesComponent } from './rpcgame/rules/rules.component';
+import { VersusComponent } from './rpcgame/versus/versus.component';
 
 
 @NgModule({
@@ -21,7 +24,10 @@ import { HuddleComponent } from './huddle/huddle.component';
     ClipboardComponent,
     UrlShorteningComponent,
     TruncatePipe,
-    HuddleComponent
+    HuddleComponent,
+    RpcgameComponent,
+    RulesComponent,
+    VersusComponent
   ],
   imports: [
     BrowserModule,

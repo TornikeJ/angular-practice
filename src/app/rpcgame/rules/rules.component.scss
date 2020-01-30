@@ -1,0 +1,36 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vw;
+  background: rgba(0, 0, 0, 0.52);
+  z-index: 50;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+  position: fixed;
+  top: 30vh;
+  left: 40vw;
+  z-index: 100;
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+
+    h3 {
+      margin: 0;
+    }
+
+    img {
+      cursor: pointer;
+    }
+  }
+}

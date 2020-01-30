@@ -1,5 +1,4 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-clipboard',
@@ -10,12 +9,10 @@ export class ClipboardComponent implements OnInit {
   innerWidth = 1200;
   backgroundStyle = 'url(\'assets/clipboard/bg-header-desktop.png\')';
   isLoading = false;
-  loading = new Subject<void>();
   
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerWidth = window.innerWidth;
-
   }
   
   constructor() { }
@@ -31,10 +28,6 @@ export class ClipboardComponent implements OnInit {
     } else {
       this.backgroundStyle = 'url(\'assets/clipboard/bg-header-mobile.png\')';
     }
-  }
-
-  onLoad() {
-    this.loading.next();
   }
 
 }

@@ -1,0 +1,116 @@
+$color1: hsl(214, 47%, 23%);
+$color2: hsl(237, 49%, 15%);
+$color3: hsl(230, 89%, 62%);
+$color4: hsl(349, 71%, 52%);
+$color5: hsl(39, 89%, 49%);
+
+.versus {
+  padding: 2rem;
+  margin-bottom: 7rem;
+  text-align: center;
+  padding-top: 0;
+
+  > h3 {
+    margin: 0;
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    color: white;
+    animation: countdowns 1s infinite;
+    animation-timing-function: ease-out;
+  }
+
+  @keyframes countdowns {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+
+    90% {
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+.container {
+  padding: 2rem 13rem;
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  text-transform: uppercase;
+  color: white;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .result {
+    align-self: center;
+
+    h3 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      padding: 1rem;
+      border-radius: 9px;
+      text-transform: uppercase;
+      color: black;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+
+      &:hover {
+        color: #de3131;
+      }
+    }
+  }
+
+  .icon {
+    background-color: white;
+    border-radius: 50%;
+    padding: 2rem 2.5rem;
+    transform: scale(1.5);
+    max-height: 258px;
+
+    &.rock {
+      padding-top: 2.5rem;
+      border: 1.5rem solid $color4;
+      box-shadow: 0 6px #94132b, inset 0 6px #c3c3c3;
+    }
+
+    &.scissors {
+      border: 1.5rem solid $color5;
+      box-shadow: 0 6px #a26e0c, inset 0 6px #c3c3c3;
+    }
+
+    &.paper {
+      border: 1.5rem solid $color3;
+      box-shadow: 0 6px #2741bf, inset 0 6px #c3c3c3;
+    }
+
+    &.blank {
+      padding: 5.5rem;
+      background-color: #0c1e48;
+    }
+  }
+
+  h3 {
+    margin: 0;
+    margin-bottom: 5rem;
+  }
+}

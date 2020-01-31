@@ -13,12 +13,6 @@
                 <img src="assets/rpsgame/icon-scissors.svg" alt="">
             </div>
         </div>
-        <div class="result" *ngIf="result">
-            <h3>
-                {{ result == 'Draw' ? '' : 'You'}} {{result}}
-            </h3>
-            <button type="button" (click)="restartGame()">Play again</button>
-        </div>
         <div>
             <h3>The house picked</h3>
             <div *ngIf="time>0" class="icon blank"></div>
@@ -35,4 +29,10 @@
             </div>
         </div>
     </div>
+</div>
+<div class="result" *ngIf="result">
+    <h3>
+        {{ result == 'Draw' ? '' : 'You'}} {{result}}
+    </h3>
+    <button type="button" (click)="restartGame()">Play again</button>
 </div>

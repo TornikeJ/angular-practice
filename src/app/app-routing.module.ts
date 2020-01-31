@@ -6,6 +6,7 @@ import { ClipboardComponent } from './clipboard/clipboard.component';
 import { UrlShorteningComponent } from './url-shortening/url-shortening.component';
 import { HuddleComponent } from './huddle/huddle.component';
 import { RpsgameComponent } from './rpsgame/rpsgame.component';
+import { CountriesComponent } from './countries/countries.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'urlshortening', component: UrlShorteningComponent},
   { path: 'huddle', component: HuddleComponent},
   { path: 'rpsgame', component: RpsgameComponent},
+  { path: 'countries', component: CountriesComponent},
 ];
 
 @NgModule({

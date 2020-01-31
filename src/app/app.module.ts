@@ -14,6 +14,7 @@ import { HuddleComponent } from './huddle/huddle.component';
 import { RpsgameComponent } from './rpsgame/rpsgame.component';
 import { RulesComponent } from './rpsgame/rules/rules.component';
 import { VersusComponent } from './rpsgame/versus/versus.component';
+import { CountriesComponent } from './countries/countries.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { VersusComponent } from './rpsgame/versus/versus.component';
     HuddleComponent,
     RpsgameComponent,
     RulesComponent,
-    VersusComponent
+    VersusComponent,
+    CountriesComponent
   ],
   imports: [
     BrowserModule,

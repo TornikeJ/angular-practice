@@ -12,7 +12,6 @@ $color5: hsl(39, 89%, 49%);
 
 .wrapper {
   background: radial-gradient($color1, $color2);
-  height: 100vh;
 }
 
 .container {
@@ -60,7 +59,7 @@ $color5: hsl(39, 89%, 49%);
 
 .game {
   padding: 2rem;
-  margin-bottom: 7rem;
+  margin-bottom: 5rem;
   padding-top: 9rem;
 
   .container {
@@ -146,17 +145,35 @@ $color5: hsl(39, 89%, 49%);
   }
 }
 
+.versus {
+  margin-bottom: 10rem;
+}
+
 footer {
+  position: relative;
+
   .container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     box-sizing: border-box;
-    position: absolute;
-    right: 0;
-    bottom: 1vh;
+    padding-top: 6rem;
+    padding-bottom: 1rem;
+
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+    }
+    .attribution a {
+      color: hsla(180, 54%, 37%, 0.767);
+    }
   }
 
   button {
+    position: absolute;
+    right: 2vw;
+    bottom: 10vh;
     border: 1px solid white;
     background-color: transparent;
     padding: 1rem 2rem;
@@ -181,8 +198,8 @@ footer {
   }
 
   footer {
-    .container {
-      right: calc(50% - 5.5rem);
+    button {
+      right: calc(50% - 3.5rem);
     }
   }
 
@@ -230,7 +247,7 @@ footer {
     }
   }
 
-  .versus{
+  .versus {
     display: flex;
     flex-direction: column;
     align-items: center;

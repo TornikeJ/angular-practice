@@ -13,6 +13,7 @@ $color5: hsl(39, 89%, 49%);
 .wrapper {
   background: radial-gradient($color1, $color2);
   height: 100vh;
+  position: relative;
 }
 
 .container {
@@ -156,7 +157,7 @@ $color5: hsl(39, 89%, 49%);
 button {
   position: absolute;
   right: 2vw;
-  bottom: 2vh;
+  bottom: 1vh;
   border: 1px solid white;
   background-color: transparent;
   padding: 1rem 2rem;

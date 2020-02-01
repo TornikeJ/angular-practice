@@ -12,6 +12,7 @@ $color5: hsl(39, 89%, 49%);
 
 .wrapper {
   background: radial-gradient($color1, $color2);
+  height: 100vh;
 }
 
 .container {
@@ -25,6 +26,8 @@ $color5: hsl(39, 89%, 49%);
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 0;
+    transform: scale(0.9);
 
     > div {
       display: flex;
@@ -59,8 +62,9 @@ $color5: hsl(39, 89%, 49%);
 
 .game {
   padding: 2rem;
-  margin-bottom: 5rem;
-  padding-top: 9rem;
+  padding-top: 3rem;
+  padding-bottom: 0rem;
+  transform: scale(0.9);
 
   .container {
     display: flex;
@@ -92,8 +96,8 @@ $color5: hsl(39, 89%, 49%);
         background-repeat: no-repeat;
         background-size: 50% 60%, 70% 50%, 50% 100%;
         background-position: 100% 0, 100% 100%, 0 100%;
-        background-image: linear-gradient(#fbb300, #fbb300), linear-gradient(#d53e33, #d53e33),
-          linear-gradient(#377af5, #377af5);
+        background-image: linear-gradient(#fbb300, #fbb300),
+          linear-gradient(#d53e33, #d53e33), linear-gradient(#377af5, #377af5);
         animation: rotate 2s linear infinite;
         animation-play-state: paused;
       }
@@ -146,45 +150,23 @@ $color5: hsl(39, 89%, 49%);
 }
 
 .versus {
-  margin-bottom: 10rem;
+  height: fit-content;
 }
 
-footer {
-  position: relative;
+button {
+  position: absolute;
+  right: 2vw;
+  bottom: 2vh;
+  border: 1px solid white;
+  background-color: transparent;
+  padding: 1rem 2rem;
+  color: white;
+  border-radius: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
 
-  .container {
-    display: flex;
-    justify-content: center;
-    box-sizing: border-box;
-    padding-top: 6rem;
-    padding-bottom: 1rem;
-
-    .attribution {
-      font-size: 11px;
-      text-align: center;
-      color: white;
-      font-weight: bold;
-    }
-    .attribution a {
-      color: hsla(180, 54%, 37%, 0.767);
-    }
-  }
-
-  button {
-    position: absolute;
-    right: 2vw;
-    bottom: 10vh;
-    border: 1px solid white;
-    background-color: transparent;
-    padding: 1rem 2rem;
-    color: white;
-    border-radius: 4px;
-    text-transform: uppercase;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #4e80ff99;
-    }
+  &:hover {
+    background-color: #4e80ff99;
   }
 }
 
@@ -251,5 +233,6 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
   }
 }

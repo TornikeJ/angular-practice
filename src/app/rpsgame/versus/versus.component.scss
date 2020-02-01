@@ -13,7 +13,6 @@ $color5: hsl(39, 89%, 49%);
   > h3 {
     margin: 0;
     font-size: 5rem;
-    margin-bottom: 1rem;
     color: white;
     animation: countdowns 1s infinite;
     animation-timing-function: ease-out;
@@ -53,7 +52,7 @@ $color5: hsl(39, 89%, 49%);
     flex-direction: column;
     align-items: center;
 
-    &:first-child {
+    &:first-of-type {
       margin-right: 2rem;
     }
   }
@@ -62,7 +61,7 @@ $color5: hsl(39, 89%, 49%);
     background-color: white;
     border-radius: 50%;
     padding: 2rem 2.5rem;
-    transform: scale(1.5);
+    transform: scale(1.1);
     max-height: 258px;
     z-index: 0;
 
@@ -192,13 +191,10 @@ $color5: hsl(39, 89%, 49%);
       }
     }
   }
-
-  .result {
-    transform: translateY(0);
-  }
 }
 
 @media only screen and(max-width: 600px) {
+   
   .container {
     padding-top: 0;
     padding-left: 0;
@@ -212,7 +208,12 @@ $color5: hsl(39, 89%, 49%);
     > div {
       h3 {
         width: max-content;
+        margin-bottom: 2rem;
       }
     }
+  }
+
+  .result {
+    transform: translateY(-2rem);
   }
 }

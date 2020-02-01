@@ -1,5 +1,5 @@
 <div class="versus">
-    <h3 [ngStyle]="{'color':timerColorStyle, 'animation-play-state': timerAnimationStyle}">{{time}}</h3>
+    <h3 *ngIf="time>0" [ngStyle]="{'color':timerColorStyle, 'animation-play-state': timerAnimationStyle}">{{time}}</h3>
     <div class="container" [ngSwitch]="userPicked">
         <div>
             <h3>You picked</h3>

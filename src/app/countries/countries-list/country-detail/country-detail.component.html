@@ -1,0 +1,63 @@
+<div *ngIf="country" class="container">
+    <img [src]="country.flag" alt="">
+    <div>
+        <h2>
+            {{country.name}}
+        </h2>
+        <div class="info">
+            <div>
+                <h4>
+                    Native Name:
+                    <span>
+                        {{country.nativeName}}
+                    </span>
+                </h4>
+                <h4>
+                    Population:
+                    <span>
+                        {{country.population | number : '1.0'}}
+                    </span>
+                </h4>
+                <h4>
+                    Region:
+                    <span>
+                        {{country.region}}
+                    </span>
+                </h4>
+                <h4>
+                    Sub Region:
+                    <span>
+                        {{country.subregion}}
+                    </span>
+                </h4>
+                <h4>
+                    Capital:
+                    <span>
+                        {{country.capital}}
+                    </span>
+                </h4>
+            </div>
+
+            <div>
+                <h4>
+                    Top Level Doamin:
+                    <span>
+                        {{ country.topLevelDomain.toString()}}
+                    </span>
+                </h4>
+                <h4>
+                    Currencies:
+                    <span>
+                        {{ currencies.join(', ') }}
+                    </span>
+                </h4>
+                <h4>
+                    Languages
+                    <span>
+                        {{languages.join(', ')}}
+                    </span>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>

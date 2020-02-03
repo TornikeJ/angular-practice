@@ -1,0 +1,28 @@
+span {
+  font-weight: normal;
+}
+
+.container {
+  display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  img {
+    flex-grow: 0.2;
+    margin-right: auto;
+    height: 100%;
+    width: 30vw;
+    
+  }
+
+  > div {
+    flex-grow: 0.3;
+    align-self: center;
+  }
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+}

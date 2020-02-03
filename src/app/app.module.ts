@@ -15,6 +15,8 @@ import { RpsgameComponent } from './rpsgame/rpsgame.component';
 import { RulesComponent } from './rpsgame/rules/rules.component';
 import { VersusComponent } from './rpsgame/versus/versus.component';
 import { CountriesComponent } from './countries/countries.component';
+import { CountriesListComponent } from './countries/countries-list/countries-list.component';
+import { CountryDetailComponent } from './countries/countries-list/country-detail/country-detail.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { CountriesComponent } from './countries/countries.component';
     RpsgameComponent,
     RulesComponent,
     VersusComponent,
-    CountriesComponent
+    CountriesComponent,
+    CountriesListComponent,
+    CountryDetailComponent
   ],
   imports: [
     BrowserModule,

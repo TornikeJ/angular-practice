@@ -1,0 +1,38 @@
+.countries {
+  .container {
+    // display: grid;
+    // grid-template-columns: auto auto auto;
+    // justify-content: space-between;
+    // row-gap: 3rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .country {
+      background-color: white;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      cursor: pointer;
+
+      .flag {
+        height: 45%;
+
+        img {
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          width: 20rem;
+          height: 100%;
+        }
+      }
+
+      .info {
+        span {
+          font-weight: bold;
+        }
+
+        padding: 1rem 1rem 4rem 2rem;
+      }
+    }
+  }
+}

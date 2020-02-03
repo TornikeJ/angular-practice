@@ -30,19 +30,9 @@
             </div>
         </div>
     </div>
-    <div class="countries">
+    <div>
         <div class="container">
-            <div class="country" *ngFor="let country of countries">
-                <div class="flag">
-                    <img [src]="country.flag" alt="">
-                </div>
-                <div class="info">
-                    <h3>{{country.name}}</h3>
-                    <p><span>Population: </span>{{country.population | number : '1.0'}}</p>
-                    <p><span>Region: </span>{{country.region}}</p>
-                    <p><span>Capital: </span>{{country.capital}}</p>
-                </div>
-            </div>
+            <app-countries-list></app-countries-list>
         </div>
     </div>
 </div>

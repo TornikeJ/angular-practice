@@ -14,15 +14,20 @@
       border-radius: 10px;
       margin-bottom: 2rem;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      max-width: min-content;
+
 
       .flag {
         height: 45%;
+        display: flex;
 
         img {
           border-top-left-radius: 10px;
           border-top-right-radius: 10px;
           width: 20rem;
-          height: 100%;
+          object-fit: cover;
         }
       }
 

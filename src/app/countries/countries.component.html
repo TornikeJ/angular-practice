@@ -11,7 +11,7 @@
     </div>
     <div class="search">
         <div class="container">
-            <input type="text" placeholder="Search for a country...">
+            <input type="text" [(ngModel)]="search" placeholder="Search for a country...">
             <i class="fa fa-search"></i>
             <div class="filter">
                 <div (click)="showRegions == 'none'? showRegions='block' : showRegions='none'">
@@ -32,7 +32,7 @@
     </div>
     <div>
         <div class="container">
-            <app-countries-list></app-countries-list>
+            <app-countries-list [searchCountry]="search"></app-countries-list>
         </div>
     </div>
 </div>

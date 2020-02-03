@@ -14,13 +14,13 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'pricing', component: PricingComponent },
-  { path: 'clipboard', component: ClipboardComponent},
-  { path: 'urlshortening', component: UrlShorteningComponent},
-  { path: 'huddle', component: HuddleComponent},
-  { path: 'rpsgame', component: RpsgameComponent},
-  { path: 'countries', component: CountriesComponent},
-  { path: 'countries/:countryName', component: CountryDetailComponent},
-  
+  { path: 'clipboard', component: ClipboardComponent },
+  { path: 'urlshortening', component: UrlShorteningComponent },
+  { path: 'huddle', component: HuddleComponent },
+  { path: 'rpsgame', component: RpsgameComponent },
+  {path: 'countries', component: CountriesComponent},
+  { path: 'countries/:countryName', component: CountryDetailComponent },
+
 ];
 
 @NgModule({

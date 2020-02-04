@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+
 @Injectable({ providedIn: 'root' })
 
 export class CountriesService {
@@ -10,8 +11,16 @@ export class CountriesService {
         return this.htppClient.get('https://restcountries.eu/rest/v2/all');
     }
 
+    getCountriesByRegion(region: string) {
+        return this.htppClient.get(`https://restcountries.eu/rest/v2/region/${region}`);
+    }
+
     getCountry(name: string) {
         return this.htppClient.get(`https://restcountries.eu/rest/v2/name/${name}`);
+    }
+
+    getCountryByCode(code: string){
+        return this.htppClient.get(`https://restcountries.eu/rest/v2/alpha/${code}`);
     }
 
 }

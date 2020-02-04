@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-
+import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 @Component({
   selector: 'app-countries',
   templateUrl: './countries.component.html',
@@ -7,14 +6,34 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CountriesComponent implements OnInit {
 
-  showRegions: string;
-  search: string;
+  backgroundColor = '#f5f5f5';
+  backgroundElementColor = '#dddadae7';
+  backgroundTextColor = '#000000';
+  darkMode: boolean
 
+  // #2b3945
 
-  constructor() { }
+  constructor(
+
+  ) { }
 
   ngOnInit() {
-    this.showRegions = 'none';
+    this.darkMode = false;
+  }
+
+  changeBackgroundColor() {
+    this.darkMode = !this.darkMode;
+
+    if (this.darkMode) {
+      this.backgroundColor = '#202c37';
+      this.backgroundElementColor = '#2b3945';
+      this.backgroundTextColor = '#FFFFFF';
+    }
+    else {
+      this.backgroundColor = '#f5f5f5';
+      this.backgroundElementColor = '#dddadae7';
+      this.backgroundTextColor = '#000000';
+    }
   }
 
 }

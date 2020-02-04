@@ -22,7 +22,7 @@ export class AppComponent {
     this.router.events.subscribe(
       (router) => {
         if (router instanceof NavigationEnd) {
-          this.activatedComponent = router.url.slice(1);
+          this.activatedComponent =router.url.slice(1).split('/')[0];
           this.updateNavbarColor(this.activatedComponent);
         }
       }

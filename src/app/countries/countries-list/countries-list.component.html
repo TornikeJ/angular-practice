@@ -1,6 +1,27 @@
+<div class="search">
+    <div class="container">
+        <input type="text" [(ngModel)]="searchCountry" placeholder="Search for a country...">
+        <i class="fa fa-search"></i>
+        <div class="filter">
+            <div #regionEl (click)="showRegions == 'none'? showRegions='block' : showRegions='none'">
+                <p>
+                    {{regionSelected}}
+                </p>
+                <i class="fa fa-angle-down"></i>
+            </div>
+            <ul [ngStyle]="{'display': showRegions}">
+                <li *ngFor="let region of regions" (click)="regionChanged(region)">{{region}}</li>
+                <li *ngIf="filter !== 'Filter by Region'" (click)="regionChanged('Filter by Region')">Reset Filter
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <div class="countries">
     <div class="container">
-        <div [routerLink]="['/countries',country.name.toLowerCase()]" class="country" *ngFor="let country of filteredCountries">
+        <div [routerLink]="['/countries',country.name.toLowerCase()]" class="country"
+            *ngFor="let country of filteredCountries">
             <div class="flag">
                 <img [src]="country.flag" alt="">
             </div>

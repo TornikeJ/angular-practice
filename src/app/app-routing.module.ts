@@ -8,6 +8,7 @@ import { HuddleComponent } from './huddle/huddle.component';
 import { RpsgameComponent } from './rpsgame/rpsgame.component';
 import { CountriesComponent } from './countries/countries.component';
 import { CountryDetailComponent } from './countries/countries-list/country-detail/country-detail.component';
+import { CountriesListComponent } from './countries/countries-list/countries-list.component';
 
 
 const routes: Routes = [
@@ -18,9 +19,12 @@ const routes: Routes = [
   { path: 'urlshortening', component: UrlShorteningComponent },
   { path: 'huddle', component: HuddleComponent },
   { path: 'rpsgame', component: RpsgameComponent },
-  {path: 'countries', component: CountriesComponent},
-  { path: 'countries/:countryName', component: CountryDetailComponent },
-
+  {
+    path: 'countries', component: CountriesComponent, children:
+      [
+        { path: '', component: CountriesListComponent },
+        { path: ':countryName', component: CountryDetailComponent }]
+  },
 ];
 
 @NgModule({

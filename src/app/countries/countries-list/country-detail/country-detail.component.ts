@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CountriesService } from '../../countries.service';
 
@@ -9,23 +9,26 @@ import { CountriesService } from '../../countries.service';
 })
 export class CountryDetailComponent implements OnInit {
 
+
   country;
   currencies: string[] = [];
   languages: string[] = [];
+  borderCountries = [];
 
   constructor(private route: ActivatedRoute, private countriesService: CountriesService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(
       (route) => {
+        
         const name = route.get('countryName');
         this.countriesService.getCountry(name).subscribe(
           (country) => {
             this.country = country[0];
-            console.log(this.country);
-            
             this.languages = [];
             this.currencies = [];
+            this.borderCountries = [];
+
 
             this.country.languages.forEach((obj) => {
               const language: string = obj['name'];
@@ -36,10 +39,17 @@ export class CountryDetailComponent implements OnInit {
               const currency: string = obj['name'];
               this.currencies.push(currency);
             });
+
+            this.country.borders.forEach((countryCode) => {
+              this.countriesService.getCountryByCode(countryCode).subscribe(
+                (country: string) => {
+                  this.borderCountries.push(country['name']);
+                }
+              )
+            });
           }
         );
       }
     )
   }
-
 }

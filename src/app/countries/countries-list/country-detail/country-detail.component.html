@@ -1,3 +1,10 @@
+<button [routerLink]="['/countries']" type="button">
+    <i class="fa fa-long-arrow-left"></i>
+    <span>
+        Back
+    </span>
+</button>
+
 <div class="country">
     <div *ngIf="country" class="container">
         <img [src]="country.flag" alt="">
@@ -60,6 +67,13 @@
                     </h4>
                 </div>
             </div>
+            <h4>
+                Border Countries:
+                <span [routerLink]="['/countries',borderCountry]" *ngFor="let borderCountry of borderCountries"
+                    class="border">
+                    {{borderCountry}}
+                </span>
+            </h4>
         </div>
     </div>
 </div>

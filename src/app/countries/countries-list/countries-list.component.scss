@@ -1,3 +1,74 @@
+.search {
+  margin-bottom: 3rem;
+
+  .container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    input {
+      border-radius: 5px;
+      flex-grow: 0.2;
+      border: 0;
+      padding-left: 4rem;
+    }
+
+    > i {
+      position: absolute;
+      top: 1rem;
+      left: 2rem;
+    }
+
+    .filter {
+      position: relative;
+
+      div,
+      ul {
+        background-color: #ffffff;
+        padding: 1rem;
+        border-radius: 5px;
+      }
+
+      div {
+        cursor: pointer;
+        display: flex;
+      }
+
+      p {
+        display: inline-block;
+        margin: 0;
+        margin-right: 2rem;
+      }
+
+      ul {
+        position: absolute;
+        width: -webkit-fill-available;
+        list-style: none;
+        display: block;
+        animation: dropdown 0.8s forwards;
+
+        li {
+          margin-bottom: 0.5rem;
+          cursor: pointer;
+          &:hover {
+            background-color: #c39e9e24;
+          }
+        }
+      }
+
+      @keyframes dropdown {
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
 .countries {
   .container {
     // display: grid;
@@ -17,7 +88,6 @@
       display: flex;
       flex-direction: column;
       max-width: min-content;
-
 
       .flag {
         height: 45%;

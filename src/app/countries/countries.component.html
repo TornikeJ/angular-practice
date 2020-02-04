@@ -1,38 +1,18 @@
-<div class="wrapper">
-    <div class="header">
-        <div class="container">
+<div class="wrapper" [ngStyle]="{'background-color': backgroundColor}">
+    <div class="header" [ngStyle]="{'background-color': backgroundElementColor}">
+        <div class="container" [ngStyle]="{'color': backgroundTextColor}">
             <h1>
                 Where in the world?
             </h1>
-            <h4>
+            <h4 (click)="changeBackgroundColor()">
+                <i class="fa fa-moon-o"></i>
                 Dark Mode
             </h4>
         </div>
     </div>
-    <div class="search">
+    <div class="content">
         <div class="container">
-            <input type="text" [(ngModel)]="search" placeholder="Search for a country...">
-            <i class="fa fa-search"></i>
-            <div class="filter">
-                <div (click)="showRegions == 'none'? showRegions='block' : showRegions='none'">
-                    <p>
-                        Filter by Region
-                    </p>
-                    <i class="fa fa-angle-down"></i>
-                </div>
-                <ul [ngStyle]="{'display': showRegions}">
-                    <li>Africa</li>
-                    <li>America</li>
-                    <li>Asia</li>
-                    <li>Europe</li>
-                    <li>Oceania</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="container">
-            <app-countries-list [searchCountry]="search"></app-countries-list>
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>

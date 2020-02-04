@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { CountriesService } from '../countries.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-countries-list',
@@ -9,14 +10,20 @@ import { CountriesService } from '../countries.service';
 export class CountriesListComponent implements OnInit {
 
   countries = [];
-
   filteredCountries = [];
+
+  showRegions: string;
+  regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
+  regionSelected;
+
+
+  @ViewChild('regionEl', { static: true }) regionElement: ElementRef;
 
   private _searchCountry: string;
 
-  @Input() set searchCountry(value: string) {
+  set searchCountry(value: string) {
     this._searchCountry = value;
-    this.filterCountries(value);
+    this.filteredCountries = this.filterCountries(value);
   }
 
   get searchCountry() {
@@ -24,21 +31,57 @@ export class CountriesListComponent implements OnInit {
   }
 
   filterCountries(value: string) {
-    this.filteredCountries = this.countries.filter(arr => arr['name'].toLowerCase().indexOf(value.toLowerCase()) !== -1);
+    return this.countries.filter(arr => arr['name'].toLowerCase().indexOf(value.toLowerCase()) !== -1 && (this.regionSelected !== 'Filter by Region' ? arr['region'] === this.regionSelected : true));
   }
 
-  constructor(private countriesService: CountriesService) { }
+
+
+  constructor(
+    private countriesService: CountriesService,
+    private renderer: Renderer2
+  ) { }
+
 
   ngOnInit() {
+
+    this.showRegions = 'none';
+    this.regionSelected = 'Filter by Region'
+
+
+    this.renderer.listen('window', 'click', (e: Event) => {
+      if (!this.regionElement.nativeElement.contains(e.target)) {
+        this.showRegions = 'none';
+      }
+    });
+
     this.countriesService.getAllCountries().subscribe(
       (countries: []) => {
         this.countries = [...countries];
-
-        if (this.filteredCountries.length === 0) {
-          this.filteredCountries = this.countries;
-        }
+        this.filteredCountries = this.countries;
       }
     )
+
   }
 
+
+  regionChanged(region: string) {
+    this.regionSelected = region;
+
+    if (this.regionSelected === 'Filter by Region') {
+      this.countriesService.getAllCountries().subscribe(
+        (countries: []) => {
+          this.countries = [...countries];
+          this.filteredCountries = this.countries;
+          this.searchCountry = this.searchCountry;
+        }
+      )
+    } else {
+      this.countriesService.getCountriesByRegion(this.regionSelected).subscribe(
+        (countries: []) => {
+          this.filteredCountries = countries;
+          this.searchCountry = this.searchCountry;
+        }
+      )
+    }
+  }
 }

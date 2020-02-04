@@ -14,7 +14,7 @@
             </div>
             <ul [ngStyle]="{'display': showRegions, 'background-color':backgroundElementColor}">
                 <li *ngFor="let region of regions" (click)="regionChanged(region)">{{region}}</li>
-                <li *ngIf="filter !== 'Filter by Region'" (click)="regionChanged('Filter by Region')">Reset Filter
+                <li *ngIf="regionSelected !== 'Filter by Region'" (click)="regionChanged('Filter by Region')">Reset Filter
                 </li>
             </ul>
         </div>

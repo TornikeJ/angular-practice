@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({ providedIn: 'root' })
 
 export class CountriesService {
+
+    switchMode = new BehaviorSubject({});
+
     constructor(private htppClient: HttpClient) { }
+
+    switchModes() {
+
+    }
 
     getAllCountries() {
         return this.htppClient.get('https://restcountries.eu/rest/v2/all');
@@ -19,7 +27,7 @@ export class CountriesService {
         return this.htppClient.get(`https://restcountries.eu/rest/v2/name/${name}`);
     }
 
-    getCountryByCode(code: string){
+    getCountryByCode(code: string) {
         return this.htppClient.get(`https://restcountries.eu/rest/v2/alpha/${code}`);
     }
 

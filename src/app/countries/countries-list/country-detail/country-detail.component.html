@@ -1,10 +1,10 @@
-<button [routerLink]="['/countries']" type="button">
+<button [ngStyle]="{'color': backgroundTextColor, 'background':backgroundElementColor}" [routerLink]="['/countries']"
+    type="button">
     <i class="fa fa-long-arrow-left"></i>
     <span>
         Back
     </span>
 </button>
-
 <div class="country">
     <div *ngIf="country" class="container">
         <img [src]="country.flag" alt="">

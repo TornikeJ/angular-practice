@@ -1,6 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CountriesService } from '../../countries.service';
+import { StyleModel } from '../../style.model';
 
 @Component({
   selector: 'app-country-detail',
@@ -15,12 +16,15 @@ export class CountryDetailComponent implements OnInit {
   languages: string[] = [];
   borderCountries = [];
 
+  backgroundColor;
+  backgroundElementColor;
+  backgroundTextColor;
+
   constructor(private route: ActivatedRoute, private countriesService: CountriesService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(
       (route) => {
-        
         const name = route.get('countryName');
         this.countriesService.getCountry(name).subscribe(
           (country) => {
@@ -45,11 +49,19 @@ export class CountryDetailComponent implements OnInit {
                 (country: string) => {
                   this.borderCountries.push(country['name']);
                 }
-              )
+              );
             });
           }
         );
+
+        this.countriesService.switchMode.subscribe(
+          (style: StyleModel) => {
+            this.backgroundColor = style.backgroundColor;
+            this.backgroundElementColor = style.backgroundElementColor;
+            this.backgroundTextColor = style.backgroundTextColor;
+          }
+        );
       }
-    )
+    );
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { CountriesService } from '../countries.service';
 import { Subject } from 'rxjs';
+import { StyleModel } from '../style.model';
 
 @Component({
   selector: 'app-countries-list',
@@ -31,10 +32,14 @@ export class CountriesListComponent implements OnInit {
   }
 
   filterCountries(value: string) {
-    return this.countries.filter(arr => arr['name'].toLowerCase().indexOf(value.toLowerCase()) !== -1 && (this.regionSelected !== 'Filter by Region' ? arr['region'] === this.regionSelected : true));
+    return this.countries.filter(arr => arr['name'].toLowerCase().indexOf(value.toLowerCase()) !== -1
+      &&
+      (this.regionSelected !== 'Filter by Region' ? arr['region'] === this.regionSelected : true));
   }
 
-
+  backgroundColor;
+  backgroundElementColor;
+  backgroundTextColor;
 
   constructor(
     private countriesService: CountriesService,
@@ -59,7 +64,15 @@ export class CountriesListComponent implements OnInit {
         this.countries = [...countries];
         this.filteredCountries = this.countries;
       }
-    )
+    );
+
+    this.countriesService.switchMode.subscribe(
+      (style: StyleModel) => {
+        this.backgroundColor = style.backgroundColor;
+        this.backgroundElementColor = style.backgroundElementColor;
+        this.backgroundTextColor = style.backgroundTextColor;
+      }
+    );
 
   }
 

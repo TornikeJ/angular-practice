@@ -41,6 +41,9 @@ export class HomeComponent implements OnInit {
       case 'rpsgame':
         this.color = '#1f3756';
         break;
+      case 'countries':
+        this.color = '#202c37';
+        break;
       default:
         this.color = '#ed6491';
     }

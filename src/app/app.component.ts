@@ -22,7 +22,7 @@ export class AppComponent {
     this.router.events.subscribe(
       (router) => {
         if (router instanceof NavigationEnd) {
-          this.activatedComponent =router.url.slice(1).split('/')[0];
+          this.activatedComponent = router.url.slice(1).split('/')[0];
           this.updateNavbarColor(this.activatedComponent);
         }
       }
@@ -48,6 +48,9 @@ export class AppComponent {
         break;
       case 'rpsgame':
         this.color = '#1f3756';
+        break;
+      case 'countries':
+        this.color = '#202c37';
         break;
       default:
         this.color = '#ed6491';

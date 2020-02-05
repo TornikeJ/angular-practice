@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2, HostListener, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { CountriesService } from '../countries.service';
 import { Subject } from 'rxjs';
 import { StyleModel } from '../style.model';
@@ -8,7 +8,7 @@ import { StyleModel } from '../style.model';
   templateUrl: './countries-list.component.html',
   styleUrls: ['./countries-list.component.scss'],
 })
-export class CountriesListComponent implements OnInit {
+export class CountriesListComponent implements OnInit, AfterViewChecked {
 
   countries = [];
   filteredCountries = [];
@@ -18,9 +18,20 @@ export class CountriesListComponent implements OnInit {
   regionSelected;
 
 
-  @ViewChild('regionEl', { static: true }) regionElement: ElementRef;
 
-  private _searchCountry: string;
+  @ViewChild('regionEl', { static: true }) regionElement: ElementRef;
+  @ViewChild('countriesWidth', { static: true }) countriesElement: ElementRef;
+  countriesWidh: number;
+  countryWidth: number
+  difference: number;
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.checkWidth();
+  }
+
+  private _searchCountry: string='';
 
   set searchCountry(value: string) {
     this._searchCountry = value;
@@ -43,7 +54,8 @@ export class CountriesListComponent implements OnInit {
 
   constructor(
     private countriesService: CountriesService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private cdRef: ChangeDetectorRef
   ) { }
 
 
@@ -97,4 +109,39 @@ export class CountriesListComponent implements OnInit {
       )
     }
   }
+
+  ngAfterViewChecked() {
+    try {
+      this.checkWidth();
+    }
+    catch (e) {
+    }
+    finally {
+      this.cdRef.detectChanges();
+    }
+  }
+
+  checkWidth() {
+    const containerWidth = this.countriesElement.nativeElement.offsetWidth
+    this.countryWidth = this.countriesElement.nativeElement.children[0].children[0].offsetWidth
+    const rowLength = Math.floor(containerWidth / this.countryWidth);
+    const lastRowLength = this.filteredCountries.length % rowLength;
+    const rowGapLenth = (containerWidth - this.countryWidth * rowLength) / (rowLength - 1);
+
+
+    if (lastRowLength === 0) {
+      this.difference = 0;
+    } else {
+      this.difference = rowLength - lastRowLength;
+
+      if (this.difference === 1) {
+        this.countryWidth = (this.difference * this.countryWidth);
+      }
+      else {
+        this.countryWidth = (this.difference * this.countryWidth) + rowGapLenth;
+      }
+    }
+
+  }
+
 }

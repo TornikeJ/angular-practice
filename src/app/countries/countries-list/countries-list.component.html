@@ -1,12 +1,11 @@
 <div class="search">
     <div class="container">
-        <input type="text" [(ngModel)]="searchCountry" 
-        placeholder="Search for a country..."
-        [ngStyle]="{'background-color': backgroundElementColor}">
+        <input type="text" [(ngModel)]="searchCountry" placeholder="Search for a country..."
+            [ngStyle]="{'background-color': backgroundElementColor, 'color': backgroundTextColor}">
         <i class="fa fa-search"></i>
         <div class="filter">
             <div #regionEl (click)="showRegions == 'none'? showRegions='block' : showRegions='none'"
-            [ngStyle]="{'background-color': backgroundElementColor}">
+                [ngStyle]="{'background-color': backgroundElementColor}">
                 <p>
                     {{regionSelected}}
                 </p>
@@ -14,19 +13,19 @@
             </div>
             <ul [ngStyle]="{'display': showRegions, 'background-color':backgroundElementColor}">
                 <li *ngFor="let region of regions" (click)="regionChanged(region)">{{region}}</li>
-                <li *ngIf="regionSelected !== 'Filter by Region'" (click)="regionChanged('Filter by Region')">Reset Filter
+                <li *ngIf="regionSelected !== 'Filter by Region'" (click)="regionChanged('Filter by Region')">Reset
+                    Filter
                 </li>
             </ul>
         </div>
     </div>
 </div>
 
-<div class="countries">
+<div class="countries" #countriesWidth>
     <div class="container">
         <div [routerLink]="['/countries',country.name.toLowerCase()]" class="country"
-            *ngFor="let country of filteredCountries"
-            [ngStyle]="{'background-color': backgroundElementColor}">
-            <div class="flag">
+            *ngFor="let country of filteredCountries" [ngStyle]="{'background-color': backgroundElementColor}">
+            <div class="flag" #countryWidth>
                 <img [src]="country.flag" alt="">
             </div>
             <div class="info">
@@ -36,5 +35,6 @@
                 <p><span>Capital: </span>{{country.capital}}</p>
             </div>
         </div>
+        <div *ngIf="difference > 0" [ngStyle]="{'width': countryWidth+'px', 'height': '100%'}"></div>
     </div>
 </div>

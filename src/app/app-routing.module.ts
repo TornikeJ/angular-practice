@@ -9,6 +9,7 @@ import { RpsgameComponent } from './rpsgame/rpsgame.component';
 import { CountriesComponent } from './countries/countries.component';
 import { CountryDetailComponent } from './countries/countries-list/country-detail/country-detail.component';
 import { CountriesListComponent } from './countries/countries-list/countries-list.component';
+import { CountriesListResolver } from './countries/countries-list/countries-list.resolver.service';
 
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
   {
     path: 'countries', component: CountriesComponent, children:
       [
-        { path: '', component: CountriesListComponent },
+        { path: '', component: CountriesListComponent, resolve: { countriesList: CountriesListResolver } },
         { path: ':countryName', component: CountryDetailComponent }]
   },
 ];

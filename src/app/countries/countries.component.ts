@@ -35,6 +35,8 @@ export class CountriesComponent implements OnInit {
     this.backgroundTextColor = this.lightStyle.backgroundTextColor;
 
     this.countriesService.switchMode.next(this.lightStyle);
+
+
   }
 
   changeBackgroundColor() {

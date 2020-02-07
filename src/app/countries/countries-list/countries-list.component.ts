@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2, HostListene
 import { CountriesService } from '../countries.service';
 import { Subject } from 'rxjs';
 import { StyleModel } from '../style.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-countries-list',
@@ -31,7 +32,7 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
     this.checkWidth();
   }
 
-  private _searchCountry: string='';
+  private _searchCountry: string = '';
 
   set searchCountry(value: string) {
     this._searchCountry = value;
@@ -55,7 +56,8 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
   constructor(
     private countriesService: CountriesService,
     private renderer: Renderer2,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private _route: ActivatedRoute
   ) { }
 
 
@@ -71,12 +73,17 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
       }
     });
 
-    this.countriesService.getAllCountries().subscribe(
-      (countries: []) => {
-        this.countries = [...countries];
-        this.filteredCountries = this.countries;
-      }
-    );
+    this.countries = [...this._route.snapshot.data['countriesList']];
+
+    this.filteredCountries = this.countries;
+
+    // this.countriesService.getAllCountries().subscribe(
+    //   (countries: []) => {
+    //     this.countries = [...countries];
+    //     this.filteredCountries = this.countries;
+    //     console.log('finish');
+    //   }
+    // );
 
     this.countriesService.switchMode.subscribe(
       (style: StyleModel) => {
@@ -126,7 +133,7 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
     this.countryWidth = this.countriesElement.nativeElement.children[0].children[0].offsetWidth
     const rowLength = Math.floor(containerWidth / this.countryWidth);
     const lastRowLength = this.filteredCountries.length % rowLength;
-    const rowGapLenth = (containerWidth - this.countryWidth * rowLength) / (rowLength - 1);
+    const rowGapLength = (containerWidth - this.countryWidth * rowLength) / (rowLength - 1);
 
 
     if (lastRowLength === 0) {
@@ -138,7 +145,7 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
         this.countryWidth = (this.difference * this.countryWidth);
       }
       else {
-        this.countryWidth = (this.difference * this.countryWidth) + rowGapLenth;
+        this.countryWidth = (this.difference * this.countryWidth) + rowGapLength;
       }
     }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +10,7 @@ export class AppComponent {
 
   activatedComponent;
   color = '#ed6491';
+  showLoadingIndicator = true;
 
   constructor(
     private router: Router
@@ -20,10 +21,17 @@ export class AppComponent {
     this.activatedComponent = 'home';
 
     this.router.events.subscribe(
-      (router) => {
-        if (router instanceof NavigationEnd) {
-          this.activatedComponent = router.url.slice(1).split('/')[0];
+      (routerEvent) => {
+
+        if (routerEvent instanceof NavigationStart) {
+          this.showLoadingIndicator = true;
+        }
+
+
+        if (routerEvent instanceof NavigationEnd) {
+          this.activatedComponent = routerEvent.url.slice(1).split('/')[0];
           this.updateNavbarColor(this.activatedComponent);
+          this.showLoadingIndicator = false;
         }
       }
     )

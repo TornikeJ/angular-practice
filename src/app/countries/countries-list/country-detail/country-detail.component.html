@@ -69,10 +69,12 @@
             </div>
             <h4>
                 Border Countries:
-                <span [routerLink]="['/countries',borderCountry]" *ngFor="let borderCountry of borderCountries"
-                    class="border">
-                    {{borderCountry}}
-                </span>
+                <div>
+                    <span [routerLink]="['/countries',borderCountry]" *ngFor="let borderCountry of borderCountries"
+                        class="border">
+                        {{borderCountry}}
+                    </span>
+                </div>
             </h4>
         </div>
     </div>

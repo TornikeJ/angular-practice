@@ -111,3 +111,31 @@
     }
   }
 }
+
+@media only screen and (max-width: 710px) {
+  .countries {
+    .container {
+      justify-content: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 510px) {
+  .search {
+    .container {
+      flex-direction: column;
+      align-items: center;
+
+      input {
+        width: -webkit-fill-available;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .filter {
+        align-self: flex-start;
+      }
+    }
+  }
+}

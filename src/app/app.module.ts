@@ -17,6 +17,7 @@ import { VersusComponent } from './rpsgame/versus/versus.component';
 import { CountriesComponent } from './countries/countries.component';
 import { CountriesListComponent } from './countries/countries-list/countries-list.component';
 import { CountryDetailComponent } from './countries/countries-list/country-detail/country-detail.component';
+import { BookmarkLandingComponent } from './bookmark-landing/bookmark-landing.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { CountryDetailComponent } from './countries/countries-list/country-detai
     VersusComponent,
     CountriesComponent,
     CountriesListComponent,
-    CountryDetailComponent
+    CountryDetailComponent,
+    BookmarkLandingComponent
   ],
   imports: [
     BrowserModule,

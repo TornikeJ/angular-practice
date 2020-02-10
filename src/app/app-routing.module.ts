@@ -10,6 +10,7 @@ import { CountriesComponent } from './countries/countries.component';
 import { CountryDetailComponent } from './countries/countries-list/country-detail/country-detail.component';
 import { CountriesListComponent } from './countries/countries-list/countries-list.component';
 import { CountriesListResolver } from './countries/countries-list/countries-list.resolver.service';
+import { BookmarkLandingComponent } from './bookmark-landing/bookmark-landing.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
         { path: '', component: CountriesListComponent, resolve: { countriesList: CountriesListResolver } },
         { path: ':countryName', component: CountryDetailComponent }]
   },
+  { path: 'bookmarklanding', component: BookmarkLandingComponent }
 ];
 
 @NgModule({

@@ -14,7 +14,7 @@ export class BookmarkLandingComponent implements OnInit {
   showDesktop = false;
   innerWidth;
   selectedFeature = 1;
-  selectAnswer;
+  selectAnswer: boolean[]= [];
   subscription: Subscription
   source;
   reset = new Subject();
@@ -33,24 +33,26 @@ export class BookmarkLandingComponent implements OnInit {
     this.innerWidth = window.innerWidth;
     this.checkWidth();
 
-    // this.subscription = this.reset.pipe(
-    //   startWith(0),
-    //   switchMap(() => timer(5000, 5000))
-    // ).subscribe(
-    //   () => {
-    //     this.selectedFeature++;
+    this.subscription = this.reset.pipe(
+      startWith(0),
+      switchMap(() => timer(5000, 5000))
+    ).subscribe(
+      () => {
+        this.selectedFeature++;
 
-    //     if (this.selectedFeature == 4) {
-    //       this.selectedFeature = 1;
-    //     }
-    //   }
-    // );
+        if (this.selectedFeature == 4) {
+          this.selectedFeature = 1;
+        }
+      }
+    );
   }
 
   selectFeature(number: number) {
     this.selectedFeature = number;
     this.reset.next();
   }
+
+
   checkWidth() {
     if (this.innerWidth > 980) {
       this.displayStyle = 'flex';
@@ -72,11 +74,11 @@ export class BookmarkLandingComponent implements OnInit {
   }
 
   showAnswer(number: number) {
-    if (this.selectAnswer === number) {
-      this.selectAnswer = null;
+    if (this.selectAnswer[number] === true) {
+      this.selectAnswer[number] = false;
     }
     else {
-      this.selectAnswer = number;
+      this.selectAnswer[number] = true;
     }
   }
 }

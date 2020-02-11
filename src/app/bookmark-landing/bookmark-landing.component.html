@@ -50,10 +50,9 @@
                     between your devices so you can access them on the go.
                 </p>
                 <div>
-                    <span (click)="selectFeature(1)">Simple Bookmarking</span>
-                    <span (click)="selectFeature(2)">Speedy Searching</span>
-                    <span (click)="selectFeature(3)">Easy Sharing</span>
-                    <hr>
+                    <span (click)="selectFeature(1)" [ngClass]="{'active':selectedFeature==1}">Simple Bookmarking</span>
+                    <span (click)="selectFeature(2)" [ngClass]="{'active':selectedFeature==2}">Speedy Searching</span>
+                    <span (click)="selectFeature(3)" [ngClass]="{'active':selectedFeature==3}">Easy Sharing</span>
                 </div>
             </div>
             <div class="feature">
@@ -105,7 +104,7 @@
                 <img src="assets/bookmark-landing/bg-dots.svg" alt="">
                 <button class="blue">Add & Install Extension</button>
             </div>
-            <div class="firework">
+            <div class="firefox">
                 <img src="assets/bookmark-landing/logo-firefox.svg" alt="">
                 <h3>
                     Add to Firework
@@ -141,21 +140,21 @@
             </p>
             <div>
                 <h4 (click)="showAnswer(1)">What is Bookmark?
-                    <img *ngIf="selectAnswer != 1" src="assets/bookmark-landing/icon-arrow.svg" alt="">
-                    <img *ngIf="selectAnswer == 1" src="assets/bookmark-landing/icon-arrow-close.svg"
+                    <img *ngIf="!selectAnswer[1]" src="assets/bookmark-landing/icon-arrow.svg" alt="">
+                    <img *ngIf="selectAnswer[1]" src="assets/bookmark-landing/icon-arrow-close.svg"
                         style="transform: rotate(180deg);" alt="">
                 </h4>
-                <p *ngIf="selectAnswer == 1">
+                <p *ngIf="selectAnswer[1]">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tincidunt justo eget ultricies
                     fringilla.
                     Phasellus blandit ipsum quis quam ornare mattis.
                 </p>
                 <h4 (click)="showAnswer(2)">How can I request a new browser?
-                    <img *ngIf="selectAnswer != 2" src="assets/bookmark-landing/icon-arrow.svg" alt="">
-                    <img *ngIf="selectAnswer == 2" src="assets/bookmark-landing/icon-arrow-close.svg"
+                    <img *ngIf="!selectAnswer[2]" src="assets/bookmark-landing/icon-arrow.svg" alt="">
+                    <img *ngIf="selectAnswer[2]" src="assets/bookmark-landing/icon-arrow-close.svg"
                         style="transform: rotate(180deg);" alt="">
                 </h4>
-                <p *ngIf="selectAnswer == 2">
+                <p *ngIf="selectAnswer[2]">
                     Vivamus luctus eros aliquet convallis ultricies. Mauris augue massa, ultricies non ligula.
                     Suspendisse
                     imperdiet. Vivamus luctus eros aliquet convallis ultricies. Mauris augue massa, ultricies non
@@ -165,11 +164,11 @@
                     ligula. Suspendisse imperdiet.
                 </p>
                 <h4 (click)="showAnswer(3)">Is there a mobile app?
-                    <img *ngIf="selectAnswer != 3" src="assets/bookmark-landing/icon-arrow.svg" alt="">
-                    <img *ngIf="selectAnswer == 3" src="assets/bookmark-landing/icon-arrow-close.svg"
+                    <img *ngIf="!selectAnswer[3]" src="assets/bookmark-landing/icon-arrow.svg" alt="">
+                    <img *ngIf="selectAnswer[3]" src="assets/bookmark-landing/icon-arrow-close.svg"
                         style="transform: rotate(180deg);" alt="">
                 </h4>
-                <p *ngIf="selectAnswer == 3">
+                <p *ngIf="selectAnswer[3]">
                     Sed consectetur quam id neque fermentum accumsan. Praesent luctus vestibulum dolor, ut condimentum
                     urna
                     vulputate eget. Cras in ligula quis est pharetra mattis sit amet pharetra purus. Sed sollicitudin ex
@@ -177,11 +176,11 @@
                     ultricies bibendum.
                 </p>
                 <h4 (click)="showAnswer(4)">What about other Chromium browsers?
-                    <img *ngIf="selectAnswer != 4" src="assets/bookmark-landing/icon-arrow.svg" alt="">
-                    <img *ngIf="selectAnswer == 4" src="assets/bookmark-landing/icon-arrow-close.svg"
+                    <img *ngIf="!selectAnswer[4]" src="assets/bookmark-landing/icon-arrow.svg" alt="">
+                    <img *ngIf="selectAnswer[4]" src="assets/bookmark-landing/icon-arrow-close.svg"
                         style="transform: rotate(180deg);" alt="">
                 </h4>
-                <p *ngIf="selectAnswer == 4">
+                <p *ngIf="selectAnswer[4]">
                     Integer condimentum ipsum id imperdiet finibus. Vivamus in placerat mi, at euismod dui. Aliquam
                     vitae
                     neque
@@ -197,8 +196,16 @@
             <h4>35,000+ already joined</h4>
             <h1>Stay up-to-date with what we’re doing</h1>
             <div>
-                <input type="email">
-                <button class="orange">Contact Us</button>
+                <div>
+                    <input (input)="checkEmail=false" email  ngModel type="email" required #email="ngModel"
+                        [ngClass]="{'error': checkEmail && email.dirty && email.invalid,
+                    'success':checkEmail && email.valid}">
+                    <span *ngIf="checkEmail && email.invalid && email.dirty">
+                        Whoops, make sure it's an email</span>
+                    <span *ngIf="checkEmail && email.valid && email.dirty">
+                        Thanks for contacting us</span>
+                </div>
+                <button class="orange" (click)="checkEmail=true">Contact Us</button>
             </div>
         </div>
     </div>

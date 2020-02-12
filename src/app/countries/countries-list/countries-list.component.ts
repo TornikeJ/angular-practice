@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2, HostListene
 import { CountriesService } from '../countries.service';
 import { Subject } from 'rxjs';
 import { StyleModel } from '../style.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-countries-list',
@@ -57,7 +57,8 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
     private countriesService: CountriesService,
     private renderer: Renderer2,
     private cdRef: ChangeDetectorRef,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private router: Router
   ) { }
 
 
@@ -77,13 +78,17 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
 
     this.filteredCountries = this.countries;
 
-    // this.countriesService.getAllCountries().subscribe(
-    //   (countries: []) => {
-    //     this.countries = [...countries];
-    //     this.filteredCountries = this.countries;
-    //     console.log('finish');
-    //   }
-    // );
+    this._route.queryParams.subscribe(
+      (params: Params) => {
+        if (params['region']) {
+          this.regionChanged(params['region']);
+        }
+
+        if (params['search']) {
+          this.searchCountry = params['search'];
+        }
+      }
+    )
 
     this.countriesService.switchMode.subscribe(
       (style: StyleModel) => {
@@ -105,6 +110,7 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
           this.countries = [...countries];
           this.filteredCountries = this.countries;
           this.searchCountry = this.searchCountry;
+          this.router.navigate(['/countries'], { queryParams: { region: null } })
         }
       )
     } else {

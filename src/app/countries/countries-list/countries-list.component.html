@@ -12,8 +12,9 @@
                 <i class="fa fa-angle-down"></i>
             </div>
             <ul [ngStyle]="{'display': showRegions, 'background-color':backgroundElementColor}">
-                <li *ngFor="let region of regions" (click)="regionChanged(region)">{{region}}</li>
-                <li *ngIf="regionSelected !== 'Filter by Region'" (click)="regionChanged('Filter by Region')">Reset
+                <li *ngFor="let region of regions" [routerLink]="[]" [queryParams]="{ region: region}"
+                    (click)="regionChanged(region)">{{region}}</li>
+                <li *ngIf="regionSelected !== 'Filter by Region'"  (click)="regionChanged('Filter by Region')">Reset
                     Filter
                 </li>
             </ul>
@@ -23,8 +24,9 @@
 
 <div class="countries" #countriesWidth>
     <div class="container">
-        <div [routerLink]="['/countries',country.name.toLowerCase()]" class="country"
-            *ngFor="let country of filteredCountries" [ngStyle]="{'background-color': backgroundElementColor}">
+        <div [routerLink]="['/countries',country.name.toLowerCase()]" queryParamsHandling='merge'
+            [queryParams]="{ search: searchCountry? searchCountry : null}" class="country" *ngFor="let country of filteredCountries"
+            [ngStyle]="{'background-color': backgroundElementColor}">
             <div class="flag" #countryWidth>
                 <img [src]="country.flag" alt="">
             </div>

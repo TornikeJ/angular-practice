@@ -1,4 +1,4 @@
-<button [ngStyle]="{'color': backgroundTextColor, 'background':backgroundElementColor}" [routerLink]="['/countries']"
+<button [ngStyle]="{'color': backgroundTextColor, 'background':backgroundElementColor}"  queryParamsHandling='preserve' [routerLink]="['/countries']"
     type="button">
     <i class="fa fa-long-arrow-left"></i>
     <span>
@@ -70,7 +70,7 @@
             <h4>
                 Border Countries:
                 <div>
-                    <span [routerLink]="['/countries',borderCountry]" *ngFor="let borderCountry of borderCountries"
+                    <span [routerLink]="['/countries',borderCountry]"   queryParamsHandling='preserve' *ngFor="let borderCountry of borderCountries"
                         class="border">
                         {{borderCountry}}
                     </span>

@@ -30,6 +30,7 @@ export class AppComponent {
 
         if (routerEvent instanceof NavigationEnd) {
           this.activatedComponent = routerEvent.url.slice(1).split('/')[0];
+          this.activatedComponent = this.activatedComponent.slice(0).split('?')[0];
           this.updateNavbarColor(this.activatedComponent);
           this.showLoadingIndicator = false;
         }
@@ -59,6 +60,9 @@ export class AppComponent {
         break;
       case 'countries':
         this.color = '#202c37';
+        break;
+      case 'bookmarklanding':
+        this.color = '#5368df';
         break;
       default:
         this.color = '#ed6491';

@@ -14,9 +14,10 @@ export class BookmarkLandingComponent implements OnInit {
   showDesktop = false;
   innerWidth;
   selectedFeature = 1;
-  selectAnswer: boolean[]= [];
+  selectAnswer: boolean[] = [];
   subscription: Subscription
   source;
+  checkEmail = false;
   reset = new Subject();
 
   @HostListener('window:resize', ['$event'])

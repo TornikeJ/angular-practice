@@ -400,12 +400,390 @@ p {
   color: #808080c9;
 }
 
+.menu {
+  display: none;
+
+  div {
+    background-color: $color4;
+    width: 28px;
+    height: 4px;
+    margin-bottom: 6px;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .intro {
+    .container {
+      .illustration {
+        img {
+          width: 90%;
+        }
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 1430px) {
   .contact {
     .container {
       > div {
         justify-content: space-between;
+
+        input{
+          &.error{
+            border-bottom-width: 3rem;
+          }
+        }
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 1120px) {
+  .intro {
+    .container {
+      .text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        button {
+          &.blue {
+            margin-right: 0;
+            margin-bottom: 1rem;
+          }
+        }
+      }
+    }
+  }
+  .contact {
+    .container {
+      > div {
+        flex-direction: column;
+        align-items: initial;
+
+        input {
+          width: 100%;
+          box-sizing: border-box;
+          margin-bottom: 1rem;
+
+          &.error {
+            border-bottom-width: 3rem;
+          }
+        }
+
+        span {
+          bottom: 20%;
+          left: 1%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  .extensions {
+    .container {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .features {
+    margin-bottom: 0;
+    .text {
+      span {
+        animation: burgerMenu 2s forwards !important;
+      }
+    }
+    .feature {
+      > div {
+        min-height: 50rem;
+        flex-direction: column;
+
+        img {
+          margin-bottom: 11rem;
+        }
+
+        > div {
+          width: 55%;
+          text-align: center;
+        }
+      }
+    }
+
+    &:before {
+      top: 33%;
+      right: 35%;
+      height: 46%;
+    }
+  }
+
+  .faq {
+    .container {
+      width: 70%;
+    }
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  nav {
+    padding: 2rem;
+    position: relative;
+
+    .container {
+      padding: 0;
+
+      .logo {
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        position: relative;
+        width: 100%;
+      }
+
+      .desktop {
+        animation: burgerMenu 0.5s forwards;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        background-color: #252b46eb;
+        padding: 1rem;
+        align-self: baseline;
+        z-index: 2;
+        position: absolute;
+        width: -webkit-fill-available;
+        top: 0;
+        left: 0;
+        color: white;
+        height: 100vh;
+
+        @keyframes burgerMenu {
+          0% {
+            opacity: 0;
+          }
+
+          100% {
+            opacity: 1;
+          }
+        }
+
+        ul {
+          padding: 0;
+          padding-top: 4rem;
+          flex-direction: column;
+          text-align: center;
+          margin-bottom: 1rem;
+          width: -webkit-fill-available;
+
+          li {
+            margin-right: 0;
+            line-height: 2.5rem;
+            padding: 1rem;
+
+            &:hover {
+              color: white;
+            }
+          }
+        }
+
+        hr {
+          display: initial;
+          width: 100%;
+          background-color: #747784;
+          border: none;
+          height: 1px;
+        }
+
+        > div {
+          width: 100%;
+        }
+
+        button {
+          background-color: transparent;
+          border-color: #747784;
+          width: 100%;
+          color: white;
+          margin-bottom: 5rem;
+
+          &:hover {
+            background-color: white;
+            color: $color4;
+          }
+        }
+
+        .social {
+          display: flex;
+          justify-content: space-evenly;
+
+          img {
+            &:hover {
+              cursor: pointer;
+              filter: invert(0.4) sepia(1) saturate(50) hue-rotate(220deg) brightness(0.87);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .intro {
+    .container {
+      flex-direction: column-reverse;
+      align-items: center;
+
+      .text {
+        width: 60%;
+        text-align: center;
+      }
+
+      .illustration {
+        transform: translateX(0);
+        margin-bottom: 3rem;
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .contact {
+    padding: 3rem;
+    .container {
+      box-sizing: border-box;
+      width: 60%;
+    }
+  }
+
+  .menu {
+    display: initial;
+    position: absolute;
+    right: 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .contact {
+    padding: 2rem 0;
+
+    .container {
+      width: 80%;
+    }
+  }
+
+  .faq {
+    .container {
+      width: 90%;
+      box-sizing: border-box;
+    }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .features {
+    margin-bottom: 0;
+
+    .container {
+      .text {
+        > div {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+
+    .feature {
+      > div {
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    &:before {
+      top: 44%;
+      height: 29%;
+    }
+  }
+
+  .footer {
+    .container {
+      flex-direction: column;
+      align-items: center;
+
+      .logo {
+        margin-bottom: 2.5rem;
+      }
+
+      .desktop {
+        margin-right: 0;
+
+        ul {
+          padding: 0;
+          flex-direction: column;
+          align-items: center;
+
+          li {
+            margin-right: 0;
+            margin-bottom: 2rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .intro {
+    .container {
+      .text {
+        width: 100%;
+      }
+    }
+  }
+
+  .contact {
+    padding: 2rem 0;
+
+    .container {
+      width: 80%;
+    }
+  }
+
+  .faq {
+    .container {
+      width: 100%;
+
+      h4 {
+        padding-right: 0;
+      }
+    }
+  }
+
+  .features {
+    .feature {
+      > div {
+        img {
+          width: 100%;
+        }
+
+        > div {
+          width: 100%;
+        }
+      }
+    }
+
+    .text {
+      p {
+        width: 100%;
+      }
+    }
+
+    &:before {
+      top: 47%;
+      height: 18%;
     }
   }
 }

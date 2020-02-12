@@ -2,22 +2,31 @@
     <nav>
         <div class="container">
             <div class="logo">
-                <img src="assets/bookmark-landing/logo-bookmark.svg" alt="">
+                <img src="assets/bookmark-landing/logo-bookmark-white.svg" *ngIf="showDesktop" alt="">
+                <img src="assets/bookmark-landing/logo-bookmark.svg" *ngIf="!showDesktop" alt="">
                 <div class="menu" (click)="menuClicked()">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div *ngIf="!showDesktop"></div>
+                    <div *ngIf="!showDesktop"></div>
+                    <div *ngIf="!showDesktop"></div>
+                    <img *ngIf="showDesktop" src="assets/bookmark-landing/icon-close.svg" alt="">
                 </div>
             </div>
             <div class="desktop" [ngStyle]="{'display': displayStyle}">
                 <ul>
+                    <hr>
                     <li>Features</li>
+                    <hr>
                     <li>Pricing</li>
+                    <hr>
                     <li>Contact</li>
+                    <hr>
                 </ul>
-                <hr>
                 <div>
                     <button class="orange">Login</button>
+                </div>
+                <div *ngIf="showDesktop" class="social">
+                    <img src="assets/bookmark-landing/icon-facebook.svg" alt="">
+                    <img src="assets/bookmark-landing/icon-twitter.svg" alt="">
                 </div>
             </div>
         </div>
@@ -197,8 +206,7 @@
             <h1>Stay up-to-date with what we’re doing</h1>
             <div>
                 <div>
-                    <input (input)="checkEmail=false" email  ngModel type="email" required #email="ngModel"
-                        [ngClass]="{'error': checkEmail && email.dirty && email.invalid,
+                    <input (input)="checkEmail=false" email ngModel type="email" required #email="ngModel" [ngClass]="{'error': checkEmail && email.dirty && email.invalid,
                     'success':checkEmail && email.valid}">
                     <span *ngIf="checkEmail && email.invalid && email.dirty">
                         Whoops, make sure it's an email</span>
@@ -214,7 +222,7 @@
             <div class="logo">
                 <img src="assets/bookmark-landing/logo-bookmark-white.svg" alt="">
             </div>
-            <div class="desktop" [ngStyle]="{'display': displayStyle}">
+            <div class="desktop">
                 <ul>
                     <li>Features</li>
                     <li>Pricing</li>

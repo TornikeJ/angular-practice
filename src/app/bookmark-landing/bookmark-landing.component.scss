@@ -574,7 +574,7 @@ p {
           padding-top: 4rem;
           flex-direction: column;
           text-align: center;
-          margin-bottom: 1rem;
+          margin-bottom: 2rem;
           width: -webkit-fill-available;
 
           li {
@@ -605,7 +605,6 @@ p {
           border-color: #747784;
           width: 100%;
           color: white;
-          margin-bottom: 5rem;
 
           &:hover {
             background-color: white;
@@ -613,17 +612,6 @@ p {
           }
         }
 
-        .social {
-          display: flex;
-          justify-content: space-evenly;
-
-          img {
-            &:hover {
-              cursor: pointer;
-              filter: invert(0.4) sepia(1) saturate(50) hue-rotate(220deg) brightness(0.87);
-            }
-          }
-        }
       }
     }
   }

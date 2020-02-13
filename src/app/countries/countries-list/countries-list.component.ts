@@ -24,17 +24,29 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
   @ViewChild('countriesWidth', { static: true }) countriesElement: ElementRef;
   countriesWidh: number;
   countryWidth: number
+  countryHeight: number
   difference: number;
+  multiplyHeight: number = 1;
 
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.checkWidth();
+    this.checkWindowSize();
   }
+
+  @HostListener("window:scroll", [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= 2 * document.body.offsetHeight * this.multiplyHeight) {
+      this.multiplyHeight++;
+      this.filteredCountries = this.filterCountries(this.searchCountry);
+    }
+  }
+
 
   private _searchCountry: string = '';
 
   set searchCountry(value: string) {
+    this.multiplyHeight = 1;
     this._searchCountry = value;
     this.filteredCountries = this.filterCountries(value);
   }
@@ -103,6 +115,7 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
 
   regionChanged(region: string) {
     this.regionSelected = region;
+    this.multiplyHeight = 1;
 
     if (this.regionSelected === 'Filter by Region') {
       this.countriesService.getAllCountries().subscribe(
@@ -125,7 +138,7 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     try {
-      this.checkWidth();
+      this.checkWindowSize();
     }
     catch (e) {
     }
@@ -134,12 +147,22 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  checkWidth() {
+  checkWindowSize() {
     const containerWidth = this.countriesElement.nativeElement.offsetWidth
     this.countryWidth = this.countriesElement.nativeElement.children[0].children[0].offsetWidth
     const rowLength = Math.floor(containerWidth / this.countryWidth);
     const lastRowLength = this.filteredCountries.length % rowLength;
     const rowGapLength = (containerWidth - this.countryWidth * rowLength) / (rowLength - 1);
+
+    this.countryHeight = this.countriesElement.nativeElement.children[0].children[0].offsetHeight
+    const viewHeight = 2 * document.body.offsetHeight
+
+    const countriesAmount = viewHeight / this.countryHeight * rowLength
+
+
+    this.filteredCountries = this.filteredCountries.filter((arr, index) => {
+      return index < countriesAmount * this.multiplyHeight - 1;
+    })
 
 
     if (lastRowLength === 0) {

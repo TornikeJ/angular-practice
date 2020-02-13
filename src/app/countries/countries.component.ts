@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CountriesService } from './countries.service';
 @Component({
   selector: 'app-countries',
@@ -24,6 +24,7 @@ export class CountriesComponent implements OnInit {
   backgroundElementColor;
   backgroundTextColor;
 
+ 
   constructor(
     private countriesService: CountriesService
   ) { }

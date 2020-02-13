@@ -34,18 +34,18 @@ export class BookmarkLandingComponent implements OnInit {
     this.innerWidth = window.innerWidth;
     this.checkWidth();
 
-    // this.subscription = this.reset.pipe(
-    //   startWith(0),
-    //   switchMap(() => timer(5000, 5000))
-    // ).subscribe(
-    //   () => {
-    //     this.selectedFeature++;
+    this.subscription = this.reset.pipe(
+      startWith(0),
+      switchMap(() => timer(5000, 5000))
+    ).subscribe(
+      () => {
+        this.selectedFeature++;
 
-    //     if (this.selectedFeature == 4) {
-    //       this.selectedFeature = 1;
-    //     }
-    //   }
-    // );
+        if (this.selectedFeature == 4) {
+          this.selectedFeature = 1;
+        }
+      }
+    );
   }
 
   selectFeature(number: number) {

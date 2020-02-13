@@ -35,7 +35,7 @@ $color2: #ed6491;
   height: 10em;
   top: 50%;
   left: calc(50% - 10em/2);
-  position: absolute;
+  position: fixed;
 }
 .loader {
   font-size: 10px;

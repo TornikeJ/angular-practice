@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2, HostListener, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2, HostListener, AfterViewChecked, ChangeDetectorRef, AfterContentInit } from '@angular/core';
 import { CountriesService } from '../countries.service';
 import { Subject } from 'rxjs';
 import { StyleModel } from '../style.model';
@@ -36,9 +36,16 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
 
   @HostListener("window:scroll", [])
   onScroll(): void {
-    if ((window.innerHeight + window.scrollY) >= 2 * document.body.offsetHeight * this.multiplyHeight) {
-      this.multiplyHeight++;
-      this.filteredCountries = this.filterCountries(this.searchCountry);
+    if (document.body.offsetWidth < 450) {
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+        this.multiplyHeight++;
+        this.filteredCountries = this.filterCountries(this.searchCountry);
+      }
+    } else {
+      if ((window.innerHeight + window.scrollY) >= 2 * document.body.offsetHeight * this.multiplyHeight) {
+        this.multiplyHeight++;
+        this.filteredCountries = this.filterCountries(this.searchCountry);
+      }
     }
   }
 
@@ -75,7 +82,6 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
 
 
   ngOnInit() {
-
     this.showRegions = 'none';
     this.regionSelected = 'Filter by Region'
 
@@ -101,6 +107,7 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
         }
       }
     )
+
 
     this.countriesService.switchMode.subscribe(
       (style: StyleModel) => {
@@ -147,6 +154,8 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
     }
   }
 
+
+
   checkWindowSize() {
     const containerWidth = this.countriesElement.nativeElement.offsetWidth
     this.countryWidth = this.countriesElement.nativeElement.children[0].children[0].offsetWidth
@@ -157,8 +166,11 @@ export class CountriesListComponent implements OnInit, AfterViewChecked {
     this.countryHeight = this.countriesElement.nativeElement.children[0].children[0].offsetHeight
     const viewHeight = 2 * document.body.offsetHeight
 
-    const countriesAmount = viewHeight / this.countryHeight * rowLength
+    let countriesAmount = viewHeight / this.countryHeight * rowLength
 
+    if (!countriesAmount) {
+      countriesAmount = 16;
+    }
 
     this.filteredCountries = this.filteredCountries.filter((arr, index) => {
       return index < countriesAmount * this.multiplyHeight - 1;

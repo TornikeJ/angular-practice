@@ -1,1 +1,158 @@
-<p>manage-landing works!</p>
+<div class="wrapper">
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <img src="assets/manage-landing/logo-bookmark-white.svg" *ngIf="showDesktop" alt="">
+                <img src="assets/manage-landing/logo.svg" *ngIf="!showDesktop" alt="">
+                <div class="menu" (click)="menuClicked()">
+                    <div *ngIf="!showDesktop"></div>
+                    <div *ngIf="!showDesktop"></div>
+                    <div *ngIf="!showDesktop"></div>
+                    <img *ngIf="showDesktop" src="assets/manage-landing/icon-close.svg" alt="">
+                </div>
+            </div>
+            <div class="desktop" [ngStyle]="{'display': displayStyle}">
+                <ul>
+                    <hr>
+                    <li>Pricing</li>
+                    <hr>
+                    <li>Product</li>
+                    <hr>
+                    <li>About us</li>
+                    <hr>
+                    <li>Careers</li>
+                    <hr>
+                    <li>Community</li>
+                    <hr>
+                </ul>
+            </div>
+            <div>
+                <button class="orange">Get Started</button>
+            </div>
+        </div>
+    </nav>
+    <div class="intro">
+        <div class="container">
+            <div class="text">
+                <h1>Bring everyone together to build better products.</h1>
+                <p>Manage makes it simple for software teams to plan day-to-day tasks while keeping the larger team
+                    goals in view.</p>
+                <button class="orange">Get it on Chrome</button>
+            </div>
+            <div class="illustration">
+                <img src="assets/manage-landing/illustration-intro.svg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="container">
+            <div class="text">
+                <h2>
+                    What’s different about Manage?
+                </h2>
+                <p>
+                    Manage provides all the functionality your team needs, without the complexity. Our software is
+                    tailor-made for modern digital product teams.
+                </p>
+            </div>
+            <div class="feature">
+                <div>
+                    <h2>01 Track company-wide progress</h2>
+                    <p>
+                        See how your day-to-day tasks fit into the wider vision. Go from tracking progress at the
+                        milestone level all the way done to the smallest of details. Never lose sight of the bigger
+                        picture again.
+                    </p>
+                </div>
+                <div>
+                    <h2>02 Advanced built-in reports</h2>
+                    <p>
+                        Set internal delivery estimates and track progress toward company goals. Our customisable
+                        dashboard helps you build out the reports you need to keep key stakeholders informed.
+                    </p>
+                </div>
+                <div>
+                    <h2>03 Everything you need in one place</h2>
+                    <p>
+                        Stop jumping from one service to another to communicate, store files, track tasks and share
+                        documents. Manage offers an all-in-one team productivity solution.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="feedback">
+        <h2>
+            What they’ve said
+        </h2>
+        <div class="feedbacks">
+            <div>
+                <img src="" alt="">
+                <h5>
+                    Anisha Li
+                </h5>
+                <p>
+                    “Manage has supercharged our team’s workflow. The ability to maintain visibility on larger
+                    milestones at all times keeps everyone motivated.”
+                </p>
+            </div>
+            <div>
+                <img src="" alt="">
+                <h5>
+                    Ali Bravo
+                </h5>
+                <p>
+                    “We have been able to cancel so many other subscriptions since using Manage. There is no more
+                    cross-channel confusion and everyone is much more focused.”
+                </p>
+            </div>
+            <div>
+                <img src="" alt="">
+                <h5>
+                    Richard Watts
+                </h5>
+                <p>
+                    “Manage allows us to provide structure and process. It keeps us organized and focused. I can’t stop
+                    recommending them to everyone I talk to!”
+                </p>
+            </div>
+            <div>
+                <img src="" alt="">
+                <h5>
+                    Shanai Gough
+                </h5>
+                <p>
+                    “Their software allows us to track, manage and collaborate on our projects from anywhere. It keeps
+                    the whole team in-sync without being intrusive.”
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact">
+        <div class="container">
+            <h1>Simplify how your team works today.</h1>
+            <button class="orange" (click)="checkEmail=true">Contact Us</button>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="logo">
+                <img src="assets/manage-landing/logo-bookmark-white.svg" alt="">
+            </div>
+            <div class="desktop">
+                <ul>
+                    <li>Features</li>
+                    <li>Pricing</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            <div class="social">
+                <img src="assets/manage-landing/icon-facebook.svg" alt="">
+                <img src="assets/manage-landing/icon-twitter.svg" alt="">
+            </div>
+        </div>
+    </div>
+</div>

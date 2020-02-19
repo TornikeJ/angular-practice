@@ -87,8 +87,8 @@
         <h2>
             What they’ve said
         </h2>
-        <div class="feedbacks">
-            <div>
+        <div class="feedbacks" #feedbacks (click)="setEvent()">
+            <div class="review">
                 <img src="" alt="">
                 <h5>
                     Anisha Li
@@ -98,7 +98,7 @@
                     milestones at all times keeps everyone motivated.”
                 </p>
             </div>
-            <div>
+            <div  class="review">
                 <img src="" alt="">
                 <h5>
                     Ali Bravo
@@ -108,7 +108,7 @@
                     cross-channel confusion and everyone is much more focused.”
                 </p>
             </div>
-            <div>
+            <div  class="review">
                 <img src="" alt="">
                 <h5>
                     Richard Watts
@@ -118,7 +118,7 @@
                     recommending them to everyone I talk to!”
                 </p>
             </div>
-            <div>
+            <div  class="review">
                 <img src="" alt="">
                 <h5>
                     Shanai Gough
@@ -140,18 +140,31 @@
     <div class="footer">
         <div class="container">
             <div class="logo">
-                <img src="assets/manage-landing/logo-bookmark-white.svg" alt="">
+                <img src="assets/manage-landing/logo-white.svg" alt="">
+                <div class="social">
+                    <img src="assets/manage-landing/icon-facebook.svg" alt="">
+                    <img src="assets/manage-landing/icon-youtube.svg" alt="">
+                    <img src="assets/manage-landing/icon-twitter.svg" alt="">
+                    <img src="assets/manage-landing/icon-pinterest.svg" alt="">
+                    <img src="assets/manage-landing/icon-instagram.svg" alt="">
+                </div>
             </div>
-            <div class="desktop">
+            <div class="navigation">
                 <ul>
-                    <li>Features</li>
+                    <li>Home</li>
                     <li>Pricing</li>
-                    <li>Contact</li>
+                    <li>Products</li>
+                    <li>About us</li>
+                </ul>
+                <ul>
+                    <li>Careers</li>
+                    <li>Community</li>
+                    <li>Privacy Policy</li>
                 </ul>
             </div>
-            <div class="social">
-                <img src="assets/manage-landing/icon-facebook.svg" alt="">
-                <img src="assets/manage-landing/icon-twitter.svg" alt="">
+            <div class="subscribe">
+                <input type="text">
+                <button type="button">Go</button>
             </div>
         </div>
     </div>

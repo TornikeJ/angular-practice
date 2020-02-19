@@ -80,7 +80,83 @@ nav {
 }
 
 .feedback {
+  text-align: center;
+
   .feedbacks {
     display: flex;
+
+    > div {
+      padding: 1rem;
+      background-color: gray;
+      margin-right: 2rem;
+      min-width: 30rem;
+    }
+  }
+}
+
+.contact {
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.footer {
+  background-color: $color4;
+  color: white;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .social {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    .navigation {
+      flex-grow: 1;
+      display: flex;
+      justify-content: space-around;
+
+      ul {
+        margin: 0;
+        list-style: none;
+        display: inline-block;
+
+        li {
+          margin-bottom: 1rem;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .subscribe {
+      display: flex;
+      height: min-content;
+
+      input {
+        border: 2px solid transparent;
+        border-radius: 2rem;
+        padding: 0.8rem;
+        margin-right: 0.5rem;
+      }
+
+      button {
+        border-radius: 2rem;
+        border: 2px solid transparent;
+        padding: 0rem 1.5rem;
+      }
+    }
   }
 }

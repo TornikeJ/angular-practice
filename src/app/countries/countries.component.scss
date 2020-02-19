@@ -1,5 +1,8 @@
+$color1: #f5f5f5;
+$color2: #ffffff;
+
 .wrapper {
-  background-color: #f5f5f5;
+  background-color: $color1;
   min-height: 100vh;
 }
 
@@ -10,7 +13,7 @@
 }
 
 .header {
-  background-color: #ffffff;
+  background-color: $color2;
   .container {
     display: flex;
     justify-content: space-between;

@@ -1,3 +1,6 @@
+$color1: #ffffff;
+$color2: #c39e9e24;
+
 .search {
   margin-bottom: 3rem;
 
@@ -24,7 +27,7 @@
 
       div,
       ul {
-        background-color: #ffffff;
+        background-color: $color1;
         padding: 1rem;
         border-radius: 5px;
       }
@@ -51,7 +54,7 @@
           margin-bottom: 0.5rem;
           cursor: pointer;
           &:hover {
-            background-color: #c39e9e24;
+            background-color: $color2;
           }
         }
       }
@@ -81,7 +84,7 @@
     justify-content: space-between;
 
     .country {
-      background-color: white;
+      background-color: $color1;
       border-radius: 10px;
       margin-bottom: 2rem;
       cursor: pointer;

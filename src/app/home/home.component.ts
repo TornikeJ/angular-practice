@@ -47,6 +47,9 @@ export class HomeComponent implements OnInit {
       case 'bookmarklanding':
         this.color = '#5368df';
         break;
+      case 'managelanding':
+        this.color = '#f94b1d';
+        break;
       default:
         this.color = '#ed6491';
     }

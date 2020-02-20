@@ -1,13 +1,16 @@
-$color1: #5368df;
-$color2: #000000c7;
-$color3: #f94b1d;
-$color4: hsl(229, 31%, 21%);
+$color1: #f94b1d;
+$color2: #f7f7f7;
+$color3: #ffffff;
+$color4: #181c2d;
+$color5: #b9b8b8;
+$color6: #f59880;
 
 .wrapper {
-  background-color: #f5f5f5;
   min-height: 100vh;
   overflow: hidden;
   font-family: "Rubik", sans-serif;
+  background-position: calc(100% - -4rem) calc(0% - 13rem), calc(0% - 33rem) calc(50% - -18rem);
+  background-repeat: no-repeat, no-repeat;
 }
 
 .container {
@@ -40,22 +43,13 @@ nav {
         letter-spacing: 1px;
 
         &:hover {
-          color: $color3;
+          color: $color5;
         }
       }
     }
 
     hr {
       display: none;
-    }
-  }
-
-  button {
-    margin-right: 1rem;
-
-    &.orange {
-      text-transform: uppercase;
-      margin-right: 0;
     }
   }
 }
@@ -76,35 +70,108 @@ nav {
 .features {
   .container {
     display: flex;
+    justify-content: space-between;
+
+    .text {
+      width: 33%;
+    }
+
+    .feature {
+      width: 40%;
+
+      > div {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      h4 {
+        margin-top: 0.6rem;
+      }
+      span {
+        font-size: 1rem;
+        border-radius: 2rem;
+        border: 2px solid transparent;
+        background-color: $color1;
+        padding: 0.5rem 1.5rem;
+        color: $color3;
+        font-weight: normal;
+        margin-right: 1rem;
+      }
+    }
   }
 }
 
 .feedback {
   text-align: center;
+  margin-bottom: 5rem;
+
+  h2 {
+    margin-bottom: 5rem;
+  }
 
   .feedbacks {
     display: flex;
+    position: relative;
+    height: 15rem;
 
-    > div {
-      padding: 1rem;
-      background-color: gray;
-      margin-right: 2rem;
-      min-width: 30rem;
+    .column {
+      position: absolute;
+      display: flex;
+      // transition: transform 1s cubic-bezier(0.22, 0.61, 0.36, 1) 0s;
+
+      .review {
+        position: relative;
+        padding: 1rem;
+        background-color: $color2;
+        margin-right: 30px;
+        min-width: 30rem;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+
+        img {
+          position: absolute;
+          width: 4rem;
+          height: 4rem;
+          top: calc(0% - 2rem);
+          left: calc(50% - 2rem);
+        }
+      }
     }
   }
 }
 
 .contact {
+  background-color: $color1;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: $color3;
+
+    h1 {
+      width: 30%;
+    }
+
+    button {
+      background: $color3;
+      color: $color1;
+      box-shadow: none;
+
+      &:hover {
+        color: $color6;
+      }
+    }
   }
 }
 
 .footer {
   background-color: $color4;
-  color: white;
+  color: $color3;
 
   .container {
     display: flex;
@@ -118,6 +185,13 @@ nav {
       .social {
         display: flex;
         justify-content: space-between;
+
+        img {
+          &:hover {
+            cursor: pointer;
+            filter: invert(0.4) sepia(1) saturate(55) hue-rotate(351deg) brightness(0.87);
+          }
+        }
       }
     }
 
@@ -137,6 +211,11 @@ nav {
           &:last-child {
             margin-bottom: 0;
           }
+
+          &:hover {
+            cursor: pointer;
+            color: $color1;
+          }
         }
       }
     }
@@ -154,9 +233,24 @@ nav {
 
       button {
         border-radius: 2rem;
-        border: 2px solid transparent;
         padding: 0rem 1.5rem;
+        box-shadow: none;
       }
     }
+  }
+}
+
+button {
+  cursor: pointer;
+  border: 2px solid transparent;
+  background-color: $color1;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  border-radius: 20px;
+  color: $color3;
+  box-shadow: 0px 2px 6px 1px $color6;
+
+  &:hover {
+    background-color: $color6;
   }
 }

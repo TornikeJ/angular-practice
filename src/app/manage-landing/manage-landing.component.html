@@ -97,8 +97,8 @@
             What they’ve said
         </h2>
         <div class="feedbacks" #feedbacks [ngStyle]="{'transform':'translateX('+scrollArea+'px)'}"
-            (mouseenter)="setEvent()">
-            <div class="column" [ngStyle]="{'transform':'translateX('+scrollX[0]+'px)'}">
+            (mouseenter)="setEvent()" (mouseleave)="startTimer()">
+            <div class="column" [ngStyle]="{'transform':'translateX('+scrollX[0]+'px)','display':displayElement[0]}">
                 <div class="review">
                     <img src="assets/manage-landing/avatar-anisha.png" alt="">
                     <h5>
@@ -142,7 +142,7 @@
                     </p>
                 </div>
             </div>
-            <div class="column" [ngStyle]="{'transform':'translateX('+scrollX[1]+'px)'}">
+            <div class="column" [ngStyle]="{'transform':'translateX('+scrollX[1]+'px)','display':displayElement[1]}">
                 <div class="review">
                     <img src="assets/manage-landing/avatar-anisha.png" alt="">
                     <h5>
@@ -186,7 +186,7 @@
                     </p>
                 </div>
             </div>
-            <div class="column" [ngStyle]="{'transform':'translateX('+scrollX[2]+'px)'}">
+            <div class="column" [ngStyle]="{'transform':'translateX('+scrollX[2]+'px)','display':displayElement[2]}">
                 <div class="review">
                     <img src="assets/manage-landing/avatar-anisha.png" alt="">
                     <h5>

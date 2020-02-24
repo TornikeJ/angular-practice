@@ -19,6 +19,7 @@ import { CountriesListComponent } from './countries/countries-list/countries-lis
 import { CountryDetailComponent } from './countries/countries-list/country-detail/country-detail.component';
 import { BookmarkLandingComponent } from './bookmark-landing/bookmark-landing.component';
 import { ManageLandingComponent } from './manage-landing/manage-landing.component';
+import { SignComponent } from './sign/sign.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ManageLandingComponent } from './manage-landing/manage-landing.componen
     CountriesListComponent,
     CountryDetailComponent,
     BookmarkLandingComponent,
-    ManageLandingComponent
+    ManageLandingComponent,
+    SignComponent
   ],
   imports: [
     BrowserModule,

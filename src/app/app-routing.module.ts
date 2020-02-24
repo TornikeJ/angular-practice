@@ -12,11 +12,13 @@ import { CountriesListComponent } from './countries/countries-list/countries-lis
 import { CountriesListResolver } from './countries/countries-list/countries-list.resolver.service';
 import { BookmarkLandingComponent } from './bookmark-landing/bookmark-landing.component';
 import { ManageLandingComponent } from './manage-landing/manage-landing.component';
+import { SignComponent } from './sign/sign.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'sign', component: SignComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'clipboard', component: ClipboardComponent },
   { path: 'urlshortening', component: UrlShorteningComponent },

@@ -2,16 +2,15 @@
     <nav>
         <div class="container">
             <div class="logo">
-                <img src="assets/manage-landing/logo-bookmark-white.svg" *ngIf="showDesktop" alt="">
-                <img src="assets/manage-landing/logo.svg" *ngIf="!showDesktop" alt="">
-                <div class="menu" (click)="menuClicked()">
+                <img src="assets/manage-landing/logo.svg" alt="">
+                <!-- <div class="menu" (click)="menuClicked()">
                     <div *ngIf="!showDesktop"></div>
                     <div *ngIf="!showDesktop"></div>
                     <div *ngIf="!showDesktop"></div>
-                    <img *ngIf="showDesktop" src="assets/manage-landing/icon-close.svg" alt="">
-                </div>
+                    <img *ngIf="showDesktop" src="assets/manage-landing/icon-close.svg" alt=""> -->
+                <!-- </div> -->
             </div>
-            <div class="desktop" [ngStyle]="{'display': displayStyle}">
+            <div class="desktop">
                 <ul>
                     <hr>
                     <li>Pricing</li>

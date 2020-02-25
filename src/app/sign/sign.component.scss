@@ -1,5 +1,11 @@
+$color1: #ff7a7a;
+$color2: #2eca2e;
+$color3: #c78383;
+$color4: #ca3636;
+
 .wrapper {
   min-height: 100vh;
+  background-color: $color1;
   overflow: hidden;
   font-family: "Rubik", sans-serif;
   display: flex;
@@ -11,17 +17,59 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
+  color: white;
 }
 
 .form {
-  width: 100%;
-  padding: 2rem;
+  padding: 3rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background: white;
+  color: black;
+
+  button {
+    width: 100%;
+    border: 1px solid transparent;
+    background: #ec4646;
+    color: white;
+    padding: 1rem;
+    border-radius: 12px;
+
+    &:disabled {
+      background: $color3;
+    }
+  }
+
+  &-wrapper {
+    width: 100%;
+  }
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: center;
+    padding: 1.5rem 0rem;
+    background-color: $color4;
+
+    &:first-child {
+      border-top-left-radius: 1rem;
+    }
+    &:last-child {
+      border-top-right-radius: 1rem;
+    }
+  }
 }
 
 .form-group {
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   align-items: center;
+  position: relative;
 
   label {
     flex-grow: 0.35;
@@ -32,8 +80,38 @@
     flex-grow: calc(1 - 0.35);
   }
 
-  span {
+  .validation {
     display: block;
+    position: absolute;
+    right: 0;
+    bottom: -1.5rem;
+  }
+
+  &.invalid {
+    color: $color1;
+
+    .form-control {
+      border-color: $color1;
+      color: $color1;
+    }
+
+    input:-webkit-autofill {
+      -webkit-text-fill-color: $color1 !important;
+    }
+  }
+
+  &.valid {
+    color: $color2;
+
+    .form-control {
+      border-color: $color2;
+      color: $color2;
+    }
+
+    input:-webkit-autofill {
+      background-color: transparent !important;
+      -webkit-text-fill-color: $color2 !important;
+    }
   }
 }
 
@@ -41,4 +119,11 @@
   padding: 0.5rem;
   border-radius: 7.5px;
   border: 1px solid gray;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }

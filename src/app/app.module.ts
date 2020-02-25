@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +20,7 @@ import { CountryDetailComponent } from './countries/countries-list/country-detai
 import { BookmarkLandingComponent } from './bookmark-landing/bookmark-landing.component';
 import { ManageLandingComponent } from './manage-landing/manage-landing.component';
 import { SignComponent } from './sign/sign.component';
+import { ConfrimEqualValidatorDirective } from './sign/confirm-equal-validator.directive';
 
 
 @NgModule({
@@ -39,13 +40,15 @@ import { SignComponent } from './sign/sign.component';
     CountryDetailComponent,
     BookmarkLandingComponent,
     ManageLandingComponent,
-    SignComponent
+    SignComponent,
+    ConfrimEqualValidatorDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [UrlShorteningService],
   bootstrap: [AppComponent]

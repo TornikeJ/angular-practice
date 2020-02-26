@@ -9,60 +9,135 @@
                 understanding how developers think is invaluable.
             </p>
         </div>
-        <div class="form-wrapper">
+        <div class="form-wrapper" #wrapper>
             <div class="steps">
-                <div>Step 1</div>
-                <div>Step 2</div>
-                <div>Step 3</div>
+                <div [ngClass]="{'active':step==0}">Step 1</div>
+                <div [ngClass]="{'active':step==1}">Step 2</div>
+                <div [ngClass]="{'active':step==2}">Step 3</div>
             </div>
             <form #registrationForm="ngForm" class="form">
-                <div class="form-group"
-                    [ngClass]="{'invalid': name.errors?.required && (name?.touched || name?.dirty), 'valid': name.valid && name.touched}">
-                    <label for="name">First Name</label>
-                    <input type="text" class="form-control" name="firstName" id="name" ngModel required #name="ngModel">
-                    <div class="validation" *ngIf="name.errors?.required && (name?.touched || name?.dirty)">
-                        First name is required
-                    </div>
-                </div>
-                <div class="form-group"
-                    [ngClass]="{'invalid': surname.errors?.required && (surname?.touched || surname?.dirty), 'valid': surname.valid && surname.touched }">
-                    <label for="surname">Last Name</label>
-                    <input type="text" class="form-control" name="lastName" id="surname" ngModel required
-                        #surname="ngModel">
-                    <div class="validation" *ngIf="surname.errors?.required && (surname?.touched || surname?.dirty)">
-                        Last name is required
-                    </div>
-                </div>
-                <div ngModelGroup="emailGroup" appConfrimEqualValidator #emailGroup="ngModelGroup">
+                <div class="step-1" *ngIf="step==0">
                     <div class="form-group"
-                        [ngClass]="{'invalid': email.errors?.required && (email?.touched || email?.dirty) || email && email?.invalid && email?.touched, 'valid': email.valid && email?.touched }">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" name="emailInput" id="email" ngModel required email
-                            #email="ngModel">
-                        <div class="validation"
-                            *ngIf="email && email?.invalid && email?.touched && !email.errors?.required">
-                            Whoops, make sure it's an email</div>
-                        <div class="validation" *ngIf="email.errors?.required && (email?.touched || email?.dirty)">
-                            Email is required
+                        [ngClass]="{'invalid': name.errors?.required && (name?.touched || name?.dirty), 'valid': name.valid && name.touched}">
+                        <label for="name">First Name</label>
+                        <input type="text" class="form-control" name="firstName" id="name" ngModel required
+                            #name="ngModel">
+                        <div class="validation" *ngIf="name.errors?.required && (name?.touched || name?.dirty)">
+                            First name is required
                         </div>
                     </div>
-                    <div class="form-group" [ngClass]="{'invalid': emailConfirm.errors?.required && (emailConfirm?.touched || emailConfirm?.dirty) ||
-                        emailGroup.errors?.EqualValidation && (!emailConfirm.errors?.required && emailConfirm?.touched), 
-                        'valid': !emailGroup.errors?.EqualValidation && emailConfirm.valid && emailConfirm?.touched }">
-                        <label for="email">Confirm Email</label>
-                        <input type="text" class="form-control" name="confirmEmaiInput" ngModel required
-                            #emailConfirm="ngModel">
+                    <div class="form-group"
+                        [ngClass]="{'invalid': surname.errors?.required && (surname?.touched || surname?.dirty), 'valid': surname.valid && surname.touched }">
+                        <label for="surname">Last Name</label>
+                        <input type="text" class="form-control" name="lastName" id="surname" ngModel required
+                            #surname="ngModel">
                         <div class="validation"
-                            *ngIf="emailConfirm.errors?.required && (emailConfirm?.touched || emailConfirmail?.dirty)">
-                            Email confirmation is required
+                            *ngIf="surname.errors?.required && (surname?.touched || surname?.dirty)">
+                            Last name is required
                         </div>
+                    </div>
+                    <div class="form-group"
+                        [ngClass]="{'invalid': birthdayGroup.errors?.required && (birthdayGroup?.touched || birthdayGroup?.dirty), 'valid': birthdayGroup.valid && birthdayGroup.touched }">
+                        <label for="birthday">Birthday</label>
+                        <div ngModelGroup="birthdayGroup" class="birthday" id="birthday" #birthdayGroup="ngModelGroup">
+                            <div>
+                                <label for="month">Month</label>
+                                <div class="filter">
+                                    <div class="month" (click)="showMonth == 'none'? showMonth='block' : showMonth='none'">
+                                        <input #monthInput  autocomplete="off" type="text" class="form-control month" id="month"
+                                            name="month" [(ngModel)]="selectedMonth" ngModel required>
+                                        <i class="fa fa-angle-down" (click)="monthInput.focus()"></i>
+                                    </div>
+                                    <ul [ngStyle]="{'display': showMonth, 'background-color':backgroundElementColor}">
+                                        <li *ngFor="let month of months"
+                                            (click)="selectedMonth=month; showMonth == 'none'? showMonth='block' : showMonth='none' ">
+                                            {{month}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="day">Day</label>
+                                <div class="filter">
+                                    <div (click)="showDay == 'none'? showDay='block' : showDay='none'">
+                                        <input #dayInput autocomplete="off" type="text" class="form-control day" id="day"
+                                            name="day" [(ngModel)]="selectedDay" ngModel required>
+                                        <i class="fa fa-angle-down" (click)="dayInput.focus()"></i>
+                                    </div>
+                                    <ul [ngStyle]="{'display': showDay, 'background-color':backgroundElementColor}">
+                                        <li *ngFor="let day of days"
+                                            (click)="selectedDay=day; showDay == 'none'? showDay='block' : showDay='none' ">
+                                            {{day}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="year">Year</label>
+                                <div class="filter">
+                                    <div (click)="showYear == 'none'? showYear='block' : showYear='none'">
+                                        <input  #yearInput autocomplete="off" type="text" class="form-control year" id="year"
+                                            name="year" [(ngModel)]="selectedYear" ngModel required>
+                                        <i class="fa fa-angle-down" (click)="yearInput.focus()"></i>
+                                    </div>
+                                    <ul [ngStyle]="{'display': showYear, 'background-color':backgroundElementColor}">
+                                        <li *ngFor="let year of years"
+                                            (click)="selectedYear=year; showYear == 'none'? showYear='block' : showYear='none' ">
+                                            {{year}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="validation"
+                                *ngIf="birthdayGroup.errors?.required && (birthdayGroup?.touched || birthdayGroup?.dirty)">
+                                Birthday is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                        [ngClass]="{'invalid': country.errors?.required && (country?.touched || country?.dirty), 'valid': country.valid && country.touched }">
+                        <label for="country">Country</label>
+                        <input type="text" class="form-control" name="country" id="country" ngModel required
+                            #country="ngModel">
                         <div class="validation"
-                            *ngIf="emailGroup.errors?.EqualValidation && (!emailConfirm.errors?.required && emailConfirm?.touched)">
-                            Entered Emails don't match
+                            *ngIf="country.errors?.required && (country?.touched || country?.dirty)">
+                            Country is required
                         </div>
                     </div>
                 </div>
-                <button [disabled]="registrationForm.invalid">Next</button>
+                <div class="step-2" *ngIf="step==1">
+                    <div ngModelGroup="emailGroup" appConfrimEqualValidator #emailGroup="ngModelGroup">
+                        <div class="form-group"
+                            [ngClass]="{'invalid': email.errors?.required && (email?.touched || email?.dirty) || email && email?.invalid && email?.touched, 'valid': email.valid && email?.touched }">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="emailInput" id="email" ngModel required email
+                                #email="ngModel">
+                            <div class="validation"
+                                *ngIf="email && email?.invalid && email?.touched && !email.errors?.required">
+                                Whoops, make sure it's an email</div>
+                            <div class="validation" *ngIf="email.errors?.required && (email?.touched || email?.dirty)">
+                                Email is required
+                            </div>
+                        </div>
+                        <div class="form-group"
+                            [ngClass]="{'invalid': emailConfirm.errors?.required && (emailConfirm?.touched || emailConfirm?.dirty) ||
+                            emailGroup.errors?.EqualValidation && (!emailConfirm.errors?.required && emailConfirm?.touched), 
+                            'valid': !emailGroup.errors?.EqualValidation && emailConfirm.valid && emailConfirm?.touched }">
+                            <label for="email">Confirm Email</label>
+                            <input type="text" class="form-control" name="confirmEmaiInput" ngModel required
+                                #emailConfirm="ngModel">
+                            <div class="validation"
+                                *ngIf="emailConfirm.errors?.required && (emailConfirm?.touched || emailConfirmail?.dirty)">
+                                Email confirmation is required
+                            </div>
+                            <div class="validation"
+                                *ngIf="emailGroup.errors?.EqualValidation && (!emailConfirm.errors?.required && emailConfirm?.touched)">
+                                Entered Emails don't match
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button [disabled]="registrationForm.invalid" (click)="changeStep()">Next</button>
             </form>
         </div>
     </div>

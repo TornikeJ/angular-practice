@@ -1,6 +1,6 @@
 $color1: #ff7a7a;
-$color2: #2eca2e;
-$color3: #c78383;
+$color2: #38cc8c;
+$color3: #81caaa;
 $color4: #ca3636;
 
 .wrapper {
@@ -30,7 +30,7 @@ $color4: #ca3636;
   button {
     width: 100%;
     border: 1px solid transparent;
-    background: #ec4646;
+    background: $color2;
     color: white;
     padding: 1rem;
     border-radius: 12px;
@@ -54,13 +54,17 @@ $color4: #ca3636;
     flex-basis: 0;
     text-align: center;
     padding: 1.5rem 0rem;
-    background-color: $color4;
+    background-color: $color3;
 
     &:first-child {
       border-top-left-radius: 1rem;
     }
     &:last-child {
       border-top-right-radius: 1rem;
+    }
+
+    &.active {
+      background-color: $color2;
     }
   }
 }
@@ -78,6 +82,107 @@ $color4: #ca3636;
 
   input {
     flex-grow: calc(1 - 0.35);
+
+    &.day {
+      width: 3rem;
+      margin-right: 1rem;
+    }
+
+    &.month {
+      width: 6rem;
+      margin-right: 1rem;
+    }
+
+    &.year {
+      width: 6rem;
+    }
+  }
+
+  .birthday {
+    display: flex;
+    flex-basis: 0%;
+    flex-grow: calc(1);
+
+    > div {
+      margin-right: 2rem;
+    }
+  }
+
+  .filter {
+    position: relative;
+
+    div,
+    ul {
+      background: white;
+      border-radius: 5px;
+    }
+
+    i {
+      position: absolute;
+      right: 10%;
+      align-self: center;
+    }
+
+    div {
+      cursor: pointer;
+      display: flex;
+    }
+
+    input {
+      display: inline-block;
+      margin: 0;
+    }
+
+    ul {
+      text-align: center;
+      position: absolute;
+      max-height: 6.5rem;
+      overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 5;
+      padding: 0;
+      width: -webkit-fill-available;
+      list-style: none;
+      display: block;
+      animation: dropdown 0.8s forwards;
+
+      li {
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+        &:hover {
+          background-color: $color2;
+        }
+      }
+
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    }
+
+    @keyframes dropdown {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
   }
 
   .validation {

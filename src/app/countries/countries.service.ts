@@ -11,10 +11,6 @@ export class CountriesService {
 
     constructor(private htppClient: HttpClient) { }
 
-    switchModes() {
-
-    }
-
     getAllCountries() {
         return this.htppClient.get('https://restcountries.eu/rest/v2/all');
     }

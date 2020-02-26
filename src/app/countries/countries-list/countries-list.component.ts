@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2, HostListener, AfterViewChecked, ChangeDetectorRef, AfterContentInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, HostListener, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { CountriesService } from '../countries.service';
-import { Subject } from 'rxjs';
 import { StyleModel } from '../style.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 

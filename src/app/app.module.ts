@@ -21,6 +21,7 @@ import { BookmarkLandingComponent } from './bookmark-landing/bookmark-landing.co
 import { ManageLandingComponent } from './manage-landing/manage-landing.component';
 import { SignComponent } from './sign/sign.component';
 import { ConfrimEqualValidatorDirective } from './sign/confirm-equal-validator.directive';
+import { FilterPipe } from './sign/filter.pipe';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { ConfrimEqualValidatorDirective } from './sign/confirm-equal-validator.d
     BookmarkLandingComponent,
     ManageLandingComponent,
     SignComponent,
-    ConfrimEqualValidatorDirective
+    ConfrimEqualValidatorDirective,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

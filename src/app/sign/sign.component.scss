@@ -42,8 +42,8 @@ $color4: #ca3636;
       flex-grow: 1;
       flex-basis: 0%;
 
-      input {
-        width: 100%;
+      input, textarea {
+        width: -webkit-fill-available;
 
         &.day {
           width: 3rem;

@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { CountriesService } from '../countries/countries.service';
+import { UserModel } from './user.model';
 
 @Component({
   selector: 'app-sign',
@@ -47,7 +48,9 @@ export class SignComponent implements OnInit {
   constructor(
     private countriesService: CountriesService,
     private renderer: Renderer2
-  ) { }
+  ) {
+    console.log(new UserModel('Tornike', 'Janashia', 26, 'August', 1996, 'Georgia').birthday);
+  }
 
   ngOnInit() {
     this.generateYears();
@@ -89,7 +92,7 @@ export class SignComponent implements OnInit {
   changeStep() {
     this.step++;
 
-    if (this.step === 2) {
+    if (this.step === 3) {
       this.step = 0;
     }
   }

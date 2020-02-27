@@ -26,14 +26,23 @@ export class SignComponent implements OnInit {
   countries = [];
 
   @ViewChild('wrapper', { static: false }) wrapper: ElementRef;
+  @ViewChild('yearList', { static: false }) yearList: ElementRef;
+  @ViewChild('dayList', { static: false }) dayList: ElementRef;
+  @ViewChild('monthList', { static: false }) monthList: ElementRef;
+  @ViewChild('countryList', { static: false }) countryList: ElementRef;
 
   showMonth = 'none';
   showDay = 'none';
   showYear = 'none';
+  showCountry = 'none';
 
   selectedMonth;
   selectedDay;
   selectedYear;
+  selectedCountry;
+
+  arrowkeyLocation = 0;
+  arrowkeySelect;
 
   constructor(
     private countriesService: CountriesService,
@@ -46,7 +55,7 @@ export class SignComponent implements OnInit {
     this.countriesService.getAllCountries().subscribe(
       (countries: []) => {
         countries.forEach((country) => {
-          this.countries.push(country[name]);
+          this.countries.push(country['name']);
         })
       }
     )
@@ -61,8 +70,12 @@ export class SignComponent implements OnInit {
       if (!(this.wrapper.nativeElement.children[1].getElementsByClassName('year') as ElementRef)[0].contains(e.target)) {
         this.showYear = 'none';
       }
+      if (!(this.wrapper.nativeElement.children[1].getElementsByClassName('country') as ElementRef)[0].contains(e.target)) {
+        this.showCountry = 'none';
+      }
     });
   }
+
 
   generateYears() {
     const currentYear = new Date().getFullYear();
@@ -78,6 +91,74 @@ export class SignComponent implements OnInit {
 
     if (this.step === 2) {
       this.step = 0;
+    }
+  }
+
+  onKey(event) {
+    const name = event.target.name;
+    let element;
+
+    switch (name) {
+      case 'year':
+        element = this.yearList.nativeElement;
+        break;
+      case 'month':
+        element = this.monthList.nativeElement;
+        break;
+      case 'day':
+        element = this.dayList.nativeElement;
+        break;
+      case 'country':
+        element = this.countryList.nativeElement;
+        break;
+    }
+
+    if (event.key == 'ArrowDown') {
+      element.scrollTop += 22;
+      this.arrowkeyLocation++;
+    }
+
+    else if (event.key == 'ArrowUp') {
+      element.scrollTop -= 22;
+      this.arrowkeyLocation--;
+    }
+
+    else if (event.key == 'Enter') {
+      switch (name) {
+        case 'year':
+          this.selectedYear = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          break;
+        case 'month':
+          this.selectedMonth = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          break;
+        case 'day':
+          this.selectedDay = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          break;
+        case 'country':
+          this.selectedCountry = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          break;
+      }
+
+      this.arrowkeyLocation = 0;
+      element.scrollTop = 0;
+    }
+
+    else if (event.key == 'Backspace') {
+      element.scrollTop = 0;
+      this.arrowkeyLocation = 0;
+    }
+
+    else {
+      this.arrowkeyLocation = 0;
+      element.scrollTop = 0;
+    }
+
+    if (this.arrowkeyLocation < 0) {
+      this.arrowkeyLocation = 0;
+    }
+
+    if (this.arrowkeyLocation > element.children.length - 1) {
+      this.arrowkeyLocation = element.children.length - 1;
     }
   }
 }

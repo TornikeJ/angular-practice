@@ -13,9 +13,13 @@ import { Directive } from '@angular/core';
 export class ConfrimEqualValidatorDirective implements Validator {
     validate(control: AbstractControl): { [key: string]: any; } | null {
         const emailInput = control.get('emailInput');
-        const confirmEmailInput = control.get('confirmEmaiInput');
+        const confirmEmailInput = control.get('confirmEmailInput');
+        const passwordInput = control.get('passwordInput');
+        const confirmPasswordInput = control.get('confirmPasswordInput');
 
         if (emailInput && confirmEmailInput && emailInput.value !== confirmEmailInput.value) {
+            return { 'EqualValidation': true };
+        } else if (passwordInput && confirmPasswordInput && passwordInput.value !== confirmPasswordInput.value) {
             return { 'EqualValidation': true };
         }
         return null;

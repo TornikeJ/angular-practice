@@ -1,6 +1,9 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { CountriesService } from '../countries/countries.service';
 import { UserModel } from './user.model';
+import { NgForm } from '@angular/forms';
+import { DateGenerateComponent } from './date-generate.component';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-sign',
@@ -11,19 +14,11 @@ export class SignComponent implements OnInit {
 
   step = 0;
 
-  days =
-    [
-      '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16',
-      '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
-    ];
-
-  months =
-    [
-      'January', 'February', 'March', 'April', 'May', 'June', 'July',
-      'August', 'September', 'Octomber', 'November', 'December'
-    ];
-
-  years = [];
+  date: {
+    days,
+    months,
+    years;
+  }
   countries = [];
 
   @ViewChild('wrapper', { static: false }) wrapper: ElementRef;
@@ -37,23 +32,54 @@ export class SignComponent implements OnInit {
   showYear = 'none';
   showCountry = 'none';
 
-  selectedMonth;
-  selectedDay;
-  selectedYear;
-  selectedCountry;
+  userInput: {
+    firstName: string;
+    lastName: string;
+    country: string;
+    birthdayDay: number;
+    birthdayMonth: string;
+    birthdayYear: number;
+    displayName: string;
+    email: string;
+    password: string;
+    aboutMe: string;
+  }
 
+  rendererListener
   arrowkeyLocation = 0;
   arrowkeySelect;
 
+  isLoginMode = true;
+
   constructor(
     private countriesService: CountriesService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private authService: AuthService
   ) {
-    console.log(new UserModel('Tornike', 'Janashia', 26, 'August', 1996, 'Georgia').birthday);
   }
 
   ngOnInit() {
-    this.generateYears();
+    const dateGenerate = new DateGenerateComponent();
+
+
+    this.date = {
+      days: dateGenerate.days,
+      months: dateGenerate.months,
+      years: dateGenerate.years
+    }
+
+    this.userInput = {
+      firstName: null,
+      lastName: null,
+      country: null,
+      birthdayDay: null,
+      birthdayMonth: null,
+      birthdayYear: null,
+      displayName: null,
+      email: null,
+      password: null,
+      aboutMe: null
+    }
 
     this.countriesService.getAllCountries().subscribe(
       (countries: []) => {
@@ -62,38 +88,75 @@ export class SignComponent implements OnInit {
         })
       }
     )
-
-    this.renderer.listen('window', 'click', (e: Event) => {
-      if (!(this.wrapper.nativeElement.children[1].getElementsByClassName('month') as ElementRef)[0].contains(e.target)) {
-        this.showMonth = 'none';
-      }
-      if (!(this.wrapper.nativeElement.children[1].getElementsByClassName('day') as ElementRef)[0].contains(e.target)) {
-        this.showDay = 'none';
-      }
-      if (!(this.wrapper.nativeElement.children[1].getElementsByClassName('year') as ElementRef)[0].contains(e.target)) {
-        this.showYear = 'none';
-      }
-      if (!(this.wrapper.nativeElement.children[1].getElementsByClassName('country') as ElementRef)[0].contains(e.target)) {
-        this.showCountry = 'none';
-      }
-    });
   }
 
 
-  generateYears() {
-    const currentYear = new Date().getFullYear();
-    const startYear = currentYear - 120;
+  clickListener(e: Event) {
+    const month = this.wrapper.nativeElement.children[1].getElementsByClassName('month');
+    const day = this.wrapper.nativeElement.children[1].getElementsByClassName('day');
+    const year = this.wrapper.nativeElement.children[1].getElementsByClassName('year');
+    const country = this.wrapper.nativeElement.children[1].getElementsByClassName('country');
 
-    for (let i = currentYear; i >= startYear; i--) {
-      this.years.push(i);
+    if (month && !(month as ElementRef)[0].contains(e.target)) {
+      this.showMonth = 'none';
+    }
+    if (day && !(day as ElementRef)[0].contains(e.target)) {
+      this.showDay = 'none';
+    }
+    if (year && !(year as ElementRef)[0].contains(e.target)) {
+      this.showYear = 'none';
+    }
+
+    if (country && !(country as ElementRef)[0].contains(e.target)) {
+      this.showCountry = 'none';
     }
   }
 
-  changeStep() {
+  onSwitchMode() {
+    this.isLoginMode = !this.isLoginMode;
+
+    if (!this.isLoginMode) {
+      this.rendererListener = this.renderer.listen('window', 'click', (e: Event) => {
+        this.clickListener(e);
+      });
+    } else {
+      this.rendererListener();
+    }
+  }
+
+  previousStep() {
+    this.step--;
+
+    if (this.step == 0) {
+      this.rendererListener = this.renderer.listen('window', 'click', (e: Event) => {
+        this.clickListener(e);
+      });
+    }
+  }
+
+  nextStep(form: NgForm) {
+    if (this.step == 0) {
+      this.rendererListener();
+    }
+
     this.step++;
 
     if (this.step === 3) {
-      this.step = 0;
+      this.authService.signup(this.userInput.email, this.userInput.password).subscribe();
+      this.userInput = {
+        firstName: null,
+        lastName: null,
+        country: null,
+        birthdayDay: null,
+        birthdayMonth: null,
+        birthdayYear: null,
+        displayName: null,
+        email: null,
+        password: null,
+        aboutMe: null
+      }
+      form.reset();
+      this.isLoginMode = true;
     }
   }
 
@@ -129,16 +192,16 @@ export class SignComponent implements OnInit {
     else if (event.key == 'Enter') {
       switch (name) {
         case 'year':
-          this.selectedYear = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          this.userInput.birthdayYear = (element.getElementsByClassName('active')[0].innerHTML).trim();
           break;
         case 'month':
-          this.selectedMonth = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          this.userInput.birthdayMonth = (element.getElementsByClassName('active')[0].innerHTML).trim();
           break;
         case 'day':
-          this.selectedDay = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          this.userInput.birthdayDay = (element.getElementsByClassName('active')[0].innerHTML).trim();
           break;
         case 'country':
-          this.selectedCountry = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          this.userInput.country = (element.getElementsByClassName('active')[0].innerHTML).trim();
           break;
       }
 
@@ -164,4 +227,11 @@ export class SignComponent implements OnInit {
       this.arrowkeyLocation = element.children.length - 1;
     }
   }
+
+  login(email: string, password: string) {
+    this.authService.signin(email, password).subscribe((payload) => {
+      console.log(payload);
+    });
+  }
+
 }

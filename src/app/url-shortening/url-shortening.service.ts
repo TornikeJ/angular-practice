@@ -29,7 +29,7 @@ export class UrlShorteningService {
     }
 
     private handleError(errorRes: HttpErrorResponse) {
-        let errorMessage = 'An unknown error occured!'
+        let errorMessage = 'An unknown error occured!';
 
         if (!errorRes.error) {
             return throwError(errorMessage);

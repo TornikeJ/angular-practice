@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { tap, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 
@@ -19,7 +21,7 @@ export class AuthService {
             }
         );
     }
-    
+
     signin(email: string, password: string) {
         return this.http.post(
             `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.APIKey}`,
@@ -28,6 +30,17 @@ export class AuthService {
                 password: password,
                 returnSecureToken: true
             }
+        ).pipe(
+            tap((obj) => {
+                console.log(obj);
+            }
+            ),
+            catchError(this.handleError)
         );
+    }
+
+    private handleError(error: HttpErrorResponse) {
+        const errorMessage = 'An unknown error occured!';
+        return throwError(errorMessage);
     }
 }

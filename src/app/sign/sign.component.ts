@@ -230,8 +230,10 @@ export class SignComponent implements OnInit {
 
   login(email: string, password: string) {
     this.authService.signin(email, password).subscribe((payload) => {
-      console.log(payload);
-    });
+
+    }, (error) => {
+      console.log(error)
+    })
   }
 
 }

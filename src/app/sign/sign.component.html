@@ -1,5 +1,6 @@
 <div class="wrapper" [ngStyle]="{'background-image': 'url(\'assets/sign/bg-intro-desktop.png\')'}">
-    <div class="container">
+    <app-header [isAuthenticated]="isAuthenticated"></app-header>
+    <div class="container" [ngClass]="{'authenticated': isAuthenticated}">
         <div>
             <h1>
                 Learn to code by watching others
@@ -11,14 +12,17 @@
         </div>
         <div class="form-wrapper" #wrapper>
             <div *ngIf="!isLoginMode" class="steps">
-                <div [ngClass]="{'active':step==0}">Step 1</div>
-                <div [ngClass]="{'active':step==1}">Step 2</div>
-                <div [ngClass]="{'active':step==2}">Step 3</div>
+                <div [ngClass]="{'active':step==0}">{{isAuthenticated ? 'General information' : 'Step 1'}}</div>
+                <div [ngClass]="{'active':step==1}">{{isAuthenticated ? 'Account infromation' : 'Step 2'}}</div>
+                <div [ngClass]="{'active':step==2}">{{isAuthenticated ? 'About' : 'Step 3'}}</div>
             </div>
             <div *ngIf="isLoginMode" class="steps">
                 <div class="active">Welcome</div>
             </div>
             <div *ngIf="isLoginMode" class="form login">
+                <div *ngIf="errorMessage" class="error">
+                    <p>{{errorMessage}}</p>
+                </div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <div>
@@ -35,8 +39,7 @@
                 <div class="form-group">
                     <button class="btn btn-primary" type="button" style="margin-bottom: 0.5rem;"
                         (click)="login(email.value,password.value)">Log In</button>
-                    <button class="btn btn-primary" (click)="onSwitchMode(); step=0;"
-                        type="button">Switch to
+                    <button class="btn btn-primary" (click)="onSwitchMode(); step=0;" type="button">Switch to
                         {{ isLoginMode? 'Sign Up' : 'Login' }} </button>
                 </div>
             </div>
@@ -226,7 +229,7 @@
                             <label for="password">Password</label>
                             <div>
                                 <input type="password" class="form-control" name="passwordInput" id="password" ngModel
-                                    [(ngModel)]="userInput.password" required minlength="8"
+                                    [(ngModel)]="userInput.password" required minlength="8" autocomplete="new-password"
                                     pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{8,}$"
                                     #password="ngModel">
                                 <div class="validation" *ngIf="password.errors?.minlength && (password?.touched)">
@@ -249,8 +252,8 @@
                             'valid': !passwordGroup.errors?.EqualValidation && passwordConfirm.valid && passwordConfirm?.touched }">
                             <label for="password">Confirm Password</label>
                             <div>
-                                <input type="password" class="form-control" name="confirmPasswordInput" ngModel required
-                                    #passwordConfirm="ngModel">
+                                <input type="password" class="form-control" autocomplete="new-password"
+                                    name="confirmPasswordInput" ngModel required #passwordConfirm="ngModel">
                                 <div class="validation"
                                     *ngIf="passwordConfirm.errors?.required && (passwordConfirm?.touched || passwordConfirm?.dirty)">
                                     Password confirmation is required

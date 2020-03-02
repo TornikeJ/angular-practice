@@ -22,6 +22,7 @@ import { ManageLandingComponent } from './manage-landing/manage-landing.componen
 import { SignComponent } from './sign/sign.component';
 import { ConfrimEqualValidatorDirective } from './sign/confirm-equal-validator.directive';
 import { FilterPipe } from './sign/filter.pipe';
+import { HeaderComponent } from './sign/header.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { FilterPipe } from './sign/filter.pipe';
     ManageLandingComponent,
     SignComponent,
     ConfrimEqualValidatorDirective,
-    FilterPipe
+    FilterPipe,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

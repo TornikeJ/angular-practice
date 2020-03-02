@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'sign', component: SignComponent },
+  { path: 'user', component: SignComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'clipboard', component: ClipboardComponent },
   { path: 'urlshortening', component: UrlShorteningComponent },

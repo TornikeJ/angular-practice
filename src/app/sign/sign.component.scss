@@ -18,6 +18,11 @@ $color4: #ca3636;
   display: flex;
   align-items: center;
   color: white;
+
+  &.authenticated {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 .form {
@@ -36,6 +41,14 @@ $color4: #ca3636;
     .form-group {
       flex-direction: column;
     }
+  }
+
+  .error {
+    background: #f5c6cb;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    color: #721c24;
+    margin-bottom: 1rem;
   }
 
   .form-group {
@@ -259,6 +272,10 @@ $color4: #ca3636;
       background-color: $color2;
     }
   }
+}
+
+app-header {
+  align-self: flex-end;
 }
 
 input:-webkit-autofill,

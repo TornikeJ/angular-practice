@@ -1,9 +1,12 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { CountriesService } from '../countries/countries.service';
-import { UserModel } from './user.model';
+import { User } from './user.model';
 import { NgForm } from '@angular/forms';
 import { DateGenerateComponent } from './date-generate.component';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
+import { DataStorageService } from './data.storage.service';
+import { UserInfo } from './user-info.model';
 
 @Component({
   selector: 'app-sign',
@@ -50,15 +53,31 @@ export class SignComponent implements OnInit {
   arrowkeySelect;
 
   isLoginMode = true;
+  isAuthenticated = false;
+  errorMessage;
 
   constructor(
     private countriesService: CountriesService,
     private renderer: Renderer2,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private dataService: DataStorageService
   ) {
   }
 
   ngOnInit() {
+
+    this.authService.autoLogIn();
+
+    this.authService.user.subscribe((user) => {
+      this.isAuthenticated = !!user;
+      if (this.isAuthenticated) {
+        this.router.navigate(['user']);
+        this.isLoginMode = false;
+      }
+    })
+
+
     const dateGenerate = new DateGenerateComponent();
 
 
@@ -119,6 +138,7 @@ export class SignComponent implements OnInit {
       this.rendererListener = this.renderer.listen('window', 'click', (e: Event) => {
         this.clickListener(e);
       });
+
     } else {
       this.rendererListener();
     }
@@ -142,7 +162,24 @@ export class SignComponent implements OnInit {
     this.step++;
 
     if (this.step === 3) {
-      this.authService.signup(this.userInput.email, this.userInput.password).subscribe();
+      this.authService.signup(this.userInput.email, this.userInput.password).subscribe(
+        (payload) => {
+          this.router.navigate(['user'])
+        }
+      );
+
+      this.dataService.storeUser(
+        new UserInfo(
+          this.userInput.firstName,
+          this.userInput.lastName,
+          this.userInput.birthdayDay,
+          this.userInput.birthdayMonth,
+          this.userInput.birthdayYear,
+          this.userInput.country,
+          this.userInput.aboutMe
+        )
+      );
+
       this.userInput = {
         firstName: null,
         lastName: null,
@@ -230,9 +267,9 @@ export class SignComponent implements OnInit {
 
   login(email: string, password: string) {
     this.authService.signin(email, password).subscribe((payload) => {
-
+      this.router.navigate(['user'])
     }, (error) => {
-      console.log(error)
+      this.errorMessage = error;
     })
   }
 

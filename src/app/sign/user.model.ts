@@ -1,24 +1,18 @@
-export class UserModel {
-
-    private _birthday;
-
-    set birthday(value: any[]) {
-        const arr = [...value];
-        this._birthday = arr.join('/');
-    }
-
-    get birthday() {
-        return this._birthday;
-    }
+export class User {
 
     constructor(
-        private firstName: string,
-        private lastName: string,
-        private birthdayDay: number,
-        private birthdayMonth: string,
-        private birthdayYear: number,
-        private country: string
-    ) {
-        this.birthday = [birthdayDay, birthdayMonth, birthdayYear];
+        public email: string,
+        public id: string,
+        private _token: string,
+        private _tokenExpirationDate: Date,
+
+    ) { }
+
+    get token() {
+        if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
+            return null;
+        }
+
+        return this._token;
     }
 }

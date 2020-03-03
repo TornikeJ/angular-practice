@@ -154,15 +154,15 @@
                             (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0">
                             <div class="country">
                                 <input #countryInput autocomplete="off" type="text" class="form-control country"
-                                    id="country" name="country" [(ngModel)]="userInput.birthdayCountry"
+                                    id="country" name="country" [(ngModel)]="userInput.country"
                                     (focus)="showCountry == 'none'? showCountry='block' : showCountry='none'" ngModel
                                     (input)="showCountry='block'; onKey($event)" required>
                                 <i class=" fa fa-angle-down" (click)="countryInput.focus()"></i>
                             </div>
                             <ul #countryList class="country"
                                 [ngStyle]="{'display': showCountry, 'background-color':backgroundElementColor}">
-                                <li *ngFor="let country of countries | filter : userInput.birthdayCountry let i =index"
-                                    (click)="userInput.birthdayCountry=country; showCountry == 'none'? showCountry='block' : showCountry='none';"
+                                <li *ngFor="let country of countries | filter : userInput.country let i =index"
+                                    (click)="userInput.country=country; showCountry == 'none'? showCountry='block' : showCountry='none';"
                                     [ngClass]="{'active': i==arrowkeyLocation}">
                                     {{country}}
                                 </li>

@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 export class HeaderComponent implements OnInit {
 
   @Input() isAuthenticated = false;
+  @Input() gender = 'male';
 
   constructor(private authService: AuthService) { }
 

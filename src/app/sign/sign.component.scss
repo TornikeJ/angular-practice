@@ -9,6 +9,8 @@ $color4: #ca3636;
   overflow: hidden;
   font-family: "Rubik", sans-serif;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .container {

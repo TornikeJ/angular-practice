@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
-import { User } from './user.model';
+import { UserAuthenticate } from './shared/user-authenticate.model';
 import { Router } from '@angular/router';
 
 export interface AuthResponeData {
-    idToken: string,
-    email: string,
-    refreshToken: string,
-    expiresIn: string,
-    localId: string,
-    registered?: boolean
+    idToken: string;
+    email: string;
+    refreshToken: string;
+    expiresIn: string;
+    localId: string;
+    registered?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -20,9 +20,9 @@ export class AuthService {
 
     APIKey = 'AIzaSyBTZVNKX7LVfqYT7w_lsLCXjw6ewPPsgY0';
     private tokenExpirationTimer: any;
-    user = new BehaviorSubject<User>(null);
+    user = new BehaviorSubject<UserAuthenticate>(null);
 
-    constructor(private http: HttpClient, private router:Router) { }
+    constructor(private http: HttpClient, private router: Router) { }
 
     signup(email: string, password: string) {
         return this.http.post<AuthResponeData>(
@@ -70,8 +70,8 @@ export class AuthService {
     }
 
     private handeAuthentication(email: string, userId: string, token: string, expiresIn: number) {
-        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
-        const user = new User(email, userId, token, expirationDate);
+        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+        const user = new UserAuthenticate(email, userId, token, expirationDate);
         this.user.next(user);
         localStorage.setItem('userData', JSON.stringify(user));
         this.autoLogOut(expiresIn * 1000);
@@ -106,7 +106,7 @@ export class AuthService {
             return;
         }
 
-        const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+        const loadedUser = new UserAuthenticate(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
 
         if (loadedUser.token) {
             this.user.next(loadedUser);

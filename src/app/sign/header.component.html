@@ -1,5 +1,8 @@
-<div>
+<div *ngIf="isAuthenticated">
     <div class="container">
-        <button (click)="logout()" *ngIf="isAuthenticated">Log Out</button>
+        <div class="user">
+            <img src="assets/sign/avatar-male.png" alt="">
+            <button (click)="logout()">Log Out</button>
+        </div>
     </div>
 </div>

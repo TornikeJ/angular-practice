@@ -1,12 +1,13 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { CountriesService } from '../countries/countries.service';
-import { User } from './user.model';
+import { UserAuthenticate } from './shared/user-authenticate.model';
 import { NgForm } from '@angular/forms';
 import { DateGenerateComponent } from './date-generate.component';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { DataStorageService } from './data.storage.service';
-import { UserInfo } from './user-info.model';
+import { UserInput } from './shared/user-input.model';
+import { storeUser } from './shared/user-store.model';
 
 @Component({
   selector: 'app-sign',
@@ -18,10 +19,11 @@ export class SignComponent implements OnInit {
   step = 0;
 
   date: {
-    days,
-    months,
-    years;
-  }
+    days: string[],
+    months: string[],
+    years: number[];
+  };
+
   countries = [];
 
   @ViewChild('wrapper', { static: false }) wrapper: ElementRef;
@@ -46,15 +48,18 @@ export class SignComponent implements OnInit {
     email: string;
     password: string;
     aboutMe: string;
-  }
+  };
 
-  rendererListener
+  rendererListener;
   arrowkeyLocation = 0;
   arrowkeySelect;
 
   isLoginMode = true;
   isAuthenticated = false;
   errorMessage;
+
+  token;
+  id;
 
   constructor(
     private countriesService: CountriesService,
@@ -74,8 +79,13 @@ export class SignComponent implements OnInit {
       if (this.isAuthenticated) {
         this.router.navigate(['user']);
         this.isLoginMode = false;
+        this.token = user.token;
+        this.id = user.id;
+        this.dataService.fetchUser(user);
+      } else {
+        this.router.navigate(['sign']);
       }
-    })
+    });
 
 
     const dateGenerate = new DateGenerateComponent();
@@ -164,34 +174,48 @@ export class SignComponent implements OnInit {
     if (this.step === 3) {
       this.authService.signup(this.userInput.email, this.userInput.password).subscribe(
         (payload) => {
-          this.router.navigate(['user'])
+          this.router.navigate(['user']);
+          const monthIndex = this.date.months.findIndex((month) => {
+            return month === this.userInput.birthdayMonth;
+          });
+
+          const user = new UserInput(
+            this.userInput.firstName,
+            this.userInput.lastName,
+            this.userInput.birthdayDay,
+            monthIndex,
+            this.userInput.birthdayYear,
+            this.userInput.country,
+            this.userInput.aboutMe
+          );
+
+          const storeUser: storeUser = {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            birthday: user.birthday,
+            country: user.country,
+            aboutMe: user.aboutMe,
+          };
+          this.dataService.storeUser(
+            storeUser,
+            this.id,
+            this.token,
+          );
+
+          this.userInput = {
+            firstName: null,
+            lastName: null,
+            country: null,
+            birthdayDay: null,
+            birthdayMonth: null,
+            birthdayYear: null,
+            displayName: null,
+            email: null,
+            password: null,
+            aboutMe: null
+          };
         }
       );
-
-      this.dataService.storeUser(
-        new UserInfo(
-          this.userInput.firstName,
-          this.userInput.lastName,
-          this.userInput.birthdayDay,
-          this.userInput.birthdayMonth,
-          this.userInput.birthdayYear,
-          this.userInput.country,
-          this.userInput.aboutMe
-        )
-      );
-
-      this.userInput = {
-        firstName: null,
-        lastName: null,
-        country: null,
-        birthdayDay: null,
-        birthdayMonth: null,
-        birthdayYear: null,
-        displayName: null,
-        email: null,
-        password: null,
-        aboutMe: null
-      }
       form.reset();
       this.isLoginMode = true;
     }

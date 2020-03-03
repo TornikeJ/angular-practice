@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, exhaustMap, take } from 'rxjs/operators';
+import { UserInput } from './shared/user-input.model';
+import { storeUser } from './shared/user-store.model';
 import { AuthService } from './auth.service';
-import { UserInfo } from './user-info.model';
+
 
 @Injectable({ providedIn: 'root' })
 
@@ -10,25 +12,30 @@ export class DataStorageService {
     constructor(private http: HttpClient,
         private authService: AuthService) { }
 
-    storeUser(user: UserInfo) {
-        const token = this.authService.user.subscribe(
-            user => {
-                return user.token
-            }
-        )
-        this.http.put(`https://first-project-efdd7.firebaseio.com/recipes.json?auth=<${token}>`, user).subscribe(
+    storeUser(userData: storeUser, id, token) {
+
+        this.http.post(`https://first-project-efdd7.firebaseio.com/users.json?auth=${token}`, {
+            [id]: userData
+        }).subscribe(
             (response) => {
                 console.log(response);
-            });
+            }
+        );
     }
 
-    fetchUser() {
-        return this.http.get<UserInfo[]>('https://first-project-efdd7.firebaseio.com/users.json')
-            .pipe(
-                tap((users) => {
-                    console.log(users)
-                    // this.recipesService.setRecipes(recipes);
+
+    fetchUser(user) {
+        this.http.get<storeUser[]>(`https://first-project-efdd7.firebaseio.com/users.json?auth=${user.token}`).pipe(
+            map((users) => {
+                return Object.keys(users).forEach((key) => {
+                    const loggedUser = users[key][user.id];
+
+                    if (!!loggedUser) {
+                        console.log(loggedUser);
+                        return loggedUser;
+                    }
                 })
-            );
+            })
+        ).subscribe((users) => console.log(users));
     }
 }

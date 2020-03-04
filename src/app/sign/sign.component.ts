@@ -1,13 +1,13 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { CountriesService } from '../countries/countries.service';
-import { UserAuthenticate } from './shared/user-authenticate.model';
 import { NgForm } from '@angular/forms';
 import { DateGenerateComponent } from './date-generate.component';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { DataStorageService } from './data.storage.service';
-import { UserInput } from './shared/user-input.model';
 import { storeUser } from './shared/user-store.model';
+import { take } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-sign',
@@ -26,11 +26,15 @@ export class SignComponent implements OnInit {
 
   countries = [];
 
-  @ViewChild('wrapper', { static: false }) wrapper: ElementRef;
+  @ViewChild('yearInput', { static: false }) yearInput: ElementRef;
+  @ViewChild('monthInput', { static: false }) monthInput: ElementRef;
+  @ViewChild('dayInput', { static: false }) dayInput: ElementRef;
+  @ViewChild('countryInput', { static: false }) countryInput: ElementRef;
   @ViewChild('yearList', { static: false }) yearList: ElementRef;
   @ViewChild('dayList', { static: false }) dayList: ElementRef;
   @ViewChild('monthList', { static: false }) monthList: ElementRef;
   @ViewChild('countryList', { static: false }) countryList: ElementRef;
+
 
   showMonth = 'none';
   showDay = 'none';
@@ -54,12 +58,17 @@ export class SignComponent implements OnInit {
   arrowkeyLocation = 0;
   arrowkeySelect;
 
+  loginMode = new BehaviorSubject<boolean>(true);
   isLoginMode = true;
   isAuthenticated = false;
   errorMessage;
 
+  isLoading = true;
   token;
   id;
+  dbId;
+
+  emailVerified = false;
 
   constructor(
     private countriesService: CountriesService,
@@ -67,8 +76,7 @@ export class SignComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private dataService: DataStorageService
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
 
@@ -78,12 +86,43 @@ export class SignComponent implements OnInit {
       this.isAuthenticated = !!user;
       if (this.isAuthenticated) {
         this.router.navigate(['user']);
-        this.isLoginMode = false;
+        this.loginMode.next(false);
         this.token = user.token;
         this.id = user.id;
-        this.dataService.fetchUser(user);
-      } else {
+        this.isLoading = true;
+        this.dataService.fetchUser(user).pipe(take(1)).subscribe(
+          (fetchedData) => {
+            this.dbId = Object.keys(fetchedData)[0]
+            const data: storeUser = fetchedData[this.dbId][this.id];
+            const date = new Date(data.birthday);
+
+            this.userInput = {
+              firstName: data.firstName,
+              lastName: data.lastName,
+              country: data.country,
+              birthdayDay: date.getDate(),
+              birthdayMonth: this.date.months[date.getMonth()],
+              birthdayYear: date.getFullYear(),
+              displayName: data.displayName,
+              email: data.email,
+              password: null,
+              aboutMe: data.aboutMe
+            }
+            this.isLoading = false;
+            if (!this.isLoading) {
+              this.authService.getSensitiveData(this.token).pipe(take(1)).subscribe(
+                (payload) => {
+                  this.userInput.password = payload.passwordHash;
+                  this.emailVerified = payload.emailVerified;
+                }
+              );
+            }
+          });
+
+      }
+      else {
         this.router.navigate(['sign']);
+        this.resetInputs();
       }
     });
 
@@ -97,19 +136,6 @@ export class SignComponent implements OnInit {
       years: dateGenerate.years
     }
 
-    this.userInput = {
-      firstName: null,
-      lastName: null,
-      country: null,
-      birthdayDay: null,
-      birthdayMonth: null,
-      birthdayYear: null,
-      displayName: null,
-      email: null,
-      password: null,
-      aboutMe: null
-    }
-
     this.countriesService.getAllCountries().subscribe(
       (countries: []) => {
         countries.forEach((country) => {
@@ -117,40 +143,41 @@ export class SignComponent implements OnInit {
         })
       }
     )
+
+    this.loginMode.subscribe((mode) => {
+      if (mode === true) {
+        this.isLoginMode = true;
+      }
+      else {
+        this.isLoginMode = false;
+      }
+
+      this.rendererListener = this.renderer.listen('window', 'click', (e: Event) => {
+        if (!this.monthInput || !this.dayInput || !this.yearInput || !this.countryInput) {
+          this.rendererListener();
+        } else {
+          this.clickListener(e);
+        }
+      });
+    });
+
   }
 
 
   clickListener(e: Event) {
-    const month = this.wrapper.nativeElement.children[1].getElementsByClassName('month');
-    const day = this.wrapper.nativeElement.children[1].getElementsByClassName('day');
-    const year = this.wrapper.nativeElement.children[1].getElementsByClassName('year');
-    const country = this.wrapper.nativeElement.children[1].getElementsByClassName('country');
 
-    if (month && !(month as ElementRef)[0].contains(e.target)) {
+    if (!this.monthInput.nativeElement.contains(e.target)) {
       this.showMonth = 'none';
     }
-    if (day && !(day as ElementRef)[0].contains(e.target)) {
+    if (!this.dayInput.nativeElement.contains(e.target)) {
       this.showDay = 'none';
     }
-    if (year && !(year as ElementRef)[0].contains(e.target)) {
+    if (!this.yearInput.nativeElement.contains(e.target)) {
       this.showYear = 'none';
     }
 
-    if (country && !(country as ElementRef)[0].contains(e.target)) {
+    if (!this.countryInput.nativeElement.contains(e.target)) {
       this.showCountry = 'none';
-    }
-  }
-
-  onSwitchMode() {
-    this.isLoginMode = !this.isLoginMode;
-
-    if (!this.isLoginMode) {
-      this.rendererListener = this.renderer.listen('window', 'click', (e: Event) => {
-        this.clickListener(e);
-      });
-
-    } else {
-      this.rendererListener();
     }
   }
 
@@ -158,66 +185,21 @@ export class SignComponent implements OnInit {
     this.step--;
 
     if (this.step == 0) {
-      this.rendererListener = this.renderer.listen('window', 'click', (e: Event) => {
-        this.clickListener(e);
-      });
+      this.loginMode.next(false);
     }
   }
 
   nextStep(form: NgForm) {
     if (this.step == 0) {
-      this.rendererListener();
+      this.loginMode.next(false);
     }
 
     this.step++;
 
     if (this.step === 3) {
-      this.authService.signup(this.userInput.email, this.userInput.password).subscribe(
-        (payload) => {
-          this.router.navigate(['user']);
-          const monthIndex = this.date.months.findIndex((month) => {
-            return month === this.userInput.birthdayMonth;
-          });
-
-          const user = new UserInput(
-            this.userInput.firstName,
-            this.userInput.lastName,
-            this.userInput.birthdayDay,
-            monthIndex,
-            this.userInput.birthdayYear,
-            this.userInput.country,
-            this.userInput.aboutMe
-          );
-
-          const storeUser: storeUser = {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            birthday: user.birthday,
-            country: user.country,
-            aboutMe: user.aboutMe,
-          };
-          this.dataService.storeUser(
-            storeUser,
-            this.id,
-            this.token,
-          );
-
-          this.userInput = {
-            firstName: null,
-            lastName: null,
-            country: null,
-            birthdayDay: null,
-            birthdayMonth: null,
-            birthdayYear: null,
-            displayName: null,
-            email: null,
-            password: null,
-            aboutMe: null
-          };
-        }
-      );
+      this.signup();
       form.reset();
-      this.isLoginMode = true;
+      this.loginMode.next(true);
     }
   }
 
@@ -289,12 +271,93 @@ export class SignComponent implements OnInit {
     }
   }
 
+  signup() {
+    this.authService.signup(this.userInput.email, this.userInput.password).subscribe(
+      () => {
+        this.router.navigate(['user']);
+
+        const monthIndex = this.date.months.findIndex((month) => {
+          return month === this.userInput.birthdayMonth;
+        });
+
+        const date = new Date(this.userInput.birthdayYear, monthIndex, this.userInput.birthdayDay);
+
+        const storeUser: storeUser = {
+          firstName: this.userInput.firstName,
+          lastName: this.userInput.lastName,
+          displayName: this.userInput.displayName,
+          email: this.userInput.email,
+          birthday: date,
+          country: this.userInput.country,
+          aboutMe: this.userInput.aboutMe,
+        };
+
+        this.dataService.storeUser(
+          storeUser,
+          this.id,
+          this.token,
+        );
+
+        this.resetInputs();
+      }
+    );
+
+  }
+
   login(email: string, password: string) {
-    this.authService.signin(email, password).subscribe((payload) => {
+    this.authService.signin(email, password).subscribe(() => {
       this.router.navigate(['user'])
     }, (error) => {
       this.errorMessage = error;
     })
+  }
+
+  updateUser() {
+
+    const monthIndex = this.date.months.findIndex((month) => {
+      return month === this.userInput.birthdayMonth;
+    });
+    const date = new Date(this.userInput.birthdayYear, monthIndex, this.userInput.birthdayDay);
+    const storeUser: storeUser = {
+      firstName: this.userInput.firstName,
+      lastName: this.userInput.lastName,
+      displayName: this.userInput.displayName,
+      email: this.userInput.email,
+      birthday: date,
+      country: this.userInput.country,
+      aboutMe: this.userInput.aboutMe,
+    };
+
+    this.dataService.updateUser(storeUser, this.dbId, this.id, this.token);
+
+    this.resetInputs();
+  }
+
+  resetInputs() {
+    const temp = this.userInput;
+
+    this.userInput = {
+      firstName: null,
+      lastName: null,
+      country: null,
+      birthdayDay: null,
+      birthdayMonth: null,
+      birthdayYear: null,
+      displayName: null,
+      email: null,
+      password: null,
+      aboutMe: null
+    };
+
+    if (!!temp) {
+      setTimeout(() => {
+        this.userInput = temp;
+      }, 1000)
+    }
+  }
+
+  verifyEmail() {
+    this.authService.emailVerification(this.token);
   }
 
 }

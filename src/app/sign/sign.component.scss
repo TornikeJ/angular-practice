@@ -53,6 +53,14 @@ $color4: #ca3636;
     margin-bottom: 1rem;
   }
 
+  .success {
+    background: #d4edda;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    color: #155724;
+    margin-bottom: 1rem;
+  }
+
   .form-group {
     display: flex;
     margin-bottom: 2rem;
@@ -64,8 +72,29 @@ $color4: #ca3636;
       max-width: 10rem;
     }
 
+    .verification {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+
+      button {
+        width: initial;
+      }
+    }
+
     &.buttons {
       justify-content: space-between;
+
+      &.authenticated {
+        justify-content: flex-end;
+
+        button {
+          &:first-child {
+            margin-right: 1rem;
+          }
+        }
+      }
 
       button {
         width: initial;
@@ -107,6 +136,36 @@ $color4: #ca3636;
 
       > div {
         margin-right: 2rem;
+      }
+    }
+
+    .birthday,
+    .country {
+      .invalid {
+        color: $color1;
+
+        .form-control {
+          border-color: $color1;
+          color: $color1;
+        }
+
+        input:-webkit-autofill {
+          -webkit-text-fill-color: $color1 !important;
+        }
+      }
+
+      .valid {
+        color: $color2;
+
+        .form-control {
+          border-color: $color2;
+          color: $color2;
+        }
+
+        input:-webkit-autofill {
+          background-color: transparent !important;
+          -webkit-text-fill-color: $color2 !important;
+        }
       }
     }
 
@@ -197,6 +256,10 @@ $color4: #ca3636;
           opacity: 1;
         }
       }
+
+      .validation {
+        max-width: fit-content;
+      }
     }
 
     .form-control {
@@ -272,6 +335,10 @@ $color4: #ca3636;
 
     &.active {
       background-color: $color2;
+    }
+
+    &.authenticated {
+      cursor: pointer;
     }
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { tap, catchError } from 'rxjs/operators';
-import { throwError, BehaviorSubject } from 'rxjs';
+import { tap, catchError, map } from 'rxjs/operators';
+import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { UserAuthenticate } from './shared/user-authenticate.model';
 import { Router } from '@angular/router';
 
@@ -12,6 +12,33 @@ export interface AuthResponeData {
     expiresIn: string;
     localId: string;
     registered?: boolean;
+}
+
+export interface SensitiveData {
+
+    "localId": string,
+    "email": string,
+    "emailVerified": boolean,
+    "displayName": string,
+    "providerUserInfo": [
+        {
+            "providerId": string,
+            "displayName": string,
+            "photoUrl": string,
+            "federatedId": string,
+            "email": string,
+            "rawId": string,
+            "screenName": string
+        }
+    ],
+    "photoUrl": string,
+    "passwordHash": string,
+    "passwordUpdatedAt": number,
+    "validSince": string,
+    "disabled": boolean,
+    "lastLoginAt": string,
+    "createdAt": string,
+    "customAuth": boolean
 }
 
 @Injectable({ providedIn: 'root' })
@@ -62,6 +89,26 @@ export class AuthService {
             ),
             catchError(this.handleError)
         );
+    }
+
+
+    getSensitiveData(token): Observable<SensitiveData> {
+        return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${this.APIKey}`, {
+            idToken: token
+        }).pipe(map((payload) => {
+            return payload['users'][0]
+        }))
+    }
+
+    emailVerification(token) {
+        this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${this.APIKey}`,
+            {
+                requestType: "VERIFY_EMAIL",
+                idToken: token
+            }).subscribe((payload) => {
+                console.log(payload);
+            })
+
     }
 
     private handleError(error: HttpErrorResponse) {

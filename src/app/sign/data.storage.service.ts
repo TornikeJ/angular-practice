@@ -1,41 +1,40 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { map, tap, exhaustMap, take } from 'rxjs/operators';
-import { UserInput } from './shared/user-input.model';
+import { map } from 'rxjs/operators';
 import { storeUser } from './shared/user-store.model';
-import { AuthService } from './auth.service';
 
 
 @Injectable({ providedIn: 'root' })
 
 export class DataStorageService {
-    constructor(private http: HttpClient,
-        private authService: AuthService) { }
+    constructor(private http: HttpClient) { }
 
     storeUser(userData: storeUser, id, token) {
 
         this.http.post(`https://first-project-efdd7.firebaseio.com/users.json?auth=${token}`, {
             [id]: userData
-        }).subscribe(
-            (response) => {
-                console.log(response);
-            }
-        );
+        }).subscribe();
     }
 
 
-    fetchUser(user) {
-        this.http.get<storeUser[]>(`https://first-project-efdd7.firebaseio.com/users.json?auth=${user.token}`).pipe(
-            map((users) => {
-                return Object.keys(users).forEach((key) => {
-                    const loggedUser = users[key][user.id];
 
-                    if (!!loggedUser) {
-                        console.log(loggedUser);
-                        return loggedUser;
-                    }
-                })
+    fetchUser(user) {
+        return this.http.get<storeUser[]>(`https://first-project-efdd7.firebaseio.com/users.json?auth=${user.token}`).pipe(
+            map((users) => {
+                const key = Object.keys(users).filter(
+                    (key) => {
+                        return !!users[key][user.id];
+                    })
+
+                return { [key[0]]: users[key[0]] };
+
             })
-        ).subscribe((users) => console.log(users));
+        );
+    }
+
+    updateUser(userData: storeUser, dbId, id, token) {
+        this.http.put<storeUser[]>(`https://first-project-efdd7.firebaseio.com/users/${dbId}.json?auth=${token}`, {
+            [id]: userData
+        }).subscribe();
     }
 }

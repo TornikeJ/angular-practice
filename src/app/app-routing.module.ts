@@ -18,7 +18,7 @@ import { SignComponent } from './sign/sign.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'sign', component: SignComponent },
+  { path: 'sign', component: SignComponent},
   { path: 'user', component: SignComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'clipboard', component: ClipboardComponent },

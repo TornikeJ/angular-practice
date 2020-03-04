@@ -26,6 +26,7 @@ export class SignComponent implements OnInit {
 
   countries = [];
 
+  @ViewChild('registrationForm', { static: false }) public registrationForm: NgForm;
   @ViewChild('yearInput', { static: false }) yearInput: ElementRef;
   @ViewChild('monthInput', { static: false }) monthInput: ElementRef;
   @ViewChild('dayInput', { static: false }) dayInput: ElementRef;
@@ -69,6 +70,7 @@ export class SignComponent implements OnInit {
   dbId;
 
   emailVerified = false;
+  editMode = false;
 
   constructor(
     private countriesService: CountriesService,
@@ -108,6 +110,7 @@ export class SignComponent implements OnInit {
               password: null,
               aboutMe: data.aboutMe
             }
+
             this.isLoading = false;
             if (!this.isLoading) {
               this.authService.getSensitiveData(this.token).pipe(take(1)).subscribe(
@@ -123,6 +126,7 @@ export class SignComponent implements OnInit {
       else {
         this.router.navigate(['sign']);
         this.resetInputs();
+        this.isLoading = false;
       }
     });
 
@@ -358,6 +362,10 @@ export class SignComponent implements OnInit {
 
   verifyEmail() {
     this.authService.emailVerification(this.token);
+  }
+
+  changeEmail() {
+    this.authService.changeEmail(this.token, this.userInput.email);
   }
 
 }

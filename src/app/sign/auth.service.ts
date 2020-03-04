@@ -105,8 +105,18 @@ export class AuthService {
             {
                 requestType: "VERIFY_EMAIL",
                 idToken: token
-            }).subscribe((payload) => {
-                console.log(payload);
+            }).subscribe();
+
+    }
+
+    changeEmail(token, email) {
+        this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${this.APIKey}`,
+            {
+                idToken: token,
+                email,
+                returnSecureToken: true
+            }).subscribe(() => {
+                this.logout();
             })
 
     }

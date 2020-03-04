@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit {
 
   @Input() isAuthenticated = false;
   @Input() gender = 'male';
+  menuClicked = false;
 
   constructor(private authService: AuthService) { }
 

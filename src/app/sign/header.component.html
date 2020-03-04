@@ -2,7 +2,12 @@
     <div class="container">
         <div class="user">
             <img src="assets/sign/avatar-male.png" alt="">
-            <button (click)="logout()">Log Out</button>
+            <div class="menu" (click)="menuClicked=!menuClicked">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <button *ngIf="menuClicked" (click)="logout()">Log Out</button>
         </div>
     </div>
 </div>

@@ -70,6 +70,14 @@ $color4: #ca3636;
     label {
       flex-grow: 0.35;
       max-width: 10rem;
+
+      &.invalid {
+        color: $color1;
+      }
+
+      &.valid {
+        color: $color2;
+      }
     }
 
     .verification {
@@ -140,7 +148,7 @@ $color4: #ca3636;
     }
 
     .birthday,
-    .country {
+    label {
       .invalid {
         color: $color1;
 

@@ -6,8 +6,9 @@ import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { DataStorageService } from './data.storage.service';
 import { storeUser } from './shared/user-store.model';
-import { take } from 'rxjs/operators';
+import { take, delay } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign',
@@ -35,12 +36,15 @@ export class SignComponent implements OnInit {
   @ViewChild('dayList', { static: false }) dayList: ElementRef;
   @ViewChild('monthList', { static: false }) monthList: ElementRef;
   @ViewChild('countryList', { static: false }) countryList: ElementRef;
+  updateForm = true;
 
 
   showMonth = 'none';
   showDay = 'none';
   showYear = 'none';
   showCountry = 'none';
+
+  fetchedInput = {};
 
   userInput: {
     firstName: string;
@@ -62,13 +66,14 @@ export class SignComponent implements OnInit {
   loginMode = new BehaviorSubject<boolean>(true);
   isLoginMode = true;
   isAuthenticated = false;
-  errorMessage;
 
   isLoading = true;
   token;
   id;
   dbId;
 
+  errorMessage;
+  emailErrorMessage;
   emailVerified = false;
   editMode = false;
 
@@ -111,12 +116,14 @@ export class SignComponent implements OnInit {
               aboutMe: data.aboutMe
             }
 
+
             this.isLoading = false;
             if (!this.isLoading) {
               this.authService.getSensitiveData(this.token).pipe(take(1)).subscribe(
                 (payload) => {
                   this.userInput.password = payload.passwordHash;
                   this.emailVerified = payload.emailVerified;
+                  Object.assign(this.fetchedInput, this.userInput);
                 }
               );
             }
@@ -236,7 +243,7 @@ export class SignComponent implements OnInit {
       this.arrowkeyLocation--;
     }
 
-    else if (event.key == 'Enter') {
+    else if (event.key == 'Enter' || event.key == 'Tab') {
       switch (name) {
         case 'year':
           this.userInput.birthdayYear = (element.getElementsByClassName('active')[0].innerHTML).trim();
@@ -311,6 +318,7 @@ export class SignComponent implements OnInit {
   login(email: string, password: string) {
     this.authService.signin(email, password).subscribe(() => {
       this.router.navigate(['user'])
+      this.errorMessage = null;
     }, (error) => {
       this.errorMessage = error;
     })
@@ -335,6 +343,7 @@ export class SignComponent implements OnInit {
     this.dataService.updateUser(storeUser, this.dbId, this.id, this.token);
 
     this.resetInputs();
+    this.registrationForm.reset();
   }
 
   resetInputs() {
@@ -365,7 +374,28 @@ export class SignComponent implements OnInit {
   }
 
   changeEmail() {
-    this.authService.changeEmail(this.token, this.userInput.email);
+    if (!this.editMode) {
+      if (this.userInput.email !== this.fetchedInput['email']) {
+        this.authService.changeEmail(this.token, this.userInput.email).pipe(delay(1000)).subscribe(() => {
+          this.updateUser();
+          this.authService.logout();
+        },
+          (response) => {
+            this.emailErrorMessage = response;
+          })
+      }
+    }
   }
 
+  onChanges() {
+    const keys = Object.keys(this.userInput)
+    this.updateForm = true;
+
+    keys.forEach((key) => {
+      if (this.userInput[key] !== this.fetchedInput[key]) {
+        this.updateForm = false;
+        return
+      }
+    });
+  }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { tap, catchError, map } from 'rxjs/operators';
+import { tap, catchError, map, delay } from 'rxjs/operators';
 import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { UserAuthenticate } from './shared/user-authenticate.model';
 import { Router } from '@angular/router';
@@ -110,19 +110,53 @@ export class AuthService {
     }
 
     changeEmail(token, email) {
-        this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${this.APIKey}`,
+        return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${this.APIKey}`,
             {
                 idToken: token,
                 email,
                 returnSecureToken: true
-            }).subscribe(() => {
-                this.logout();
-            })
-
+            }).pipe(catchError(this.handleError));
     }
 
-    private handleError(error: HttpErrorResponse) {
-        const errorMessage = 'An unknown error occured!';
+    private handleError(response: HttpErrorResponse) {
+        let errorMessage = 'An unknown error occured!';
+        
+        if (!response.error || !response.error.error) {
+            return throwError(errorMessage);
+        }
+
+
+        switch (response.error.error.message) {
+            case 'EMAIL_EXISTS':
+                errorMessage = 'This email already exists';
+                break;
+            case 'EMAIL_NOT_FOUND':
+                errorMessage = 'This email does not exist';
+                break;
+            case 'INVALID_PASSWORD':
+                errorMessage = 'Invalid password entered';
+                break;
+            case 'MISSING_PASSWORD':
+                errorMessage = 'Missing password';
+                break;
+            case 'INVALID_EMAIL':
+                errorMessage = 'The email address is badly formatted';
+                break;
+            case 'INVALID_ID_TOKEN':
+                errorMessage = "The user's credential is no longer valid. The user must sign in again.";
+                break;
+            case 'USER_NOT_FOUND':
+                errorMessage = "There is no user record corresponding to this identifier. The user may have been deleted.";
+                break;
+            case 'TOKEN_EXPIRED':
+                errorMessage = "The user's credential is no longer valid. The user must sign in again.";
+                break;
+            case 'USER_DISABLED':
+                errorMessage = 'The user account has been disabled by an administrator.';
+                break;
+
+        }
+
         return throwError(errorMessage);
     }
 

@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div *ngIf="isLoading" class="loader"></div>
-            <form *ngIf="!isLoginMode && userInput" #registrationForm="ngForm" class="form">
+            <form *ngIf="!isLoginMode && userInput" #registrationForm="ngForm" (input)="onChanges()" class="form">
                 <div class="step-1" *ngIf="step==0">
                     <div class="form-group"
                         [ngClass]="{'invalid': name.errors?.required && (name?.touched || name?.dirty), 'valid': name.valid && name.touched}">
@@ -77,14 +77,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="birthday"
-                            [ngClass]="{'invalid': birthdayGroup.errors?.required && (birthdayGroup?.touched || birthdayGroup?.dirty) || birthdayGroup
-                        && birthdayGroup?.invalid && birthdayGroup?.touched, 'valid': birthdayGroup.valid && birthdayGroup?.touched }">Birthday</label>
+                        <label for="birthday" [ngClass]="{'invalid': month.errors?.required  && month.touched && showMonth == 'none'|| 
+                        day.errors?.required && day.touched && showDay == 'none'|| 
+                        year.errors?.required && year.touched && showYear == 'none', 
+                            'valid': birthdayGroup.valid && birthdayGroup?.touched }">Birthday</label>
                         <div ngModelGroup="birthdayGroup" class="birthday" id="birthday" #birthdayGroup="ngModelGroup">
                             <div
                                 [ngClass]="{'invalid': month.errors?.required && (month?.touched || month?.dirty) && showMonth == 'none', 'valid': month.valid && month.touched && showMonth == 'none' }">
                                 <label for="month">Month</label>
-                                <div class="filter" (keydown.tab)="showMonth='none'"
+                                <div class="filter" (keydown.tab)="onKey($event); showMonth='none'"
                                     (keydown.arrowdown)="onKey($event);" (keydown.arrowup)="onKey($event)"
                                     (keydown.enter)="onKey($event); showMonth='none'"
                                     (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0">
@@ -113,9 +114,10 @@
                             <div
                                 [ngClass]="{'invalid': day.errors?.required && (day?.touched || day?.dirty) && showDay == 'none', 'valid': day.valid && day.touched && showDay == 'none' }">
                                 <label for="day">Day</label>
-                                <div class="filter" (keydown.tab)="showDay='none'" (keydown.arrowdown)="onKey($event);"
-                                    (keydown.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showDay='none'"
-                                    (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0">
+                                <div class="filter" (keydown.tab)="onKey($event); showDay='none'"
+                                    (keydown.arrowdown)="onKey($event);" (keydown.arrowup)="onKey($event)"
+                                    (keydown.enter)="onKey($event); showDay='none'" (keydown.backspace)="onKey($event)"
+                                    (focusout)="arrowkeyLocation=0; day.scrollTop=0">
                                     <div class="day">
                                         <input #dayInput #day="ngModel" autocomplete="off" type="text"
                                             class="form-control day" id="day" name="day"
@@ -141,9 +143,10 @@
                             <div
                                 [ngClass]="{'invalid': year.errors?.required && (year?.touched || year?.dirty) && showYear == 'none', 'valid': year.valid && year.touched && showYear == 'none' }">
                                 <label for="year">Year</label>
-                                <div class="filter" (keydown.tab)="showYear='none'" (keydown.arrowdown)="onKey($event);"
-                                    (keydown.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showYear='none'"
-                                    (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0">
+                                <div class="filter" (keydown.tab)="onKey($event); showYear='none'"
+                                    (keydown.arrowdown)="onKey($event);" (keydown.arrowup)="onKey($event)"
+                                    (keydown.enter)="onKey($event); showYear='none'" (keydown.backspace)="onKey($event)"
+                                    (focusout)="arrowkeyLocation=0">
                                     <div class="year">
                                         <input #yearInput #year="ngModel" autocomplete="off" type="text"
                                             class="form-control year" id="year" name="year"
@@ -175,9 +178,10 @@
                     <div class="form-group"
                         [ngClass]="{'invalid': country.errors?.required && (country?.touched || country?.dirty) && showCountry == 'none', 'valid': country.valid && country.touched && showCountry == 'none' }">
                         <label for="country">Country</label>
-                        <div class="filter" (keydown.tab)="showCountry='none'" (keydown.arrowdown)="onKey($event);"
-                            (keydown.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showCountry='none'"
-                            (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0">
+                        <div class="filter" (keydown.tab)="onKey($event); showCountry='none'"
+                            (keydown.arrowdown)="onKey($event);" (keydown.arrowup)="onKey($event)"
+                            (keydown.enter)="onKey($event); showCountry='none'" (keydown.backspace)="onKey($event)"
+                            (focusout)="arrowkeyLocation=0">
                             <div class="country">
                                 <input #countryInput #country="ngModel" autocomplete="off" type="text"
                                     class="form-control country" id="country" name="country"
@@ -215,13 +219,13 @@
                         </div>
                     </div>
                     <div ngModelGroup="emailGroup" appConfrimEqualValidator #emailGroup="ngModelGroup">
-                        <div class=" form-group"
-                            [ngClass]="{'invalid': email.errors?.required && (email?.touched || email?.dirty) || email && email?.invalid && email?.touched, 'valid': email.valid && email?.touched }">
+                        <div class=" form-group" [ngClass]="{'invalid': email.errors?.required && (email?.touched || email?.dirty) || email && email?.invalid && email?.touched || emailErrorMessage, 
+                            'valid': email.valid && email?.touched && !emailErrorMessage}">
                             <label for="email">Email</label>
                             <div>
-                                <input [disabled]="isAuthenticated && !editMode" type="email" class="form-control"
-                                    name="emailInput" id="email" ngModel required [(ngModel)]="userInput.email" email
-                                    #email="ngModel">
+                                <input [disabled]="isAuthenticated && !editMode" type="email"
+                                    (input)="emailErrorMessage=null" class="form-control" name="emailInput" id="email"
+                                    ngModel required [(ngModel)]="userInput.email" email #email="ngModel">
                                 <div class="validation"
                                     *ngIf="email && email?.invalid && email?.touched && !email.errors?.required">
                                     Whoops, make sure it's an email</div>
@@ -229,12 +233,15 @@
                                     *ngIf="email.errors?.required && (email?.touched || email?.dirty)">
                                     Email is required
                                 </div>
+                                <div class="validation" *ngIf="emailErrorMessage">
+                                    {{emailErrorMessage}}
+                                </div>
                                 <div *ngIf="isAuthenticated" class="verification">
                                     <div [ngClass]="{'error':!emailVerified, 'success':emailVerified}">
                                         Email is {{emailVerified? '': 'not'}} Verified
                                     </div>
                                     <button [disabled]="email.invalid" (click)="editMode=!editMode;
-                                    changeEmail() && !editMode">
+                                    changeEmail()">
                                         {{editMode? 'Save' : 'Edit'}} email
                                     </button>
                                     <button (click)="verifyEmail()" *ngIf="!emailVerified">
@@ -330,7 +337,9 @@
                     <button *ngIf="step>0 && !isAuthenticated" (click)="previousStep()" type="button">Back</button>
                     <button *ngIf="!isAuthenticated" [disabled]="registrationForm.invalid"
                         (click)="nextStep(registrationForm)">{{step == 2 ?  'Finalize' : 'Next'}} </button>
-                    <button *ngIf="isAuthenticated" (click)="updateUser()">Update</button>
+                    <button *ngIf="isAuthenticated"
+                        [disabled]="updateForm || emailErrorMessage || errorMessage || editMode || registrationForm.invalid"
+                        (click)="updateUser()">Update</button>
                     <!-- <button *ngIf="isAuthenticated" (click)="getPassword()">Reset</button> -->
                 </div>
             </form>

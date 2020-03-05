@@ -23,6 +23,7 @@ import { SignComponent } from './sign/sign.component';
 import { ConfrimEqualValidatorDirective } from './sign/confirm-equal-validator.directive';
 import { FilterPipe } from './sign/filter.pipe';
 import { HeaderComponent } from './sign/header.component';
+import { IsInListValidatorDirective } from './sign/is-in-list-validator.directive copy';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { HeaderComponent } from './sign/header.component';
     ConfrimEqualValidatorDirective,
     FilterPipe,
     HeaderComponent,
+    IsInListValidatorDirective
   ],
   imports: [
     BrowserModule,

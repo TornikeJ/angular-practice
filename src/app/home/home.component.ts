@@ -50,6 +50,9 @@ export class HomeComponent implements OnInit {
       case 'managelanding':
         this.color = '#f94b1d';
         break;
+      case 'sign':
+        this.color = '#38cc8c';
+        break;
       default:
         this.color = '#ed6491';
     }

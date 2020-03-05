@@ -1,7 +1,7 @@
 <div *ngIf="isAuthenticated">
     <div class="container">
         <div class="user">
-            <img src="assets/sign/avatar-male.png" alt="">
+            <img [src]="avatarSrc" alt="">
             <div class="menu" (click)="menuClicked=!menuClicked">
                 <div></div>
                 <div></div>

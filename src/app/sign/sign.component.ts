@@ -49,6 +49,7 @@ export class SignComponent implements OnInit {
   userInput: {
     firstName: string;
     lastName: string;
+    gender: string;
     country: string;
     birthdayDay: number;
     birthdayMonth: string;
@@ -72,6 +73,7 @@ export class SignComponent implements OnInit {
   id;
   dbId;
 
+  isInList;
   errorMessage;
   emailErrorMessage;
   emailVerified = false;
@@ -106,6 +108,7 @@ export class SignComponent implements OnInit {
             this.userInput = {
               firstName: data.firstName,
               lastName: data.lastName,
+              gender: data.gender,
               country: data.country,
               birthdayDay: date.getDate(),
               birthdayMonth: this.date.months[date.getMonth()],
@@ -296,6 +299,7 @@ export class SignComponent implements OnInit {
         const storeUser: storeUser = {
           firstName: this.userInput.firstName,
           lastName: this.userInput.lastName,
+          gender: this.userInput.gender,
           displayName: this.userInput.displayName,
           email: this.userInput.email,
           birthday: date,
@@ -333,6 +337,7 @@ export class SignComponent implements OnInit {
     const storeUser: storeUser = {
       firstName: this.userInput.firstName,
       lastName: this.userInput.lastName,
+      gender: this.userInput.gender,
       displayName: this.userInput.displayName,
       email: this.userInput.email,
       birthday: date,
@@ -352,6 +357,7 @@ export class SignComponent implements OnInit {
     this.userInput = {
       firstName: null,
       lastName: null,
+      gender: null,
       country: null,
       birthdayDay: null,
       birthdayMonth: null,
@@ -370,7 +376,15 @@ export class SignComponent implements OnInit {
   }
 
   verifyEmail() {
-    this.authService.emailVerification(this.token);
+    this.authService.emailVerification(this.token).subscribe(() => {
+      this.emailErrorMessage = 'Email verification was sent';
+      setTimeout(() => {
+        this.emailErrorMessage = null;
+      }, 2000)
+    },
+      (response) => {
+        this.emailErrorMessage = response;
+      });
   }
 
   changeEmail() {
@@ -397,5 +411,12 @@ export class SignComponent implements OnInit {
         return
       }
     });
+  }
+
+  checkList(value: string, array: []) {
+    const temp = [...array];
+
+    this.isInList = (temp.filter((arr: string) => arr.toLowerCase().indexOf(value.toLowerCase()) !== -1)).length === 0 ? false : true;
+
   }
 }

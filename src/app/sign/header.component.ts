@@ -10,11 +10,18 @@ export class HeaderComponent implements OnInit {
 
   @Input() isAuthenticated = false;
   @Input() gender = 'male';
+  avatarSrc;
   menuClicked = false;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    console.log(this.gender)
+    if(this.gender === 'male'){
+      this.avatarSrc="assets/sign/avatar-male.png";
+    }else{
+      this.avatarSrc="assets/sign/avatar-female.png";
+    }
   }
 
   logout() {

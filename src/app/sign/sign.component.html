@@ -1,5 +1,6 @@
 <div class="wrapper" [ngStyle]="{'background-image': 'url(\'assets/sign/bg-intro-desktop.png\')'}">
-    <app-header [isAuthenticated]="isAuthenticated"></app-header>
+    <app-header *ngIf="fetchedInput.gender" [isAuthenticated]=" isAuthenticated" [gender]="fetchedInput.gender">
+    </app-header>
     <div class="container" [ngClass]="{'authenticated': isAuthenticated}">
         <div>
             <h1>
@@ -76,6 +77,26 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group"
+                        [ngClass]="{'invalid': gender.errors?.required && (gender?.touched || gender?.dirty), 'valid': gender.valid && gender.touched }">
+                        <label for="gender">Gender</label>
+                        <div>
+                            <div class="gender" id="gender">
+                                <input #genderInput #gender="ngModel" autocomplete="off" type="radio"
+                                    class="form-control gender" id="male" value="male" name="gender"
+                                    [(ngModel)]="userInput.gender" ngModel required (change)="onChanges()">
+                                <label for="male">Male</label>
+                                <input #genderInput #gender="ngModel" autocomplete="off" type="radio"
+                                    class="form-control gender" id="female" value="female" name="gender"
+                                    [(ngModel)]="userInput.gender" ngModel required (change)="onChanges()">
+                                <label for="female">Female</label>
+                            </div>
+                            <div class="validation"
+                                *ngIf="gender.errors?.required && (gender?.touched || gender?.dirty)">
+                                Gender is required
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="birthday" [ngClass]="{'invalid': month.errors?.required  && month.touched && showMonth == 'none'|| 
                         day.errors?.required && day.touched && showDay == 'none'|| 
@@ -85,17 +106,20 @@
                             <div
                                 [ngClass]="{'invalid': month.errors?.required && (month?.touched || month?.dirty) && showMonth == 'none', 'valid': month.valid && month.touched && showMonth == 'none' }">
                                 <label for="month">Month</label>
-                                <div class="filter" (keydown.tab)="onKey($event); showMonth='none'"
-                                    (keydown.arrowdown)="onKey($event);" (keydown.arrowup)="onKey($event)"
-                                    (keydown.enter)="onKey($event); showMonth='none'"
+                                <div class="filter" (keyup.tab)="showMonth='block'"
+                                    (keydown.tab)="onKey($event); showMonth='none'" (keydown.arrowdown)="onKey($event);"
+                                    (keydown.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showMonth='none'"
                                     (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0">
                                     <div class="month">
                                         <input #monthInput #month="ngModel" autocomplete="off" type="text"
                                             class="form-control month" id="month" name="month"
                                             [(ngModel)]="userInput.birthdayMonth"
-                                            (focus)="showMonth == 'none'? showMonth='block' : showMonth='none'"
+                                            (click)="showMonth == 'none'? showMonth='block' : showMonth='none'"
                                             (input)="showMonth='block'; onKey($event)" ngModel required>
-                                        <i class="fa fa-angle-down" (click)="monthInput.focus()"></i>
+                                        <i class="fa fa-angle-down" *ngIf="showMonth == 'none'"
+                                            (click)="dayInput.focus()"></i>
+                                        <i class="fa fa-angle-up" *ngIf="showMonth == 'block'"
+                                            (click)="dayInput.focus()"></i>
                                     </div>
                                     <ul #monthList
                                         [ngStyle]="{'display': showMonth, 'background-color':backgroundElementColor}">
@@ -114,17 +138,21 @@
                             <div
                                 [ngClass]="{'invalid': day.errors?.required && (day?.touched || day?.dirty) && showDay == 'none', 'valid': day.valid && day.touched && showDay == 'none' }">
                                 <label for="day">Day</label>
-                                <div class="filter" (keydown.tab)="onKey($event); showDay='none'"
-                                    (keydown.arrowdown)="onKey($event);" (keydown.arrowup)="onKey($event)"
-                                    (keydown.enter)="onKey($event); showDay='none'" (keydown.backspace)="onKey($event)"
+                                <div class="filter" (keyup.tab)="showDay='block'"
+                                    (keydown.tab)="onKey($event); showDay='none'" (keydown.arrowdown)="onKey($event);"
+                                    (keydown.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showDay='none'"
+                                    (keydown.backspace)="onKey($event)"
                                     (focusout)="arrowkeyLocation=0; day.scrollTop=0">
                                     <div class="day">
                                         <input #dayInput #day="ngModel" autocomplete="off" type="text"
                                             class="form-control day" id="day" name="day"
                                             [(ngModel)]="userInput.birthdayDay"
-                                            (focus)="showDay == 'none'? showDay='block' : showDay='none'"
+                                            (click)="showDay == 'none'? showDay='block' : showDay='none'"
                                             (input)="showDay='block'; onKey($event)" ngModel required>
-                                        <i class="fa fa-angle-down" (click)="dayInput.focus()"></i>
+                                        <i class="fa fa-angle-down" *ngIf="showDay == 'none'"
+                                            (click)="dayInput.focus()"></i>
+                                        <i class="fa fa-angle-up" *ngIf="showDay == 'block'"
+                                            (click)="dayInput.focus()"></i>
                                     </div>
                                     <ul #dayList
                                         [ngStyle]="{'display': showDay, 'background-color':backgroundElementColor}">
@@ -143,17 +171,20 @@
                             <div
                                 [ngClass]="{'invalid': year.errors?.required && (year?.touched || year?.dirty) && showYear == 'none', 'valid': year.valid && year.touched && showYear == 'none' }">
                                 <label for="year">Year</label>
-                                <div class="filter" (keydown.tab)="onKey($event); showYear='none'"
-                                    (keydown.arrowdown)="onKey($event);" (keydown.arrowup)="onKey($event)"
-                                    (keydown.enter)="onKey($event); showYear='none'" (keydown.backspace)="onKey($event)"
-                                    (focusout)="arrowkeyLocation=0">
+                                <div class="filter" (keyup.tab)="showYear='block'"
+                                    (keydown.tab)="onKey($event); showYear='none'" (keydown.arrowdown)="onKey($event);"
+                                    (keydown.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showYear='none'"
+                                    (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0">
                                     <div class="year">
                                         <input #yearInput #year="ngModel" autocomplete="off" type="text"
                                             class="form-control year" id="year" name="year"
                                             [(ngModel)]="userInput.birthdayYear"
-                                            (focus)="showYear == 'none'? showYear='block' : showYear='none'" ngModel
+                                            (click)="showYear == 'none'? showYear='block' : showYear='none'" ngModel
                                             (input)="showYear='block'; onKey($event)" required>
-                                        <i class=" fa fa-angle-down" (click)="yearInput.focus()"></i>
+                                        <i class="fa fa-angle-down" *ngIf="showYear == 'none'"
+                                            (click)="dayInput.focus()"></i>
+                                        <i class="fa fa-angle-up" *ngIf="showYear == 'block'"
+                                            (click)="dayInput.focus()"></i>
                                     </div>
                                     <ul #yearList
                                         [ngStyle]="{'display': showYear, 'background-color':backgroundElementColor}">
@@ -178,17 +209,20 @@
                     <div class="form-group"
                         [ngClass]="{'invalid': country.errors?.required && (country?.touched || country?.dirty) && showCountry == 'none', 'valid': country.valid && country.touched && showCountry == 'none' }">
                         <label for="country">Country</label>
-                        <div class="filter" (keydown.tab)="onKey($event); showCountry='none'"
-                            (keydown.arrowdown)="onKey($event);" (keydown.arrowup)="onKey($event)"
-                            (keydown.enter)="onKey($event); showCountry='none'" (keydown.backspace)="onKey($event)"
-                            (focusout)="arrowkeyLocation=0">
+                        <div class="filter" (keyup.tab)="showCountry='block'"
+                            (keydown.tab)="onKey($event); showCountry='none'" (keydown.arrowdown)="onKey($event);"
+                            (keydown.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showCountry='none'"
+                            (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0;">
                             <div class="country">
-                                <input #countryInput #country="ngModel" autocomplete="off" type="text"
+                                <input IsInListValidator [IsInListCountryValidator]="countries" #countryInput #country="ngModel" autocomplete="off" type="text"
                                     class="form-control country" id="country" name="country"
                                     [(ngModel)]="userInput.country"
-                                    (focus)="showCountry == 'none'? showCountry='block' : showCountry='none'" ngModel
-                                    (input)="showCountry='block'; onKey($event)" required>
-                                <i class=" fa fa-angle-down" (click)="countryInput.focus()"></i>
+                                    (click)="showCountry == 'none'? showCountry='block' : showCountry='none'" ngModel
+                                    (input)="showCountry='block'; onKey($event); checkList(userInput.country,countries)"
+                                    required>
+                                <i class="fa fa-angle-down" *ngIf="showCountry == 'none'"
+                                    (click)="dayInput.focus()"></i>
+                                <i class="fa fa-angle-up" *ngIf="showCountry == 'block'" (click)="dayInput.focus()"></i>
                             </div>
                             <ul #countryList class="country"
                                 [ngStyle]="{'display': showCountry, 'background-color':backgroundElementColor}">
@@ -201,6 +235,9 @@
                             <div class="validation"
                                 *ngIf="country.errors?.required && (country?.touched || country?.dirty) && showCountry == 'none'">
                                 Country is required
+                            </div>
+                            <div class="validation" *ngIf="country.errors?.isInList">
+                                Invalid Country
                             </div>
                         </div>
                     </div>
@@ -244,7 +281,8 @@
                                     changeEmail()">
                                         {{editMode? 'Save' : 'Edit'}} email
                                     </button>
-                                    <button (click)="verifyEmail()" *ngIf="!emailVerified">
+                                    <button (click)="verifyEmail(); clicked=true" [disabled]="clicked"
+                                        *ngIf="!emailVerified">
                                         Send email verification
                                     </button>
                                 </div>

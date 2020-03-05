@@ -101,11 +101,11 @@ export class AuthService {
     }
 
     emailVerification(token) {
-        this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${this.APIKey}`,
+        return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${this.APIKey}`,
             {
                 requestType: "VERIFY_EMAIL",
                 idToken: token
-            }).subscribe();
+            }).pipe(catchError(this.handleError))
 
     }
 
@@ -120,6 +120,8 @@ export class AuthService {
 
     private handleError(response: HttpErrorResponse) {
         let errorMessage = 'An unknown error occured!';
+
+        console.log(response)
         
         if (!response.error || !response.error.error) {
             return throwError(errorMessage);
@@ -150,6 +152,9 @@ export class AuthService {
                 break;
             case 'TOKEN_EXPIRED':
                 errorMessage = "The user's credential is no longer valid. The user must sign in again.";
+                break;
+            case 'TOO_MANY_ATTEMPTS_TRY_LATER':
+                errorMessage = "Too many attempts, try later.";
                 break;
             case 'USER_DISABLED':
                 errorMessage = 'The user account has been disabled by an administrator.';

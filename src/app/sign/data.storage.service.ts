@@ -35,6 +35,8 @@ export class DataStorageService {
     updateUser(userData: storeUser, dbId, id, token) {
         this.http.put<storeUser[]>(`https://first-project-efdd7.firebaseio.com/users/${dbId}.json?auth=${token}`, {
             [id]: userData
-        }).subscribe();
+        }).subscribe(() => {
+            window.location.reload();
+        });
     }
 }

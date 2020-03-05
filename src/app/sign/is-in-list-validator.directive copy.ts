@@ -12,17 +12,48 @@ import { Directive, Input } from '@angular/core';
 
 
 export class IsInListValidatorDirective implements Validator {
-    @Input() IsInListValidator: string;
+    @Input() validateList: string
     @Input() IsInListCountryValidator: string;
+    @Input() IsInListMonthValidator: string;
+    @Input() IsInListDayValidator: string;
+    @Input() IsInListYearValidator: string;
 
     validate(control: AbstractControl): { [key: string]: any; } | null {
-        console.log(this.IsInListCountryValidator)
-        switch (name) {
-            case 'country':
+        const input = control.value;
+        let temp;
+        let result;
+
+
+        if (input) {
+            switch (this.validateList) {
+                case 'country':
+                    temp = [...this.IsInListCountryValidator];
+                    result = (temp.filter((arr: string) => arr.toLowerCase().indexOf(
+                        input.toLowerCase()) !== -1)).length === 0 ? false : true;
+                    break;
+                case 'year':
+                    temp = [...this.IsInListYearValidator];
+                    result = (temp.filter((arr: string) => (arr + '').toLowerCase().indexOf(
+                        (input + '').toLowerCase()) !== -1)).length === 0 ? false : true;
+                    break;
+                case 'month':
+                    temp = [...this.IsInListMonthValidator];
+                    result = (temp.filter((arr: string) => arr.toLowerCase().indexOf(
+                        input.toLowerCase()) !== -1)).length === 0 ? false : true;
+                    break;
+                case 'day':
+                    temp = [...this.IsInListDayValidator];
+                    result = (temp.filter((arr: string) => (arr + '').toLowerCase().indexOf(
+                        (input + '').toLowerCase()) !== -1)).length === 0 ? false : true;
+                    break;
+
+            }
         }
-        const input = control.value
 
 
+        if (!result) {
+            return { 'isInList': true };
+        }
         return null;
     }
 }

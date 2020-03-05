@@ -73,7 +73,6 @@ export class SignComponent implements OnInit {
   id;
   dbId;
 
-  isInList;
   errorMessage;
   emailErrorMessage;
   emailVerified = false;
@@ -246,19 +245,23 @@ export class SignComponent implements OnInit {
       this.arrowkeyLocation--;
     }
 
+
     else if (event.key == 'Enter' || event.key == 'Tab') {
+
+      const el = element.getElementsByClassName('active')[0];
+
       switch (name) {
         case 'year':
-          this.userInput.birthdayYear = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          this.userInput.birthdayYear = el ? (el.innerHTML).trim() : null;
           break;
         case 'month':
-          this.userInput.birthdayMonth = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          this.userInput.birthdayMonth = el ? (el.innerHTML).trim() : null;
           break;
         case 'day':
-          this.userInput.birthdayDay = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          this.userInput.birthdayDay = el ? (el.innerHTML).trim() : null;
           break;
         case 'country':
-          this.userInput.country = (element.getElementsByClassName('active')[0].innerHTML).trim();
+          this.userInput.country = el ? (el.innerHTML).trim() : null;
           break;
       }
 
@@ -411,12 +414,5 @@ export class SignComponent implements OnInit {
         return
       }
     });
-  }
-
-  checkList(value: string, array: []) {
-    const temp = [...array];
-
-    this.isInList = (temp.filter((arr: string) => arr.toLowerCase().indexOf(value.toLowerCase()) !== -1)).length === 0 ? false : true;
-
   }
 }

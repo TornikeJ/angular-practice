@@ -107,8 +107,8 @@
                                 [ngClass]="{'invalid': (month.errors?.isInList || month.errors?.required) && (month?.touched || month?.dirty) && showMonth == 'none', 'valid': month.valid && month.touched && showMonth == 'none' }">
                                 <label for="month">Month</label>
                                 <div class="filter" (keyup.tab)="showMonth='block'"
-                                    (keydown.tab)="onKey($event); showMonth='none'" (keydown.arrowdown)="onKey($event);"
-                                    (keydown.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showMonth='none'"
+                                    (keydown.tab)="onKey($event); showMonth='none'" (keyup.arrowdown)="onKey($event);"
+                                    (keyup.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showMonth='none'"
                                     (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0">
                                     <div class="month">
                                         <input IsInListValidator validateList="month"
@@ -144,8 +144,8 @@
                                 [ngClass]="{'invalid': (day.errors?.isInList || day.errors?.required) && (day?.touched || day?.dirty) && showDay == 'none', 'valid': day.valid && day.touched && showDay == 'none' }">
                                 <label for="day">Day</label>
                                 <div class="filter" (keyup.tab)="showDay='block'"
-                                    (keydown.tab)="onKey($event); showDay='none'" (keydown.arrowdown)="onKey($event);"
-                                    (keydown.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showDay='none'"
+                                    (keydown.tab)="onKey($event); showDay='none'" (keyup.arrowdown)="onKey($event);"
+                                    (keyup.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showDay='none'"
                                     (keydown.backspace)="onKey($event)"
                                     (focusout)="arrowkeyLocation=0; day.scrollTop=0">
                                     <div class="day">
@@ -182,8 +182,8 @@
                                 [ngClass]="{'invalid': (year.errors?.isInList || year.errors?.required) && (year?.touched || year?.dirty) && showYear == 'none', 'valid': year.valid && year.touched && showYear == 'none' }">
                                 <label for="year">Year</label>
                                 <div class="filter" (keyup.tab)="showYear='block'"
-                                    (keydown.tab)="onKey($event); showYear='none'" (keydown.arrowdown)="onKey($event);"
-                                    (keydown.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showYear='none'"
+                                    (keydown.tab)="onKey($event); showYear='none'" (keyup.arrowdown)="onKey($event);"
+                                    (keyup.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showYear='none'"
                                     (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0">
                                     <div class="year">
                                         <input IsInListValidator validateList="year"
@@ -226,8 +226,8 @@
                         'valid': country.valid && country.touched && showCountry == 'none' }">
                         <label for="country">Country</label>
                         <div class="filter" (keyup.tab)="showCountry='block'"
-                            (keydown.tab)="onKey($event); showCountry='none'" (keydown.arrowdown)="onKey($event);"
-                            (keydown.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showCountry='none'"
+                            (keydown.tab)="onKey($event); showCountry='none'" (keyup.arrowdown)="onKey($event);"
+                            (keyup.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showCountry='none'"
                             (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0;">
                             <div class="country">
                                 <input IsInListValidator validateList="country" [IsInListCountryValidator]="countries"
@@ -395,7 +395,7 @@
                     <button *ngIf="isAuthenticated"
                         [disabled]="updateForm || emailErrorMessage || errorMessage || editMode || registrationForm.invalid"
                         (click)="updateUser()">Update</button>
-                    <!-- <button *ngIf="isAuthenticated" (click)="getPassword()">Reset</button> -->
+                    <button *ngIf="isAuthenticated" [disabled]="updateForm" (click)="resetFields()">Reset</button>
                 </div>
             </form>
         </div>

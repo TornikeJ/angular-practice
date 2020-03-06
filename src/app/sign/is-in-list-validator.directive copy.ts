@@ -28,26 +28,19 @@ export class IsInListValidatorDirective implements Validator {
             switch (this.validateList) {
                 case 'country':
                     temp = [...this.IsInListCountryValidator];
-                    result = (temp.filter((arr: string) => arr.toLowerCase().indexOf(
-                        input.toLowerCase()) !== -1)).length === 0 ? false : true;
                     break;
                 case 'year':
                     temp = [...this.IsInListYearValidator];
-                    result = (temp.filter((arr: string) => (arr + '').toLowerCase().indexOf(
-                        (input + '').toLowerCase()) !== -1)).length === 0 ? false : true;
                     break;
                 case 'month':
                     temp = [...this.IsInListMonthValidator];
-                    result = (temp.filter((arr: string) => arr.toLowerCase().indexOf(
-                        input.toLowerCase()) !== -1)).length === 0 ? false : true;
                     break;
                 case 'day':
                     temp = [...this.IsInListDayValidator];
-                    result = (temp.filter((arr: string) => (arr + '').toLowerCase().indexOf(
-                        (input + '').toLowerCase()) !== -1)).length === 0 ? false : true;
                     break;
-
             }
+
+            result = !!(temp.find((element: string) => (element + '').toLowerCase() === (input + '').toLowerCase()));
         }
 
 

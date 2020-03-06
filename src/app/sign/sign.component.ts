@@ -235,13 +235,15 @@ export class SignComponent implements OnInit {
         break;
     }
 
+    const elPos = element.getElementsByClassName('active')[0];
+
     if (event.key == 'ArrowDown') {
-      element.scrollTop += 22;
+      element.scrollTop = elPos ? elPos.offsetTop : 0;
       this.arrowkeyLocation++;
     }
 
     else if (event.key == 'ArrowUp') {
-      element.scrollTop -= 22;
+      element.scrollTop = elPos ? (elPos.offsetTop - elPos.offsetHeight) : 0;
       this.arrowkeyLocation--;
     }
 
@@ -414,5 +416,10 @@ export class SignComponent implements OnInit {
         return
       }
     });
+  }
+
+  resetFields() {
+    Object.assign(this.userInput, this.fetchedInput);
+    this.onChanges();
   }
 }

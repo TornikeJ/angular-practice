@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    console.log(this.gender)
     if(this.gender === 'male'){
       this.avatarSrc="assets/sign/avatar-male.png";
     }else{

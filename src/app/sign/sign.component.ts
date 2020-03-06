@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { CountriesService } from '../countries/countries.service';
 import { NgForm } from '@angular/forms';
 import { DateGenerateComponent } from './date-generate.component';
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { DataStorageService } from './data.storage.service';
 import { storeUser } from './shared/user-store.model';
 import { take, delay } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -15,7 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './sign.component.html',
   styleUrls: ['./sign.component.scss']
 })
-export class SignComponent implements OnInit {
+export class SignComponent implements OnInit, OnDestroy {
 
   step = 0;
 
@@ -73,10 +73,13 @@ export class SignComponent implements OnInit {
   id;
   dbId;
 
+  clicked;
   errorMessage;
   emailErrorMessage;
   emailVerified = false;
   editMode = false;
+
+  authSubscription: Subscription
 
   constructor(
     private countriesService: CountriesService,
@@ -90,7 +93,7 @@ export class SignComponent implements OnInit {
 
     this.authService.autoLogIn();
 
-    this.authService.user.subscribe((user) => {
+    this.authSubscription = this.authService.user.subscribe((user) => {
       this.isAuthenticated = !!user;
       if (this.isAuthenticated) {
         this.router.navigate(['user']);
@@ -318,7 +321,11 @@ export class SignComponent implements OnInit {
           this.token,
         );
 
+        this.errorMessage = null;
         this.resetInputs();
+      },
+      (error) => {
+        this.errorMessage = error;
       }
     );
 
@@ -421,5 +428,11 @@ export class SignComponent implements OnInit {
   resetFields() {
     Object.assign(this.userInput, this.fetchedInput);
     this.onChanges();
+  }
+
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 }

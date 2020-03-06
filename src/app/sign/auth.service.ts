@@ -66,7 +66,8 @@ export class AuthService {
                     user.localId,
                     user.idToken,
                     +user.expiresIn)
-            })
+            }),
+            catchError(this.handleError)
         );
     }
 
@@ -121,7 +122,7 @@ export class AuthService {
     private handleError(response: HttpErrorResponse) {
         let errorMessage = 'An unknown error occured!';
 
-        
+
         if (!response.error || !response.error.error) {
             return throwError(errorMessage);
         }

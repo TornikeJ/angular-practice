@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 
 @Component({
@@ -13,7 +13,8 @@ export class AppComponent {
   showLoadingIndicator = true;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private cdRef: ChangeDetectorRef,
   ) { }
 
 
@@ -36,6 +37,17 @@ export class AppComponent {
         }
       }
     )
+  }
+
+  ngAfterViewChecked() {
+    try {
+      
+    }
+    catch (e) {
+    }
+    finally {
+      this.cdRef.detectChanges();
+    }
   }
 
   updateNavbarColor(component: string) {

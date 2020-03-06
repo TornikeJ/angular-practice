@@ -1,5 +1,5 @@
 <div class="wrapper" [ngStyle]="{'background-image': 'url(\'assets/sign/bg-intro-desktop.png\')'}">
-    <app-header *ngIf="fetchedInput.gender" [isAuthenticated]=" isAuthenticated" [gender]="fetchedInput.gender">
+    <app-header *ngIf="fetchedInput['gender']" [isAuthenticated]=" isAuthenticated" [gender]="fetchedInput['gender']">
     </app-header>
     <div class="container" [ngClass]="{'authenticated': isAuthenticated}">
         <div>
@@ -123,7 +123,7 @@
                                             (click)="dayInput.focus()"></i>
                                     </div>
                                     <ul #monthList
-                                        [ngStyle]="{'display': showMonth, 'background-color':backgroundElementColor}">
+                                        [ngStyle]="{'display': showMonth}">
                                         <li *ngFor="let month of date.months | filter : userInput.birthdayMonth let i =index"
                                             (click)="userInput.birthdayMonth=month; showMonth == 'none'? showMonth='block' : showMonth='none' "
                                             [ngClass]="{'active': i==arrowkeyLocation}">
@@ -147,7 +147,7 @@
                                     (keydown.tab)="onKey($event); showDay='none'" (keyup.arrowdown)="onKey($event);"
                                     (keyup.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showDay='none'"
                                     (keydown.backspace)="onKey($event)"
-                                    (focusout)="arrowkeyLocation=0; day.scrollTop=0">
+                                    (focusout)="arrowkeyLocation=0">
                                     <div class="day">
                                         <input IsInListValidator validateList="day" [IsInListDayValidator]="date.days"
                                             #dayInput #day="ngModel" autocomplete="off" type="text"
@@ -161,8 +161,8 @@
                                             (click)="dayInput.focus()"></i>
                                     </div>
                                     <ul #dayList
-                                        [ngStyle]="{'display': showDay, 'background-color':backgroundElementColor}">
-                                        <li *ngFor="let day of date.days | filter : userInput.birthdayDay let i =index"
+                                        [ngStyle]="{'display': showDay}">
+                                        <li *ngFor="let day of date.days | filter : userInput.birthdayDay?.toString() let i =index"
                                             (click)="userInput.birthdayDay=day; showDay == 'none'? showDay='block' : showDay='none' "
                                             [ngClass]="{'active': i==arrowkeyLocation}">
                                             {{day}}
@@ -198,8 +198,8 @@
                                             (click)="dayInput.focus()"></i>
                                     </div>
                                     <ul #yearList
-                                        [ngStyle]="{'display': showYear, 'background-color':backgroundElementColor}">
-                                        <li *ngFor="let year of date.years | filter : userInput.birthdayYear let i =index"
+                                        [ngStyle]="{'display': showYear}">
+                                        <li *ngFor="let year of date.years | filter : userInput.birthdayYear?.toString() let i =index"
                                             (click)="userInput.birthdayYear=year; showYear == 'none'? showYear='block' : showYear='none';"
                                             [ngClass]="{'active': i==arrowkeyLocation}">
                                             {{year}}
@@ -241,7 +241,7 @@
                                 <i class="fa fa-angle-up" *ngIf="showCountry == 'block'" (click)="dayInput.focus()"></i>
                             </div>
                             <ul #countryList class="country"
-                                [ngStyle]="{'display': showCountry, 'background-color':backgroundElementColor}">
+                                [ngStyle]="{'display': showCountry}">
                                 <li *ngFor="let country of countries | filter : userInput.country let i =index"
                                     (click)="userInput.country=country; showCountry == 'none'? showCountry='block' : showCountry='none';"
                                     [ngClass]="{'active': i==arrowkeyLocation}">

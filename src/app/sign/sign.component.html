@@ -2,7 +2,7 @@
     <app-header *ngIf="fetchedInput['gender']" [isAuthenticated]=" isAuthenticated" [gender]="fetchedInput['gender']">
     </app-header>
     <div class="container" [ngClass]="{'authenticated': isAuthenticated}">
-        <div>
+        <div class="text">
             <h1>
                 Learn to code by watching others
             </h1>
@@ -36,12 +36,15 @@
                         <input type="email" class="form-control" name="emailInput" id="email" ngModel #email="ngModel">
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group password">
                     <label for="password">Password</label>
                     <div>
-                        <input type="password" class="form-control" name="passwordInput" id="password" ngModel
+                        <input  type="password" class="form-control" name="passwordInput" id="password" ngModel
                             #password="ngModel">
                     </div>
+                    <!-- <p>
+                        Forgot password? <a href="#" [routerLink]="[]" (click)="forgotPassword=true;">click here</a> to reset password.
+                    </p> -->
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary" type="button" style="margin-bottom: 0.5rem;"
@@ -122,8 +125,7 @@
                                         <i class="fa fa-angle-up" *ngIf="showMonth == 'block'"
                                             (click)="dayInput.focus()"></i>
                                     </div>
-                                    <ul #monthList
-                                        [ngStyle]="{'display': showMonth}">
+                                    <ul #monthList [ngStyle]="{'display': showMonth}">
                                         <li *ngFor="let month of date.months | filter : userInput.birthdayMonth let i =index"
                                             (click)="userInput.birthdayMonth=month; showMonth == 'none'? showMonth='block' : showMonth='none' "
                                             [ngClass]="{'active': i==arrowkeyLocation}">
@@ -146,8 +148,7 @@
                                 <div class="filter" (keyup.tab)="showDay='block'"
                                     (keydown.tab)="onKey($event); showDay='none'" (keyup.arrowdown)="onKey($event);"
                                     (keyup.arrowup)="onKey($event)" (keydown.enter)="onKey($event); showDay='none'"
-                                    (keydown.backspace)="onKey($event)"
-                                    (focusout)="arrowkeyLocation=0">
+                                    (keydown.backspace)="onKey($event)" (focusout)="arrowkeyLocation=0">
                                     <div class="day">
                                         <input IsInListValidator validateList="day" [IsInListDayValidator]="date.days"
                                             #dayInput #day="ngModel" autocomplete="off" type="text"
@@ -160,8 +161,7 @@
                                         <i class="fa fa-angle-up" *ngIf="showDay == 'block'"
                                             (click)="dayInput.focus()"></i>
                                     </div>
-                                    <ul #dayList
-                                        [ngStyle]="{'display': showDay}">
+                                    <ul #dayList [ngStyle]="{'display': showDay}">
                                         <li *ngFor="let day of date.days | filter : userInput.birthdayDay?.toString() let i =index"
                                             (click)="userInput.birthdayDay=day; showDay == 'none'? showDay='block' : showDay='none' "
                                             [ngClass]="{'active': i==arrowkeyLocation}">
@@ -197,8 +197,7 @@
                                         <i class="fa fa-angle-up" *ngIf="showYear == 'block'"
                                             (click)="dayInput.focus()"></i>
                                     </div>
-                                    <ul #yearList
-                                        [ngStyle]="{'display': showYear}">
+                                    <ul #yearList [ngStyle]="{'display': showYear}">
                                         <li *ngFor="let year of date.years | filter : userInput.birthdayYear?.toString() let i =index"
                                             (click)="userInput.birthdayYear=year; showYear == 'none'? showYear='block' : showYear='none';"
                                             [ngClass]="{'active': i==arrowkeyLocation}">
@@ -240,8 +239,7 @@
                                     (click)="dayInput.focus()"></i>
                                 <i class="fa fa-angle-up" *ngIf="showCountry == 'block'" (click)="dayInput.focus()"></i>
                             </div>
-                            <ul #countryList class="country"
-                                [ngStyle]="{'display': showCountry}">
+                            <ul #countryList class="country" [ngStyle]="{'display': showCountry}">
                                 <li *ngFor="let country of countries | filter : userInput.country let i =index"
                                     (click)="userInput.country=country; showCountry == 'none'? showCountry='block' : showCountry='none';"
                                     [ngClass]="{'active': i==arrowkeyLocation}">

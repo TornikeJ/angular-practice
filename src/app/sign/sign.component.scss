@@ -25,6 +25,14 @@ $color4: #ca3636;
     flex-direction: column;
     text-align: center;
   }
+
+  .text {
+    margin-right: 1rem;
+
+    p {
+      width: 80%;
+    }
+  }
 }
 
 .form {
@@ -70,6 +78,7 @@ $color4: #ca3636;
     label {
       flex-grow: 0.35;
       max-width: 10rem;
+      min-width: 10rem;
 
       &.invalid {
         color: $color1;
@@ -78,6 +87,10 @@ $color4: #ca3636;
       &.valid {
         color: $color2;
       }
+    }
+
+    &.password {
+      width: min-content;
     }
 
     .verification {
@@ -114,6 +127,10 @@ $color4: #ca3636;
       flex-basis: 0%;
       text-align: start;
 
+      textarea {
+        border: 1px solid $color3;
+      }
+
       input,
       textarea {
         width: -webkit-fill-available;
@@ -145,6 +162,10 @@ $color4: #ca3636;
 
       > div {
         margin-right: 2rem;
+
+        &:last-child {
+          margin-right: 0;
+        }
       }
     }
 
@@ -417,5 +438,85 @@ input:-webkit-autofill:active {
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .container {
+    .text {
+      flex-shrink: 2;
+    }
+  }
+  .form {
+    .form-group {
+      .filter {
+        width: fit-content;
+      }
+
+      .birthday {
+        flex-direction: column;
+        flex-grow: 0;
+
+        > div {
+          margin-right: 0;
+          margin-bottom: 1rem;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    margin: 0;
+
+    .text {
+      text-align: center;
+      margin-right: 0;
+      margin-bottom: 2rem;
+
+      p {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 490px) {
+  .container{
+    &.authenticated{
+      text-align: initial;
+    }
+  }
+  .form {
+    .form-group {
+      flex-direction: column;
+      align-items: initial;
+
+      label {
+        margin-bottom: 1rem;
+      }
+
+      &.buttons {
+        &.authenticated {
+          button {
+            &:first-child {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+
+    button {
+      &:first-child {
+        margin-bottom: 1rem;
+      }
+    }
   }
 }

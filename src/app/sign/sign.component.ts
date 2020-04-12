@@ -77,6 +77,7 @@ export class SignComponent implements OnInit, OnDestroy {
   errorMessage;
   emailErrorMessage;
   emailVerified = false;
+  forgotPassword = false;
   editMode = false;
 
   authSubscription: Subscription

@@ -4,6 +4,7 @@ import { tap, catchError, map, delay } from 'rxjs/operators';
 import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { UserAuthenticate } from './shared/user-authenticate.model';
 import { Router } from '@angular/router';
+import { environment }  from '../../environments/environment';
 
 export interface AuthResponeData {
     idToken: string;
@@ -45,7 +46,7 @@ export interface SensitiveData {
 
 export class AuthService {
 
-    APIKey = 'AIzaSyBTZVNKX7LVfqYT7w_lsLCXjw6ewPPsgY0';
+    APIKey= environment.firebase.apiKey
     private tokenExpirationTimer: any;
     user = new BehaviorSubject<UserAuthenticate>(null);
 

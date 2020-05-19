@@ -2,7 +2,9 @@ export interface IBookModel {
   id: string;
   title: string;
   description: string;
-  imageLinks: {};
+  imageLinks: {
+    thumbnail?: string
+  };
   authors: [string];
   publishedDate: string;
   categories: [string];

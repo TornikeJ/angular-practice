@@ -13,12 +13,17 @@ import { CountriesListResolver } from './countries/countries-list/countries-list
 import { BookmarkLandingComponent } from './bookmark-landing/bookmark-landing.component';
 import { ManageLandingComponent } from './manage-landing/manage-landing.component';
 import { SignComponent } from './sign/sign.component';
+import { BookListComponent } from './books-assignment/book-list/book-list.component';
+import { BookListResolver } from './books-assignment/book-list/book-list.resolver.service';
+import { BookDetailsComponent } from './books-assignment/book-list/book-details/book-details.component';
+import { FavoritesComponent } from './books-assignment/book-list/favorites/favorites.component';
+import { BooksComponent } from './books-assignment/books.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'sign', component: SignComponent},
+  { path: 'sign', component: SignComponent },
   { path: 'user', component: SignComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'clipboard', component: ClipboardComponent },
@@ -32,7 +37,15 @@ const routes: Routes = [
         { path: ':countryName', component: CountryDetailComponent }]
   },
   { path: 'bookmarklanding', component: BookmarkLandingComponent },
-  { path: 'managelanding', component: ManageLandingComponent }
+  { path: 'managelanding', component: ManageLandingComponent },
+  {
+    path: 'books', component: BooksComponent, children:
+      [
+        { path: '', component: BookListComponent, resolve: { bookList: BookListResolver } },
+        { path: 'favorites', component: FavoritesComponent },
+        { path: ':bookId', component: BookDetailsComponent },
+      ]
+  }
 ];
 
 @NgModule({

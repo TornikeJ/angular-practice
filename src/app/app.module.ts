@@ -22,8 +22,16 @@ import { ManageLandingComponent } from './manage-landing/manage-landing.componen
 import { SignComponent } from './sign/sign.component';
 import { ConfrimEqualValidatorDirective } from './sign/confirm-equal-validator.directive';
 import { FilterPipe } from './sign/filter.pipe';
-import { HeaderComponent } from './sign/header.component';
-import { IsInListValidatorDirective } from './sign/is-in-list-validator.directive copy';
+import { HeaderComponent as SignHeader } from './sign/header.component';
+import { HeaderComponent as BooksHeader } from './books-assignment/header/header.component';
+import { IsInListValidatorDirective } from './sign/is-in-list-validator.directive';
+import { StoreModule } from '@ngrx/store';
+import { BookListComponent } from './books-assignment/book-list/book-list.component';
+import { BookDetailsComponent } from './books-assignment/book-list/book-details/book-details.component';
+import * as fromApp from './books-assignment/store/app.reducer';
+import { FavoritesComponent } from './books-assignment/book-list/favorites/favorites.component';
+import { DescriptionLimitPipe } from './books-assignment/pipes/description-limit.pipe';
+import { BooksComponent } from './books-assignment/books.component';
 
 
 @NgModule({
@@ -46,15 +54,22 @@ import { IsInListValidatorDirective } from './sign/is-in-list-validator.directiv
     SignComponent,
     ConfrimEqualValidatorDirective,
     FilterPipe,
-    HeaderComponent,
-    IsInListValidatorDirective
+    SignHeader,
+    IsInListValidatorDirective,
+    BooksHeader,
+    BookListComponent,
+    BookDetailsComponent,
+    FavoritesComponent,
+    DescriptionLimitPipe,
+    BooksComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot(fromApp.appReducer)
   ],
   providers: [UrlShorteningService],
   bootstrap: [AppComponent]

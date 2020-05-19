@@ -58,6 +58,9 @@ export class AppComponent {
       case 'pricing':
         this.color = '#ce9dff';
         break;
+      case 'books':
+        this.color = '#5862cf';
+        break;
       case 'clipboard':
         this.color = '#22ceb4';
         break;

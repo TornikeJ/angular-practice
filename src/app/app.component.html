@@ -10,7 +10,7 @@
         </ul>
     </nav>
     <div>
-        <div *ngIf="showLoadingIndicator" class="loader"></div>
+        <div *ngIf="showLoadingIndicator" [ngStyle]="{'border-left-color':color}" class="loader"></div>
         <router-outlet></router-outlet>
     </div>
 </div>

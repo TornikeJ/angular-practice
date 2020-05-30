@@ -18,6 +18,12 @@ import { BookListResolver } from './books-assignment/book-list/book-list.resolve
 import { BookDetailsComponent } from './books-assignment/book-list/book-details/book-details.component';
 import { FavoritesComponent } from './books-assignment/book-list/favorites/favorites.component';
 import { BooksComponent } from './books-assignment/books.component';
+import { ConferenceComponent } from './conference/conference.component';
+import { ConferenceHomeComponent } from './conference/conference-home/conference-home.component';
+import { ConferenceSpeakersComponent } from './conference/conference-speakers/conference-speakers.component';
+import { ConferenceScheduleComponent } from './conference/conference-schedule/conference-schedule.component';
+import { ConferenceVenueComponent } from './conference/conference-venue/conference-venue.component';
+import { ConferenceRegisterComponent } from './conference/conference-register/conference-register.component';
 
 
 const routes: Routes = [
@@ -45,11 +51,22 @@ const routes: Routes = [
         { path: 'favorites', component: FavoritesComponent },
         { path: ':bookId', component: BookDetailsComponent },
       ]
+  },
+  {
+    path: 'conference', component: ConferenceComponent, children:
+      [
+        { path: '', pathMatch: 'full', redirectTo: 'home' },
+        { path: 'home', component: ConferenceHomeComponent },
+        { path: 'speakers', component: ConferenceSpeakersComponent },
+        { path: 'schedule', component: ConferenceScheduleComponent },
+        { path: 'venue', component: ConferenceVenueComponent },
+        { path: 'register', component: ConferenceRegisterComponent }
+      ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

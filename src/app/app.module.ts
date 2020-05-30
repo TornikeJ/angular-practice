@@ -32,6 +32,12 @@ import * as fromApp from './books-assignment/store/app.reducer';
 import { FavoritesComponent } from './books-assignment/book-list/favorites/favorites.component';
 import { DescriptionLimitPipe } from './books-assignment/pipes/description-limit.pipe';
 import { BooksComponent } from './books-assignment/books.component';
+import { ConferenceComponent } from './conference/conference.component';
+import { ConferenceHomeComponent } from './conference/conference-home/conference-home.component';
+import { ConferenceSpeakersComponent } from './conference/conference-speakers/conference-speakers.component';
+import { ConferenceScheduleComponent } from './conference/conference-schedule/conference-schedule.component';
+import { ConferenceVenueComponent } from './conference/conference-venue/conference-venue.component';
+import { ConferenceRegisterComponent } from './conference/conference-register/conference-register.component';
 
 
 @NgModule({
@@ -61,7 +67,13 @@ import { BooksComponent } from './books-assignment/books.component';
     BookDetailsComponent,
     FavoritesComponent,
     DescriptionLimitPipe,
-    BooksComponent
+    BooksComponent,
+    ConferenceComponent,
+    ConferenceHomeComponent,
+    ConferenceSpeakersComponent,
+    ConferenceScheduleComponent,
+    ConferenceVenueComponent,
+    ConferenceRegisterComponent
   ],
   imports: [
     BrowserModule,

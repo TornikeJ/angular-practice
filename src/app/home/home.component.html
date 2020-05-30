@@ -5,30 +5,38 @@
 </header>
 <div class="components">
     <div class="row">
+        
+        <div [routerLink]="['/conference']" (mouseover)="hover=true; updateNavbarColor('conference')" (mouseleave)="hover=false">
+            <img [ngStyle]="{'border-color': color }" src="assets/conference/images/home/desktop-preview.jpg"
+            alt="Conference component design">
+            <a>Conference Component</a>
+        </div>
 
+        <div [routerLink]="['/sign']" (mouseover)="hover=true; updateNavbarColor('sign')" (mouseleave)="hover=false">
+            <img [ngStyle]="{'border-color': color }" src="assets/sign/desktop-preview.jpg"
+            alt="Signing component design">
+            <a>Signing Component (sign up, sign in, update)</a>
+        </div>
+        
+    </div>
+    <div class="row">
+        
         <div [routerLink]="['/books']" (mouseover)="hover=true; updateNavbarColor('books')"
             (mouseleave)="hover=false">
             <img [ngStyle]="{'border-color': color }" src="assets/books/desktop-preview.jpg"
                 alt="Books component design">
             <a>Books Component</a>
         </div>
-
-        <div [routerLink]="['/sign']" (mouseover)="hover=true; updateNavbarColor('sign')" (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/sign/desktop-preview.jpg"
-                alt="Signing component design">
-            <a>Signing Component (sign up, sign in, update)</a>
-        </div>
-
-
-    </div>
-    <div class="row">
-
+        
         <div [routerLink]="['/countries']" (mouseover)="hover=true; updateNavbarColor('countries')"
             (mouseleave)="hover=false">
             <img [ngStyle]="{'border-color': color }" src="assets/countries/desktop-preview.jpg"
                 alt="Countries component design">
             <a>Countries Component</a>
         </div>
+
+    </div>
+    <div class="row">
 
         <div [routerLink]="['/rpsgame']" (mouseover)="hover=true; updateNavbarColor('rpsgame')"
             (mouseleave)="hover=false">
@@ -37,17 +45,15 @@
             <a>RPS game Component</a>
         </div>
 
-
-
-    </div>
-    <div class="row">
-
         <div [routerLink]="['/managelanding']" (mouseover)="hover=true; updateNavbarColor('managelanding')"
             (mouseleave)="hover=false">
             <img [ngStyle]="{'border-color': color }" src="assets/manage-landing/desktop-preview.jpg"
                 alt="Manage landing component design">
             <a>Manage landing</a>
-        </div>
+        </div>        
+        
+    </div>
+    <div class="row">
 
         <div [routerLink]="['/bookmarklanding']" (mouseover)="hover=true; updateNavbarColor('bookmarklanding')"
             (mouseleave)="hover=false">
@@ -56,36 +62,34 @@
             <a>Bookmark landing component</a>
         </div>
 
-
-
-    </div>
-    <div class="row">
-
         <div [routerLink]="['/urlshortening']" (mouseover)="hover=true; updateNavbarColor('urlshortening')"
             (mouseleave)="hover=false">
             <img [ngStyle]="{'border-color': color }" src="assets/url-shortening/desktop-preview.jpg"
                 alt="Url-shortening component design">
             <a>Url-shortening Component</a>
         </div>
-
-
+        
+    </div>
+    
+    <div class="row">
+  
         <div [routerLink]="['/huddle']" (mouseover)="hover=true; updateNavbarColor('huddle')"
             (mouseleave)="hover=false">
             <img [ngStyle]="{'border-color': color }" src="assets/huddle/desktop-preview.jpg"
                 alt="Huddle component design">
             <a>Huddle Component</a>
         </div>
-
-    </div>
-
-    <div class="row">
-
+        
         <div [routerLink]="['/clipboard']" (mouseover)="hover=true; updateNavbarColor('clipboard')"
             (mouseleave)="hover=false">
             <img [ngStyle]="{'border-color': color }" src="assets/clipboard/desktop-preview.jpg"
                 alt="Clipboard component design">
             <a>Clipboard Component</a>
         </div>
+
+    </div>
+
+    <div class="row">
 
         <div [routerLink]="['/pricing']" (mouseover)="hover=true; updateNavbarColor('pricing')"
             (mouseleave)="hover=false">

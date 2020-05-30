@@ -7,9 +7,6 @@
 # Only exists if Bazel was run
 /bazel-out
 
-#env
-/environments/firebase.environment.ts
-
 # dependencies
 /node_modules
 

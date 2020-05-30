@@ -1,0 +1,14 @@
+.wrapper {
+  .teaser {
+    img {
+      border-radius: 5px;
+      display: block;
+      margin-bottom: 22px;
+      max-width: 100%;
+    }
+
+    a:hover h3 {
+      color: #a9b2b9;
+    }
+  }
+}

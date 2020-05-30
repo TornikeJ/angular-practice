@@ -61,6 +61,9 @@ export class AppComponent {
       case 'books':
         this.color = '#5862cf';
         break;
+      case 'conference':
+        this.color = '#648880';
+        break;
       case 'clipboard':
         this.color = '#22ceb4';
         break;

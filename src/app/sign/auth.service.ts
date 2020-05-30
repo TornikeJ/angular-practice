@@ -46,7 +46,7 @@ export interface SensitiveData {
 
 export class AuthService {
 
-    APIKey = environment['firebase'].apiKey;
+    APIKey = environment.firebase.apiKey;
     private tokenExpirationTimer: any;
     user = new BehaviorSubject<UserAuthenticate>(null);
 

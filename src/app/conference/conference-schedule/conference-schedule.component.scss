@@ -46,6 +46,7 @@
   }
   tbody td:last-of-type {
     padding-left: 15px;
+    padding-right: 10px;;
   }
   tbody td:only-of-type {
     padding-left: 0;
@@ -61,5 +62,29 @@
 
   .schedule-offset {
     color: #a9b2b9;
+  }
+}
+
+@media only screen and(max-width:400px) {
+  .wrapper {
+    table {
+      thead {
+        text-align: center;
+        tr {
+          th {
+            font-size:15px;
+            padding-right: 0;
+            padding-left: 15px;
+          }
+        }
+      }
+      tbody {
+        tr {
+          th {
+            padding-right: 10px;
+          }
+        }
+      }
+    }
   }
 }

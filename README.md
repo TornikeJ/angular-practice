@@ -1,3 +1,3 @@
 Repository for practicing Angular. 
 
-Using https://www.frontendmentor.io/ for tasks.
+Using work projects and https://www.frontendmentor.io/ for tasks.

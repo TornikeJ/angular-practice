@@ -1,102 +1,110 @@
 <header>
-    <h3>
-        Click on the webpage you want to see.
-    </h3>
+  <h3>
+    Click on the webpage you want to see.
+  </h3>
 </header>
 <div class="components">
-    <div class="row">
-        
-        <div [routerLink]="['/conference']" (mouseover)="hover=true; updateNavbarColor('conference')" (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/conference/images/home/desktop-preview.jpg"
-            alt="Conference component design">
-            <a>Conference Component</a>
-        </div>
+  <div class="row">
 
-        <div [routerLink]="['/sign']" (mouseover)="hover=true; updateNavbarColor('sign')" (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/sign/desktop-preview.jpg"
-            alt="Signing component design">
-            <a>Signing Component (sign up, sign in, update)</a>
-        </div>
-        
-    </div>
-    <div class="row">
-        
-        <div [routerLink]="['/books']" (mouseover)="hover=true; updateNavbarColor('books')"
-            (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/books/desktop-preview.jpg"
-                alt="Books component design">
-            <a>Books Component</a>
-        </div>
-        
-        <div [routerLink]="['/countries']" (mouseover)="hover=true; updateNavbarColor('countries')"
-            (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/countries/desktop-preview.jpg"
-                alt="Countries component design">
-            <a>Countries Component</a>
-        </div>
-
-    </div>
-    <div class="row">
-
-        <div [routerLink]="['/rpsgame']" (mouseover)="hover=true; updateNavbarColor('rpsgame')"
-            (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/rpsgame/desktop-preview.jpg"
-                alt="RPS game component design">
-            <a>RPS game Component</a>
-        </div>
-
-        <div [routerLink]="['/managelanding']" (mouseover)="hover=true; updateNavbarColor('managelanding')"
-            (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/manage-landing/desktop-preview.jpg"
-                alt="Manage landing component design">
-            <a>Manage landing</a>
-        </div>        
-        
-    </div>
-    <div class="row">
-
-        <div [routerLink]="['/bookmarklanding']" (mouseover)="hover=true; updateNavbarColor('bookmarklanding')"
-            (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/bookmark-landing/desktop-preview.jpg"
-                alt="Bookmark landing component design">
-            <a>Bookmark landing component</a>
-        </div>
-
-        <div [routerLink]="['/urlshortening']" (mouseover)="hover=true; updateNavbarColor('urlshortening')"
-            (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/url-shortening/desktop-preview.jpg"
-                alt="Url-shortening component design">
-            <a>Url-shortening Component</a>
-        </div>
-        
-    </div>
-    
-    <div class="row">
-  
-        <div [routerLink]="['/huddle']" (mouseover)="hover=true; updateNavbarColor('huddle')"
-            (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/huddle/desktop-preview.jpg"
-                alt="Huddle component design">
-            <a>Huddle Component</a>
-        </div>
-        
-        <div [routerLink]="['/clipboard']" (mouseover)="hover=true; updateNavbarColor('clipboard')"
-            (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/clipboard/desktop-preview.jpg"
-                alt="Clipboard component design">
-            <a>Clipboard Component</a>
-        </div>
-
+    <div (click)="navigate('myhalyk')" (mouseover)="updateNavbarColor('myhalyk')">
+      <img [ngStyle]="{'border-color': color }" src="assets/myhalyk/myhalyk.png"
+           alt="Halyk Bank component design">
+      <a>Halyk Bank</a>
     </div>
 
-    <div class="row">
-
-        <div [routerLink]="['/pricing']" (mouseover)="hover=true; updateNavbarColor('pricing')"
-            (mouseleave)="hover=false">
-            <img [ngStyle]="{'border-color': color }" src="assets/pricing/desktop-design-monthly.jpg"
-                alt="Pricing component design">
-            <a>Pricing Component</a>
-        </div>
-
+    <div [routerLink]="['/conference']" (mouseover)="updateNavbarColor('conference')">
+      <img [ngStyle]="{'border-color': color }" src="assets/conference/images/home/desktop-preview.jpg"
+           alt="Conference component design">
+      <a>Conference Component</a>
     </div>
+
+  </div>
+
+  <div class="row">
+
+    <div [routerLink]="['/sign']" (mouseover)="updateNavbarColor('sign')">
+      <img [ngStyle]="{'border-color': color }" src="assets/sign/desktop-preview.jpg"
+           alt="Signing component design">
+      <a>Signing Component (sign up, sign in, update)</a>
+    </div>
+
+    <div [routerLink]="['/books']" (mouseover)="updateNavbarColor('books')">
+      <img [ngStyle]="{'border-color': color }" src="assets/books/desktop-preview.jpg"
+           alt="Books component design">
+      <a>Books Component</a>
+    </div>
+
+
+  </div>
+  <div class="row">
+
+    <div [routerLink]="['/countries']" (mouseover)="updateNavbarColor('countries')">
+      <img [ngStyle]="{'border-color': color }" src="assets/countries/desktop-preview.jpg"
+           alt="Countries component design">
+      <a>Countries Component</a>
+    </div>
+
+    <div (click)="navigate('admission')" (mouseover)="updateNavbarColor('admission')">
+      <img [ngStyle]="{'border-color': color }" src="assets/admission/admission.png"
+           alt="Admission component design">
+      <a>Admission</a>
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div [routerLink]="['/rpsgame']" (mouseover)="updateNavbarColor('rpsgame')">
+      <img [ngStyle]="{'border-color': color }" src="assets/rpsgame/desktop-preview.jpg"
+           alt="RPS game component design">
+      <a>RPS game Component</a>
+    </div>
+
+    <div [routerLink]="['/managelanding']" (mouseover)="updateNavbarColor('managelanding')">
+      <img [ngStyle]="{'border-color': color }" src="assets/manage-landing/desktop-preview.jpg"
+           alt="Manage landing component design">
+      <a>Manage landing</a>
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div [routerLink]="['/bookmarklanding']" (mouseover)="updateNavbarColor('bookmarklanding')">
+      <img [ngStyle]="{'border-color': color }" src="assets/bookmark-landing/desktop-preview.jpg"
+           alt="Bookmark landing component design">
+      <a>Bookmark landing component</a>
+    </div>
+
+    <div [routerLink]="['/urlshortening']" (mouseover)="updateNavbarColor('urlshortening')">
+      <img [ngStyle]="{'border-color': color }" src="assets/url-shortening/desktop-preview.jpg"
+           alt="Url-shortening component design">
+      <a>Url-shortening Component</a>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div [routerLink]="['/huddle']" (mouseover)="updateNavbarColor('huddle')">
+      <img [ngStyle]="{'border-color': color }" src="assets/huddle/desktop-preview.jpg"
+           alt="Huddle component design">
+      <a>Huddle Component</a>
+    </div>
+
+    <div [routerLink]="['/clipboard']" (mouseover)="updateNavbarColor('clipboard')">
+      <img [ngStyle]="{'border-color': color }" src="assets/clipboard/desktop-preview.jpg"
+           alt="Clipboard component design">
+      <a>Clipboard Component</a>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div [routerLink]="['/pricing']" (mouseover)="updateNavbarColor('pricing')">
+      <img [ngStyle]="{'border-color': color }" src="assets/pricing/desktop-design-monthly.jpg"
+           alt="Pricing component design">
+      <a>Pricing Component</a>
+    </div>
+
+  </div>
 </div>

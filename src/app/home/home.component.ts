@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
 
 @Component({
@@ -6,25 +6,27 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-  hoveredComponent;
   color;
-  hover;
 
-  constructor(
+  constructor() {
+  }
 
-  ) { }
-
-
-  ngOnInit() {
-
+  navigate(address: string) {
+    window.location.href = address === 'myhalyk' ? 'https://myhalyk.ge' : 'https://admission.ge';
   }
 
   updateNavbarColor(component: string) {
     switch (component) {
       case 'home':
         this.color = '#ed6491';
+        break;
+      case 'myhalyk':
+        this.color = '#09b188';
+        break;
+      case 'admission':
+        this.color = '#0085ca';
         break;
       case 'pricing':
         this.color = '#ce9dff';

@@ -12,19 +12,19 @@ export class CountriesService {
     constructor(private htppClient: HttpClient) { }
 
     getAllCountries() {
-        return this.htppClient.get('https://restcountries.eu/rest/v2/all');
+        return this.htppClient.get('https://restcountries.com/v2/all');
     }
 
     getCountriesByRegion(region: string) {
-        return this.htppClient.get(`https://restcountries.eu/rest/v2/region/${region}`);
+        return this.htppClient.get(`https://restcountries.com/v2/region/${region}`);
     }
 
     getCountry(name: string) {
-        return this.htppClient.get(`https://restcountries.eu/rest/v2/name/${name}`);
+        return this.htppClient.get(`https://restcountries.com/v2/name/${name}`);
     }
 
     getCountryByCode(code: string) {
-        return this.htppClient.get(`https://restcountries.eu/rest/v2/alpha/${code}`);
+        return this.htppClient.get(`https://restcountries.com/v2/alpha/${code}`);
     }
 
 }

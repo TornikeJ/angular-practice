@@ -1,12 +1,12 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import {Component, ChangeDetectorRef, OnInit, AfterViewChecked} from '@angular/core';
+import {Router, NavigationEnd, NavigationStart} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewChecked {
 
   activatedComponent;
   color = '#ed6491';
@@ -15,12 +15,11 @@ export class AppComponent {
   constructor(
     private router: Router,
     private cdRef: ChangeDetectorRef,
-  ) { }
+  ) {
+  }
 
 
   ngOnInit() {
-    this.activatedComponent = 'home';
-
     this.router.events.subscribe(
       (routerEvent) => {
 
@@ -31,21 +30,19 @@ export class AppComponent {
 
         if (routerEvent instanceof NavigationEnd) {
           this.activatedComponent = routerEvent.url.slice(1).split('/')[0];
-          this.activatedComponent = this.activatedComponent.slice(0).split('?')[0];
+          this.activatedComponent = this.activatedComponent.slice(0).split('?')[0] || 'home';
           this.updateNavbarColor(this.activatedComponent);
           this.showLoadingIndicator = false;
         }
       }
-    )
+    );
   }
 
   ngAfterViewChecked() {
     try {
-      
-    }
-    catch (e) {
-    }
-    finally {
+
+    } catch (e) {
+    } finally {
       this.cdRef.detectChanges();
     }
   }
